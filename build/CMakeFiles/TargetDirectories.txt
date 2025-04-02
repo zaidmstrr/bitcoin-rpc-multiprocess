@@ -1,0 +1,3 @@
+/home/zaidmstrr/projects/bitcoin-rpc-multiprocess/build/CMakeFiles/rpc-server.dir
+/home/zaidmstrr/projects/bitcoin-rpc-multiprocess/build/CMakeFiles/edit_cache.dir
+/home/zaidmstrr/projects/bitcoin-rpc-multiprocess/build/CMakeFiles/rebuild_cache.dir
