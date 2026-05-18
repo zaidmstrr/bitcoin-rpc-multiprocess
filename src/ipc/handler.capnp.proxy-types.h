@@ -3,8 +3,10 @@
 #ifndef CAPNP_HANDLER_CAPNP_PROXY_TYPES_H
 #define CAPNP_HANDLER_CAPNP_PROXY_TYPES_H
 
-#include <handler.capnp.proxy.h>
-#include <../capnp/handler-types.h> // Commented out due to missing file
+// IWYU pragma: no_include "mp/proxy.h"
+#include <mp/proxy.h> // IWYU pragma: keep
+#include <capnp/handler.capnp.proxy.h> // IWYU pragma: keep
+#include "ipc/capnp/handler-types.h" // IWYU pragma: export
 namespace mp {
 } // namespace mp
 #endif

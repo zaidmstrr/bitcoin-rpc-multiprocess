@@ -3,8 +3,8 @@
 #ifndef CAPNP_HANDLER_CAPNP_PROXY_H
 #define CAPNP_HANDLER_CAPNP_PROXY_H
 
-#include <handler.capnp.h>
-#include <interfaces/handler.h>
+#include <capnp/handler.capnp.h> // IWYU pragma: keep
+#include "interfaces/handler.h" // IWYU pragma: export
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)

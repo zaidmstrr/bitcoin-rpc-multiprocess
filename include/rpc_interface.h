@@ -4,8 +4,8 @@
 #include <capnp/rpc-twoparty.h>
 #include <kj/async-io.h>
 #include <mutex>
-#include "../ipc/init.capnp.h"
-#include "../ipc/chain.capnp.h"
+#include "init.capnp.h"
+#include "chain.capnp.h"
 #include <mp/proxy.capnp.h>
 #include <string>
 

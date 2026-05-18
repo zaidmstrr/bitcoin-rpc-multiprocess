@@ -3,9 +3,9 @@
 #ifndef CAPNP_CHAIN_CAPNP_PROXY_H
 #define CAPNP_CHAIN_CAPNP_PROXY_H
 
-#include <chain.capnp.h>
-#include <interfaces/chain.h>
-#include <rpc/server.h>
+#include <capnp/chain.capnp.h> // IWYU pragma: keep
+#include "interfaces/chain.h" // IWYU pragma: export
+#include "rpc/server.h" // IWYU pragma: export
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)
@@ -33,18 +33,6 @@ template<>
 struct ProxyMethod<ipc::capnp::messages::Chain::HaveBlockOnDiskParams>
 {
     static constexpr auto impl = &interfaces::Chain::haveBlockOnDisk;
-};
-
-template<>
-struct ProxyMethod<ipc::capnp::messages::Chain::GetTipLocatorParams>
-{
-    static constexpr auto impl = &interfaces::Chain::getTipLocator;
-};
-
-template<>
-struct ProxyMethod<ipc::capnp::messages::Chain::GetActiveChainLocatorParams>
-{
-    static constexpr auto impl = &interfaces::Chain::getActiveChainLocator;
 };
 
 template<>
@@ -270,6 +258,12 @@ struct ProxyMethod<ipc::capnp::messages::Chain::WaitForNotificationsIfTipChanged
 };
 
 template<>
+struct ProxyMethod<ipc::capnp::messages::Chain::WaitForNotificationsParams>
+{
+    static constexpr auto impl = &interfaces::Chain::waitForNotifications;
+};
+
+template<>
 struct ProxyMethod<ipc::capnp::messages::Chain::HandleRpcParams>
 {
     static constexpr auto impl = &interfaces::Chain::handleRpc;
@@ -279,12 +273,6 @@ template<>
 struct ProxyMethod<ipc::capnp::messages::Chain::RpcEnableDeprecatedParams>
 {
     static constexpr auto impl = &interfaces::Chain::rpcEnableDeprecated;
-};
-
-template<>
-struct ProxyMethod<ipc::capnp::messages::Chain::RpcRunLaterParams>
-{
-    static constexpr auto impl = &interfaces::Chain::rpcRunLater;
 };
 
 template<>
@@ -396,12 +384,6 @@ struct ProxyMethod<ipc::capnp::messages::ChainClient::StartParams>
 };
 
 template<>
-struct ProxyMethod<ipc::capnp::messages::ChainClient::FlushParams>
-{
-    static constexpr auto impl = &interfaces::ChainClient::flush;
-};
-
-template<>
 struct ProxyMethod<ipc::capnp::messages::ChainClient::StopParams>
 {
     static constexpr auto impl = &interfaces::ChainClient::stop;
@@ -423,12 +405,6 @@ template<>
 struct ProxyMethod<ipc::capnp::messages::ActorCallback::CallParams>
 {
     static constexpr auto impl = &ProxyCallback<CRPCCommand::Actor>::call;
-};
-
-template<>
-struct ProxyMethod<ipc::capnp::messages::RunLaterCallback::CallParams>
-{
-    static constexpr auto impl = &ProxyCallback<std::function<void()>>::call;
 };
 
 template<>
@@ -471,17 +447,6 @@ struct Height
     template<typename S> static bool getHas(S&& s) { return s.getHasHeight(); }
     template<typename S> static void setHas(S&& s) { s.setHasHeight(true); }
 };
-struct BlockHash
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getBlockHash()) { return s.getBlockHash(); }
-    template<typename S> static bool has(S&& s) { return s.hasBlockHash(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBlockHash(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBlockHash(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantBlockHash(); }
-    template<typename S> static void setWant(S&& s) { s.setWantBlockHash(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasBlockHash(); }
-    template<typename S> static void setHas(S&& s) { s.setHasBlockHash(true); }
-};
 struct Locator
 {
     template<typename S> static auto get(S&& s) -> decltype(s.getLocator()) { return s.getLocator(); }
@@ -503,6 +468,17 @@ struct FilterType
     template<typename S> static void setWant(S&& s) { s.setWantFilterType(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasFilterType(); }
     template<typename S> static void setHas(S&& s) { s.setHasFilterType(true); }
+};
+struct BlockHash
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getBlockHash()) { return s.getBlockHash(); }
+    template<typename S> static bool has(S&& s) { return s.hasBlockHash(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBlockHash(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBlockHash(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantBlockHash(); }
+    template<typename S> static void setWant(S&& s) { s.setWantBlockHash(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasBlockHash(); }
+    template<typename S> static void setHas(S&& s) { s.setHasBlockHash(true); }
 };
 struct FilterSet
 {
@@ -691,16 +667,16 @@ struct MaxTxFee
     template<typename S> static bool getHas(S&& s) { return s.getHasMaxTxFee(); }
     template<typename S> static void setHas(S&& s) { s.setHasMaxTxFee(true); }
 };
-struct Relay
+struct BroadcastMethod
 {
-    template<typename S> static auto get(S&& s) -> decltype(s.getRelay()) { return s.getRelay(); }
-    template<typename S> static bool has(S&& s) { return s.hasRelay(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setRelay(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initRelay(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantRelay(); }
-    template<typename S> static void setWant(S&& s) { s.setWantRelay(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasRelay(); }
-    template<typename S> static void setHas(S&& s) { s.setHasRelay(true); }
+    template<typename S> static auto get(S&& s) -> decltype(s.getBroadcastMethod()) { return s.getBroadcastMethod(); }
+    template<typename S> static bool has(S&& s) { return s.hasBroadcastMethod(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBroadcastMethod(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBroadcastMethod(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantBroadcastMethod(); }
+    template<typename S> static void setWant(S&& s) { s.setWantBroadcastMethod(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasBroadcastMethod(); }
+    template<typename S> static void setHas(S&& s) { s.setHasBroadcastMethod(true); }
 };
 struct Error
 {
@@ -911,28 +887,6 @@ struct Name
     template<typename S> static bool getHas(S&& s) { return s.getHasName(); }
     template<typename S> static void setHas(S&& s) { s.setHasName(true); }
 };
-struct Fn
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getFn()) { return s.getFn(); }
-    template<typename S> static bool has(S&& s) { return s.hasFn(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFn(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFn(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantFn(); }
-    template<typename S> static void setWant(S&& s) { s.setWantFn(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasFn(); }
-    template<typename S> static void setHas(S&& s) { s.setHasFn(true); }
-};
-struct Seconds
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getSeconds()) { return s.getSeconds(); }
-    template<typename S> static bool has(S&& s) { return s.hasSeconds(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setSeconds(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initSeconds(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantSeconds(); }
-    template<typename S> static void setWant(S&& s) { s.setWantSeconds(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasSeconds(); }
-    template<typename S> static void setHas(S&& s) { s.setHasSeconds(true); }
-};
 struct Update
 {
     template<typename S> static auto get(S&& s) -> decltype(s.getUpdate()) { return s.getUpdate(); }
@@ -1010,148 +964,16 @@ struct Time
     template<typename S> static bool getHas(S&& s) { return s.getHasTime(); }
     template<typename S> static void setHas(S&& s) { s.setHasTime(true); }
 };
-struct Est
+struct DeltaSeconds
 {
-    template<typename S> static auto get(S&& s) -> decltype(s.getEst()) { return s.getEst(); }
-    template<typename S> static bool has(S&& s) { return s.hasEst(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setEst(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initEst(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantEst(); }
-    template<typename S> static void setWant(S&& s) { s.setWantEst(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasEst(); }
-    template<typename S> static void setHas(S&& s) { s.setHasEst(true); }
-};
-struct DesiredTarget
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getDesiredTarget()) { return s.getDesiredTarget(); }
-    template<typename S> static bool has(S&& s) { return s.hasDesiredTarget(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDesiredTarget(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDesiredTarget(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantDesiredTarget(); }
-    template<typename S> static void setWant(S&& s) { s.setWantDesiredTarget(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasDesiredTarget(); }
-    template<typename S> static void setHas(S&& s) { s.setHasDesiredTarget(true); }
-};
-struct ReturnedTarget
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getReturnedTarget()) { return s.getReturnedTarget(); }
-    template<typename S> static bool has(S&& s) { return s.hasReturnedTarget(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReturnedTarget(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReturnedTarget(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantReturnedTarget(); }
-    template<typename S> static void setWant(S&& s) { s.setWantReturnedTarget(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasReturnedTarget(); }
-    template<typename S> static void setHas(S&& s) { s.setHasReturnedTarget(true); }
-};
-struct Pass
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getPass()) { return s.getPass(); }
-    template<typename S> static bool has(S&& s) { return s.hasPass(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setPass(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initPass(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantPass(); }
-    template<typename S> static void setWant(S&& s) { s.setWantPass(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasPass(); }
-    template<typename S> static void setHas(S&& s) { s.setHasPass(true); }
-};
-struct Fail
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getFail()) { return s.getFail(); }
-    template<typename S> static bool has(S&& s) { return s.hasFail(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFail(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFail(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantFail(); }
-    template<typename S> static void setWant(S&& s) { s.setWantFail(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasFail(); }
-    template<typename S> static void setHas(S&& s) { s.setHasFail(true); }
-};
-struct Decay
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getDecay()) { return s.getDecay(); }
-    template<typename S> static bool has(S&& s) { return s.hasDecay(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDecay(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDecay(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantDecay(); }
-    template<typename S> static void setWant(S&& s) { s.setWantDecay(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasDecay(); }
-    template<typename S> static void setHas(S&& s) { s.setHasDecay(true); }
-};
-struct Scale
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getScale()) { return s.getScale(); }
-    template<typename S> static bool has(S&& s) { return s.hasScale(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setScale(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initScale(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantScale(); }
-    template<typename S> static void setWant(S&& s) { s.setWantScale(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasScale(); }
-    template<typename S> static void setHas(S&& s) { s.setHasScale(true); }
-};
-struct Start
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getStart()) { return s.getStart(); }
-    template<typename S> static bool has(S&& s) { return s.hasStart(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setStart(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initStart(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantStart(); }
-    template<typename S> static void setWant(S&& s) { s.setWantStart(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasStart(); }
-    template<typename S> static void setHas(S&& s) { s.setHasStart(true); }
-};
-struct End
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getEnd()) { return s.getEnd(); }
-    template<typename S> static bool has(S&& s) { return s.hasEnd(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setEnd(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initEnd(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantEnd(); }
-    template<typename S> static void setWant(S&& s) { s.setWantEnd(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasEnd(); }
-    template<typename S> static void setHas(S&& s) { s.setHasEnd(true); }
-};
-struct WithinTarget
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getWithinTarget()) { return s.getWithinTarget(); }
-    template<typename S> static bool has(S&& s) { return s.hasWithinTarget(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setWithinTarget(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initWithinTarget(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantWithinTarget(); }
-    template<typename S> static void setWant(S&& s) { s.setWantWithinTarget(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasWithinTarget(); }
-    template<typename S> static void setHas(S&& s) { s.setHasWithinTarget(true); }
-};
-struct TotalConfirmed
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getTotalConfirmed()) { return s.getTotalConfirmed(); }
-    template<typename S> static bool has(S&& s) { return s.hasTotalConfirmed(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setTotalConfirmed(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initTotalConfirmed(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantTotalConfirmed(); }
-    template<typename S> static void setWant(S&& s) { s.setWantTotalConfirmed(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasTotalConfirmed(); }
-    template<typename S> static void setHas(S&& s) { s.setHasTotalConfirmed(true); }
-};
-struct InMempool
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getInMempool()) { return s.getInMempool(); }
-    template<typename S> static bool has(S&& s) { return s.hasInMempool(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setInMempool(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initInMempool(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantInMempool(); }
-    template<typename S> static void setWant(S&& s) { s.setWantInMempool(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasInMempool(); }
-    template<typename S> static void setHas(S&& s) { s.setHasInMempool(true); }
-};
-struct LeftMempool
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getLeftMempool()) { return s.getLeftMempool(); }
-    template<typename S> static bool has(S&& s) { return s.hasLeftMempool(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setLeftMempool(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initLeftMempool(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantLeftMempool(); }
-    template<typename S> static void setWant(S&& s) { s.setWantLeftMempool(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasLeftMempool(); }
-    template<typename S> static void setHas(S&& s) { s.setHasLeftMempool(true); }
+    template<typename S> static auto get(S&& s) -> decltype(s.getDeltaSeconds()) { return s.getDeltaSeconds(); }
+    template<typename S> static bool has(S&& s) { return s.hasDeltaSeconds(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDeltaSeconds(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDeltaSeconds(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantDeltaSeconds(); }
+    template<typename S> static void setWant(S&& s) { s.setWantDeltaSeconds(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasDeltaSeconds(); }
+    template<typename S> static void setHas(S&& s) { s.setHasDeltaSeconds(true); }
 };
 struct Category
 {
@@ -1262,6 +1084,17 @@ struct TypeError
     template<typename S> static void setWant(S&& s) { s.setWantTypeError(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasTypeError(); }
     template<typename S> static void setHas(S&& s) { s.setHasTypeError(true); }
+};
+struct HelpResult
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getHelpResult()) { return s.getHelpResult(); }
+    template<typename S> static bool has(S&& s) { return s.hasHelpResult(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setHelpResult(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initHelpResult(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantHelpResult(); }
+    template<typename S> static void setWant(S&& s) { s.setWantHelpResult(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasHelpResult(); }
+    template<typename S> static void setHas(S&& s) { s.setHasHelpResult(true); }
 };
 struct Id
 {
@@ -1549,6 +1382,28 @@ struct ChainTimeMax
     template<typename S> static bool getHas(S&& s) { return s.getHasChainTimeMax(); }
     template<typename S> static void setHas(S&& s) { s.setHasChainTimeMax(true); }
 };
+struct Validated
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getValidated()) { return s.getValidated(); }
+    template<typename S> static bool has(S&& s) { return s.hasValidated(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setValidated(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initValidated(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantValidated(); }
+    template<typename S> static void setWant(S&& s) { s.setWantValidated(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasValidated(); }
+    template<typename S> static void setHas(S&& s) { s.setHasValidated(true); }
+};
+struct Historical
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getHistorical()) { return s.getHistorical(); }
+    template<typename S> static bool has(S&& s) { return s.hasHistorical(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setHistorical(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initHistorical(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantHistorical(); }
+    template<typename S> static void setWant(S&& s) { s.setWantHistorical(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasHistorical(); }
+    template<typename S> static void setHas(S&& s) { s.setHasHistorical(true); }
+};
 } // namespace chain_fields
 
 template<>
@@ -1565,106 +1420,102 @@ public:
     typename M2::Result getBlockHash(M2::Param<0> height);
     using M3 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HaveBlockOnDiskParams>;
     typename M3::Result haveBlockOnDisk(M3::Param<0> height);
-    using M4 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetTipLocatorParams>;
-    typename M4::Result getTipLocator();
-    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetActiveChainLocatorParams>;
-    typename M5::Result getActiveChainLocator(M5::Param<0> blockHash);
-    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindLocatorForkParams>;
-    typename M6::Result findLocatorFork(M6::Param<0> locator);
-    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasBlockFilterIndexParams>;
-    typename M7::Result hasBlockFilterIndex(M7::Param<0> filterType);
-    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::BlockFilterMatchesAnyParams>;
-    typename M8::Result blockFilterMatchesAny(M8::Param<0> filterType,M8::Param<1> blockHash,M8::Param<2> filterSet);
-    using M9 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindBlockParams>;
-    typename M9::Result findBlock(M9::Param<0> hash,M9::Param<1> block);
-    using M10 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindFirstBlockWithTimeAndHeightParams>;
-    typename M10::Result findFirstBlockWithTimeAndHeight(M10::Param<0> minTime,M10::Param<1> minHeight,M10::Param<2> block);
-    using M11 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindAncestorByHeightParams>;
-    typename M11::Result findAncestorByHeight(M11::Param<0> blockHash,M11::Param<1> ancestorHeight,M11::Param<2> ancestor);
-    using M12 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindAncestorByHashParams>;
-    typename M12::Result findAncestorByHash(M12::Param<0> blockHash,M12::Param<1> ancestorHash,M12::Param<2> ancestor);
-    using M13 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindCommonAncestorParams>;
-    typename M13::Result findCommonAncestor(M13::Param<0> blockHash1,M13::Param<1> blockHash2,M13::Param<2> ancestor,M13::Param<3> block1,M13::Param<4> block2);
-    using M14 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindCoinsParams>;
-    typename M14::Result findCoins(M14::Param<0> coins);
-    using M15 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GuessVerificationProgressParams>;
-    typename M15::Result guessVerificationProgress(M15::Param<0> blockHash);
-    using M16 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasBlocksParams>;
-    typename M16::Result hasBlocks(M16::Param<0> blockHash,M16::Param<1> minHeight,M16::Param<2> maxHeight);
-    using M17 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsRBFOptInParams>;
-    typename M17::Result isRBFOptIn(M17::Param<0> tx);
-    using M18 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsInMempoolParams>;
-    typename M18::Result isInMempool(M18::Param<0> txid);
-    using M19 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasDescendantsInMempoolParams>;
-    typename M19::Result hasDescendantsInMempool(M19::Param<0> txid);
-    using M20 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::BroadcastTransactionParams>;
-    typename M20::Result broadcastTransaction(M20::Param<0> tx,M20::Param<1> maxTxFee,M20::Param<2> relay,M20::Param<3> error);
-    using M21 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetTransactionAncestryParams>;
-    typename M21::Result getTransactionAncestry(M21::Param<0> txid,M21::Param<1> ancestors,M21::Param<2> descendants,M21::Param<3> ancestorsize,M21::Param<4> ancestorfees);
-    using M22 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CalculateIndividualBumpFeesParams>;
-    typename M22::Result calculateIndividualBumpFees(M22::Param<0> outpoints,M22::Param<1> targetFeerate);
-    using M23 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CalculateCombinedBumpFeeParams>;
-    typename M23::Result calculateCombinedBumpFee(M23::Param<0> outpoints,M23::Param<1> targetFeerate);
-    using M24 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetPackageLimitsParams>;
-    typename M24::Result getPackageLimits(M24::Param<0> ancestors,M24::Param<1> descendants);
-    using M25 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CheckChainLimitsParams>;
-    typename M25::Result checkChainLimits(M25::Param<0> tx);
-    using M26 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateSmartFeeParams>;
-    typename M26::Result estimateSmartFee(M26::Param<0> numBlocks,M26::Param<1> conservative,M26::Param<2> calc);
-    using M27 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateMaxBlocksParams>;
-    typename M27::Result estimateMaxBlocks();
-    using M28 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::MempoolMinFeeParams>;
-    typename M28::Result mempoolMinFee();
-    using M29 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayMinFeeParams>;
-    typename M29::Result relayMinFee();
-    using M30 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayIncrementalFeeParams>;
-    typename M30::Result relayIncrementalFee();
-    using M31 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayDustFeeParams>;
-    typename M31::Result relayDustFee();
-    using M32 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HavePrunedParams>;
-    typename M32::Result havePruned();
-    using M33 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetPruneHeightParams>;
-    typename M33::Result getPruneHeight();
-    using M34 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsReadyToBroadcastParams>;
-    typename M34::Result isReadyToBroadcast();
-    using M35 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsInitialBlockDownloadParams>;
-    typename M35::Result isInitialBlockDownload();
-    using M36 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::ShutdownRequestedParams>;
-    typename M36::Result shutdownRequested();
-    using M37 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitMessageParams>;
-    typename M37::Result initMessage(M37::Param<0> message);
-    using M38 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitWarningParams>;
-    typename M38::Result initWarning(M38::Param<0> message);
-    using M39 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitErrorParams>;
-    typename M39::Result initError(M39::Param<0> message);
-    using M40 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::ShowProgressParams>;
-    typename M40::Result showProgress(M40::Param<0> title,M40::Param<1> progress,M40::Param<2> resumePossible);
-    using M41 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HandleNotificationsParams>;
-    typename M41::Result handleNotifications(M41::Param<0> notifications);
-    using M42 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::WaitForNotificationsIfTipChangedParams>;
-    typename M42::Result waitForNotificationsIfTipChanged(M42::Param<0> oldTip);
-    using M43 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HandleRpcParams>;
-    typename M43::Result handleRpc(M43::Param<0> command);
-    using M44 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RpcEnableDeprecatedParams>;
-    typename M44::Result rpcEnableDeprecated(M44::Param<0> method);
-    using M45 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RpcRunLaterParams>;
-    typename M45::Result rpcRunLater(M45::Param<0> name,M45::Param<1> fn,M45::Param<2> seconds);
-    using M46 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetSettingParams>;
-    typename M46::Result getSetting(M46::Param<0> name);
-    using M47 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetSettingsListParams>;
-    typename M47::Result getSettingsList(M47::Param<0> name);
-    using M48 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetRwSettingParams>;
-    typename M48::Result getRwSetting(M48::Param<0> name);
-    using M49 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::UpdateRwSettingParams>;
-    typename M49::Result updateRwSetting(M49::Param<0> name,M49::Param<1> update);
-    using M50 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::OverwriteRwSettingParams>;
-    typename M50::Result overwriteRwSetting(M50::Param<0> name,M50::Param<1> value,M50::Param<2> action);
-    using M51 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::DeleteRwSettingsParams>;
-    typename M51::Result deleteRwSettings(M51::Param<0> name,M51::Param<1> action);
-    using M52 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RequestMempoolTransactionsParams>;
-    typename M52::Result requestMempoolTransactions(M52::Param<0> notifications);
-    using M53 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasAssumedValidChainParams>;
-    typename M53::Result hasAssumedValidChain();
+    using M4 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindLocatorForkParams>;
+    typename M4::Result findLocatorFork(M4::Param<0> locator);
+    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasBlockFilterIndexParams>;
+    typename M5::Result hasBlockFilterIndex(M5::Param<0> filterType);
+    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::BlockFilterMatchesAnyParams>;
+    typename M6::Result blockFilterMatchesAny(M6::Param<0> filterType,M6::Param<1> blockHash,M6::Param<2> filterSet);
+    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindBlockParams>;
+    typename M7::Result findBlock(M7::Param<0> hash,M7::Param<1> block);
+    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindFirstBlockWithTimeAndHeightParams>;
+    typename M8::Result findFirstBlockWithTimeAndHeight(M8::Param<0> minTime,M8::Param<1> minHeight,M8::Param<2> block);
+    using M9 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindAncestorByHeightParams>;
+    typename M9::Result findAncestorByHeight(M9::Param<0> blockHash,M9::Param<1> ancestorHeight,M9::Param<2> ancestor);
+    using M10 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindAncestorByHashParams>;
+    typename M10::Result findAncestorByHash(M10::Param<0> blockHash,M10::Param<1> ancestorHash,M10::Param<2> ancestor);
+    using M11 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindCommonAncestorParams>;
+    typename M11::Result findCommonAncestor(M11::Param<0> blockHash1,M11::Param<1> blockHash2,M11::Param<2> ancestor,M11::Param<3> block1,M11::Param<4> block2);
+    using M12 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::FindCoinsParams>;
+    typename M12::Result findCoins(M12::Param<0> coins);
+    using M13 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GuessVerificationProgressParams>;
+    typename M13::Result guessVerificationProgress(M13::Param<0> blockHash);
+    using M14 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasBlocksParams>;
+    typename M14::Result hasBlocks(M14::Param<0> blockHash,M14::Param<1> minHeight,M14::Param<2> maxHeight);
+    using M15 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsRBFOptInParams>;
+    typename M15::Result isRBFOptIn(M15::Param<0> tx);
+    using M16 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsInMempoolParams>;
+    typename M16::Result isInMempool(M16::Param<0> txid);
+    using M17 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasDescendantsInMempoolParams>;
+    typename M17::Result hasDescendantsInMempool(M17::Param<0> txid);
+    using M18 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::BroadcastTransactionParams>;
+    typename M18::Result broadcastTransaction(M18::Param<0> tx,M18::Param<1> maxTxFee,M18::Param<2> broadcastMethod,M18::Param<3> error);
+    using M19 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetTransactionAncestryParams>;
+    typename M19::Result getTransactionAncestry(M19::Param<0> txid,M19::Param<1> ancestors,M19::Param<2> descendants,M19::Param<3> ancestorsize,M19::Param<4> ancestorfees);
+    using M20 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CalculateIndividualBumpFeesParams>;
+    typename M20::Result calculateIndividualBumpFees(M20::Param<0> outpoints,M20::Param<1> targetFeerate);
+    using M21 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CalculateCombinedBumpFeeParams>;
+    typename M21::Result calculateCombinedBumpFee(M21::Param<0> outpoints,M21::Param<1> targetFeerate);
+    using M22 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetPackageLimitsParams>;
+    typename M22::Result getPackageLimits(M22::Param<0> ancestors,M22::Param<1> descendants);
+    using M23 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CheckChainLimitsParams>;
+    typename M23::Result checkChainLimits(M23::Param<0> tx);
+    using M24 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateSmartFeeParams>;
+    typename M24::Result estimateSmartFee(M24::Param<0> numBlocks,M24::Param<1> conservative,M24::Param<2> calc);
+    using M25 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateMaxBlocksParams>;
+    typename M25::Result estimateMaxBlocks();
+    using M26 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::MempoolMinFeeParams>;
+    typename M26::Result mempoolMinFee();
+    using M27 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayMinFeeParams>;
+    typename M27::Result relayMinFee();
+    using M28 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayIncrementalFeeParams>;
+    typename M28::Result relayIncrementalFee();
+    using M29 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayDustFeeParams>;
+    typename M29::Result relayDustFee();
+    using M30 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HavePrunedParams>;
+    typename M30::Result havePruned();
+    using M31 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetPruneHeightParams>;
+    typename M31::Result getPruneHeight();
+    using M32 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsReadyToBroadcastParams>;
+    typename M32::Result isReadyToBroadcast();
+    using M33 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::IsInitialBlockDownloadParams>;
+    typename M33::Result isInitialBlockDownload();
+    using M34 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::ShutdownRequestedParams>;
+    typename M34::Result shutdownRequested();
+    using M35 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitMessageParams>;
+    typename M35::Result initMessage(M35::Param<0> message);
+    using M36 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitWarningParams>;
+    typename M36::Result initWarning(M36::Param<0> message);
+    using M37 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::InitErrorParams>;
+    typename M37::Result initError(M37::Param<0> message);
+    using M38 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::ShowProgressParams>;
+    typename M38::Result showProgress(M38::Param<0> title,M38::Param<1> progress,M38::Param<2> resumePossible);
+    using M39 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HandleNotificationsParams>;
+    typename M39::Result handleNotifications(M39::Param<0> notifications);
+    using M40 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::WaitForNotificationsIfTipChangedParams>;
+    typename M40::Result waitForNotificationsIfTipChanged(M40::Param<0> oldTip);
+    using M41 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::WaitForNotificationsParams>;
+    typename M41::Result waitForNotifications();
+    using M42 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HandleRpcParams>;
+    typename M42::Result handleRpc(M42::Param<0> command);
+    using M43 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RpcEnableDeprecatedParams>;
+    typename M43::Result rpcEnableDeprecated(M43::Param<0> method);
+    using M44 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetSettingParams>;
+    typename M44::Result getSetting(M44::Param<0> name);
+    using M45 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetSettingsListParams>;
+    typename M45::Result getSettingsList(M45::Param<0> name);
+    using M46 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetRwSettingParams>;
+    typename M46::Result getRwSetting(M46::Param<0> name);
+    using M47 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::UpdateRwSettingParams>;
+    typename M47::Result updateRwSetting(M47::Param<0> name,M47::Param<1> update);
+    using M48 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::OverwriteRwSettingParams>;
+    typename M48::Result overwriteRwSetting(M48::Param<0> name,M48::Param<1> value,M48::Param<2> action);
+    using M49 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::DeleteRwSettingsParams>;
+    typename M49::Result deleteRwSettings(M49::Param<0> name,M49::Param<1> action);
+    using M50 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RequestMempoolTransactionsParams>;
+    typename M50::Result requestMempoolTransactions(M50::Param<0> notifications);
+    using M51 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::HasAssumedValidChainParams>;
+    typename M51::Result hasAssumedValidChain();
 };
 
 template<>
@@ -1677,8 +1528,6 @@ public:
     kj::Promise<void> getHeight(GetHeightContext call_context) override;
     kj::Promise<void> getBlockHash(GetBlockHashContext call_context) override;
     kj::Promise<void> haveBlockOnDisk(HaveBlockOnDiskContext call_context) override;
-    kj::Promise<void> getTipLocator(GetTipLocatorContext call_context) override;
-    kj::Promise<void> getActiveChainLocator(GetActiveChainLocatorContext call_context) override;
     kj::Promise<void> findLocatorFork(FindLocatorForkContext call_context) override;
     kj::Promise<void> hasBlockFilterIndex(HasBlockFilterIndexContext call_context) override;
     kj::Promise<void> blockFilterMatchesAny(BlockFilterMatchesAnyContext call_context) override;
@@ -1716,9 +1565,9 @@ public:
     kj::Promise<void> showProgress(ShowProgressContext call_context) override;
     kj::Promise<void> handleNotifications(HandleNotificationsContext call_context) override;
     kj::Promise<void> waitForNotificationsIfTipChanged(WaitForNotificationsIfTipChangedContext call_context) override;
+    kj::Promise<void> waitForNotifications(WaitForNotificationsContext call_context) override;
     kj::Promise<void> handleRpc(HandleRpcContext call_context) override;
     kj::Promise<void> rpcEnableDeprecated(RpcEnableDeprecatedContext call_context) override;
-    kj::Promise<void> rpcRunLater(RpcRunLaterContext call_context) override;
     kj::Promise<void> getSetting(GetSettingContext call_context) override;
     kj::Promise<void> getSettingsList(GetSettingsListContext call_context) override;
     kj::Promise<void> getRwSetting(GetRwSettingContext call_context) override;
@@ -1800,14 +1649,12 @@ public:
     typename M3::Result load();
     using M4 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::StartParams>;
     typename M4::Result start(M4::Param<0> scheduler);
-    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::FlushParams>;
-    typename M5::Result flush();
-    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::StopParams>;
-    typename M6::Result stop();
-    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::SetMockTimeParams>;
-    typename M7::Result setMockTime(M7::Param<0> time);
-    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::SchedulerMockForwardParams>;
-    typename M8::Result schedulerMockForward(M8::Param<0> time);
+    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::StopParams>;
+    typename M5::Result stop();
+    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::SetMockTimeParams>;
+    typename M6::Result setMockTime(M6::Param<0> time);
+    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::ChainClient::SchedulerMockForwardParams>;
+    typename M7::Result schedulerMockForward(M7::Param<0> deltaSeconds);
 };
 
 template<>
@@ -1821,7 +1668,6 @@ public:
     kj::Promise<void> verify(VerifyContext call_context) override;
     kj::Promise<void> load(LoadContext call_context) override;
     kj::Promise<void> start(StartContext call_context) override;
-    kj::Promise<void> flush(FlushContext call_context) override;
     kj::Promise<void> stop(StopContext call_context) override;
     kj::Promise<void> setMockTime(SetMockTimeContext call_context) override;
     kj::Promise<void> schedulerMockForward(SchedulerMockForwardContext call_context) override;
@@ -1834,41 +1680,6 @@ struct ProxyType<interfaces::ChainClient>
     using Message = ipc::capnp::messages::ChainClient;
     using Client = ProxyClient<Message>;
     using Server = ProxyServer<Message>;
-};
-template<>
-struct ProxyStruct<ipc::capnp::messages::FeeCalculation>
-{
-    using Struct = ipc::capnp::messages::FeeCalculation;
-    using EstAccessor = Accessor<chain_fields::Est, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
-    using ReasonAccessor = Accessor<chain_fields::Reason, FIELD_IN | FIELD_OUT>;
-    using DesiredTargetAccessor = Accessor<chain_fields::DesiredTarget, FIELD_IN | FIELD_OUT>;
-    using ReturnedTargetAccessor = Accessor<chain_fields::ReturnedTarget, FIELD_IN | FIELD_OUT>;
-    using Accessors = std::tuple<EstAccessor, ReasonAccessor, DesiredTargetAccessor, ReturnedTargetAccessor>;
-    static constexpr size_t fields = 4;
-};
-template<>
-struct ProxyStruct<ipc::capnp::messages::EstimationResult>
-{
-    using Struct = ipc::capnp::messages::EstimationResult;
-    using PassAccessor = Accessor<chain_fields::Pass, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
-    using FailAccessor = Accessor<chain_fields::Fail, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
-    using DecayAccessor = Accessor<chain_fields::Decay, FIELD_IN | FIELD_OUT>;
-    using ScaleAccessor = Accessor<chain_fields::Scale, FIELD_IN | FIELD_OUT>;
-    using Accessors = std::tuple<PassAccessor, FailAccessor, DecayAccessor, ScaleAccessor>;
-    static constexpr size_t fields = 4;
-};
-template<>
-struct ProxyStruct<ipc::capnp::messages::EstimatorBucket>
-{
-    using Struct = ipc::capnp::messages::EstimatorBucket;
-    using StartAccessor = Accessor<chain_fields::Start, FIELD_IN | FIELD_OUT>;
-    using EndAccessor = Accessor<chain_fields::End, FIELD_IN | FIELD_OUT>;
-    using WithinTargetAccessor = Accessor<chain_fields::WithinTarget, FIELD_IN | FIELD_OUT>;
-    using TotalConfirmedAccessor = Accessor<chain_fields::TotalConfirmed, FIELD_IN | FIELD_OUT>;
-    using InMempoolAccessor = Accessor<chain_fields::InMempool, FIELD_IN | FIELD_OUT>;
-    using LeftMempoolAccessor = Accessor<chain_fields::LeftMempool, FIELD_IN | FIELD_OUT>;
-    using Accessors = std::tuple<StartAccessor, EndAccessor, WithinTargetAccessor, TotalConfirmedAccessor, InMempoolAccessor, LeftMempoolAccessor>;
-    static constexpr size_t fields = 6;
 };
 template<>
 struct ProxyStruct<ipc::capnp::messages::RPCCommand>
@@ -1912,6 +1723,14 @@ public:
 };
 
 template<>
+struct ProxyStruct<ipc::capnp::messages::HelpResult>
+{
+    using Struct = ipc::capnp::messages::HelpResult;
+    using MessageAccessor = Accessor<chain_fields::Message, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using Accessors = std::tuple<MessageAccessor>;
+    static constexpr size_t fields = 1;
+};
+template<>
 struct ProxyStruct<ipc::capnp::messages::JSONRPCRequest>
 {
     using Struct = ipc::capnp::messages::JSONRPCRequest;
@@ -1926,29 +1745,6 @@ struct ProxyStruct<ipc::capnp::messages::JSONRPCRequest>
     using Accessors = std::tuple<IdAccessor, MethodAccessor, ParamsAccessor, ModeAccessor, UriAccessor, AuthUserAccessor, PeerAddrAccessor, VersionAccessor>;
     static constexpr size_t fields = 8;
 };
-
-template<>
-struct ProxyClient<ipc::capnp::messages::RunLaterCallback> final : public ProxyClientCustom<ipc::capnp::messages::RunLaterCallback, ProxyCallback<std::function<void()>>>
-{
-public:
-    using ProxyClientCustom::ProxyClientCustom;
-    ~ProxyClient();
-    using M0 = ProxyClientMethodTraits<ipc::capnp::messages::RunLaterCallback::DestroyParams>;
-    static typename M0::Result destroy(Super& super);
-    using M1 = ProxyClientMethodTraits<ipc::capnp::messages::RunLaterCallback::CallParams>;
-    typename M1::Result call();
-};
-
-template<>
-struct ProxyServer<ipc::capnp::messages::RunLaterCallback> : public ProxyServerCustom<ipc::capnp::messages::RunLaterCallback, ProxyCallback<std::function<void()>>>
-{
-public:
-    using ProxyServerCustom::ProxyServerCustom;
-    ~ProxyServer();
-    kj::Promise<void> destroy(DestroyContext call_context) override;
-    kj::Promise<void> call(CallContext call_context) override;
-};
-
 template<>
 struct ProxyStruct<ipc::capnp::messages::FoundBlockParam>
 {
@@ -1996,6 +1792,15 @@ struct ProxyStruct<ipc::capnp::messages::BlockInfo>
     using ChainTimeMaxAccessor = Accessor<chain_fields::ChainTimeMax, FIELD_IN | FIELD_OUT>;
     using Accessors = std::tuple<HeightAccessor, FileNumberAccessor, DataPosAccessor, ChainTimeMaxAccessor>;
     static constexpr size_t fields = 4;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::ChainstateRole>
+{
+    using Struct = ipc::capnp::messages::ChainstateRole;
+    using ValidatedAccessor = Accessor<chain_fields::Validated, FIELD_IN | FIELD_OUT>;
+    using HistoricalAccessor = Accessor<chain_fields::Historical, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<ValidatedAccessor, HistoricalAccessor>;
+    static constexpr size_t fields = 2;
 };
 
 template<>
