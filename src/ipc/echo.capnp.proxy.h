@@ -3,8 +3,8 @@
 #ifndef CAPNP_ECHO_CAPNP_PROXY_H
 #define CAPNP_ECHO_CAPNP_PROXY_H
 
-#include <src/ipc/capnp/echo.capnp.h>
-#include <interfaces/echo.h>
+#include <capnp/echo.capnp.h> // IWYU pragma: keep
+#include "interfaces/echo.h" // IWYU pragma: export
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)

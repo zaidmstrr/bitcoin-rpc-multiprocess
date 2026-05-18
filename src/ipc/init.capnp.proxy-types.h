@@ -3,8 +3,10 @@
 #ifndef CAPNP_INIT_CAPNP_PROXY_TYPES_H
 #define CAPNP_INIT_CAPNP_PROXY_TYPES_H
 
-#include <src/ipc/capnp/init.capnp.proxy.h>
-#include <ipc/capnp/init-types.h>
+// IWYU pragma: no_include "mp/proxy.h"
+#include <mp/proxy.h> // IWYU pragma: keep
+#include <capnp/init.capnp.proxy.h> // IWYU pragma: keep
+#include "ipc/capnp/init-types.h" // IWYU pragma: export
 namespace mp {
 } // namespace mp
 #endif

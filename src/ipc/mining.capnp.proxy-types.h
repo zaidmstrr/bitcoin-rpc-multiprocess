@@ -3,8 +3,10 @@
 #ifndef CAPNP_MINING_CAPNP_PROXY_TYPES_H
 #define CAPNP_MINING_CAPNP_PROXY_TYPES_H
 
-#include <src/ipc/capnp/mining.capnp.proxy.h>
-#include <ipc/capnp/mining-types.h>
+// IWYU pragma: no_include "mp/proxy.h"
+#include <mp/proxy.h> // IWYU pragma: keep
+#include <capnp/mining.capnp.proxy.h> // IWYU pragma: keep
+#include "ipc/capnp/mining-types.h" // IWYU pragma: export
 namespace mp {
 template<>
 struct ProxyType<node::BlockCreateOptions>
@@ -15,6 +17,38 @@ public:
     static decltype(auto) get(std::integral_constant<size_t, 1>) { return &node::BlockCreateOptions::block_reserved_weight; }
     static decltype(auto) get(std::integral_constant<size_t, 2>) { return &node::BlockCreateOptions::coinbase_output_max_additional_sigops; }
     static constexpr size_t fields = 3;
+};
+template<>
+struct ProxyType<node::BlockWaitOptions>
+{
+public:
+    using Struct = ipc::capnp::messages::BlockWaitOptions;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &node::BlockWaitOptions::timeout; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &node::BlockWaitOptions::fee_threshold; }
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyType<node::BlockCheckOptions>
+{
+public:
+    using Struct = ipc::capnp::messages::BlockCheckOptions;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &node::BlockCheckOptions::check_merkle_root; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &node::BlockCheckOptions::check_pow; }
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyType<node::CoinbaseTx>
+{
+public:
+    using Struct = ipc::capnp::messages::CoinbaseTx;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &node::CoinbaseTx::version; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &node::CoinbaseTx::sequence; }
+    static decltype(auto) get(std::integral_constant<size_t, 2>) { return &node::CoinbaseTx::script_sig_prefix; }
+    static decltype(auto) get(std::integral_constant<size_t, 3>) { return &node::CoinbaseTx::witness; }
+    static decltype(auto) get(std::integral_constant<size_t, 4>) { return &node::CoinbaseTx::block_reward_remaining; }
+    static decltype(auto) get(std::integral_constant<size_t, 5>) { return &node::CoinbaseTx::required_outputs; }
+    static decltype(auto) get(std::integral_constant<size_t, 6>) { return &node::CoinbaseTx::lock_time; }
+    static constexpr size_t fields = 7;
 };
 } // namespace mp
 #endif

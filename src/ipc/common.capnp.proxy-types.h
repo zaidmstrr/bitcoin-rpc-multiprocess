@@ -3,8 +3,10 @@
 #ifndef CAPNP_COMMON_CAPNP_PROXY_TYPES_H
 #define CAPNP_COMMON_CAPNP_PROXY_TYPES_H
 
-#include <src/ipc/capnp/common.capnp.proxy.h>
-#include <ipc/capnp/common-types.h>
+// IWYU pragma: no_include "mp/proxy.h"
+#include <mp/proxy.h> // IWYU pragma: keep
+#include <capnp/common.capnp.proxy.h> // IWYU pragma: keep
+#include "ipc/capnp/common-types.h" // IWYU pragma: export
 namespace mp {
 template<>
 struct ProxyType<interfaces::BlockRef>
@@ -14,6 +16,42 @@ public:
     static decltype(auto) get(std::integral_constant<size_t, 0>) { return &interfaces::BlockRef::hash; }
     static decltype(auto) get(std::integral_constant<size_t, 1>) { return &interfaces::BlockRef::height; }
     static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyType<FeeCalculation>
+{
+public:
+    using Struct = ipc::capnp::messages::FeeCalculation;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &FeeCalculation::est; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &FeeCalculation::reason; }
+    static decltype(auto) get(std::integral_constant<size_t, 2>) { return &FeeCalculation::desiredTarget; }
+    static decltype(auto) get(std::integral_constant<size_t, 3>) { return &FeeCalculation::returnedTarget; }
+    static decltype(auto) get(std::integral_constant<size_t, 4>) { return &FeeCalculation::best_height; }
+    static constexpr size_t fields = 5;
+};
+template<>
+struct ProxyType<EstimationResult>
+{
+public:
+    using Struct = ipc::capnp::messages::EstimationResult;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &EstimationResult::pass; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &EstimationResult::fail; }
+    static decltype(auto) get(std::integral_constant<size_t, 2>) { return &EstimationResult::decay; }
+    static decltype(auto) get(std::integral_constant<size_t, 3>) { return &EstimationResult::scale; }
+    static constexpr size_t fields = 4;
+};
+template<>
+struct ProxyType<EstimatorBucket>
+{
+public:
+    using Struct = ipc::capnp::messages::EstimatorBucket;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &EstimatorBucket::start; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &EstimatorBucket::end; }
+    static decltype(auto) get(std::integral_constant<size_t, 2>) { return &EstimatorBucket::withinTarget; }
+    static decltype(auto) get(std::integral_constant<size_t, 3>) { return &EstimatorBucket::totalConfirmed; }
+    static decltype(auto) get(std::integral_constant<size_t, 4>) { return &EstimatorBucket::inMempool; }
+    static decltype(auto) get(std::integral_constant<size_t, 5>) { return &EstimatorBucket::leftMempool; }
+    static constexpr size_t fields = 6;
 };
 template<>
 struct ProxyType<bilingual_str>

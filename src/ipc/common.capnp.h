@@ -8,7 +8,7 @@
 
 #ifndef CAPNP_VERSION
 #error "CAPNP_VERSION is not defined, is capnp/generated-header-support.h missing?"
-#elif CAPNP_VERSION != 1000001
+#elif CAPNP_VERSION != 1002000
 #error "Version mismatch between generated code and library headers.  You must use the same version of the Cap'n Proto compiler and library."
 #endif
 
@@ -19,6 +19,9 @@ namespace capnp {
 namespace schemas {
 
 CAPNP_DECLARE_SCHEMA(b3be4b8949350369);
+CAPNP_DECLARE_SCHEMA(a1146c2d9df953f0);
+CAPNP_DECLARE_SCHEMA(b15b142936c65fa7);
+CAPNP_DECLARE_SCHEMA(9f5f7cf3583faae9);
 CAPNP_DECLARE_SCHEMA(8ab5bd30b9c0e6b8);
 CAPNP_DECLARE_SCHEMA(e9ccda4c4ecfcc58);
 CAPNP_DECLARE_SCHEMA(c55a33a945f4410c);
@@ -41,6 +44,51 @@ struct BlockRef {
 
   struct _capnpPrivate {
     CAPNP_DECLARE_STRUCT_HEADER(b3be4b8949350369, 1, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct FeeCalculation {
+  FeeCalculation() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(a1146c2d9df953f0, 2, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct EstimationResult {
+  EstimationResult() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(b15b142936c65fa7, 2, 2)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct EstimatorBucket {
+  EstimatorBucket() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(9f5f7cf3583faae9, 6, 0)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -226,6 +274,312 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class FeeCalculation::Reader {
+public:
+  typedef FeeCalculation Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasEst() const;
+  inline  ::ipc::capnp::messages::EstimationResult::Reader getEst() const;
+
+  inline  ::int32_t getReason() const;
+
+  inline  ::int32_t getDesiredTarget() const;
+
+  inline  ::int32_t getReturnedTarget() const;
+
+  inline  ::uint32_t getBestHeight() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class FeeCalculation::Builder {
+public:
+  typedef FeeCalculation Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasEst();
+  inline  ::ipc::capnp::messages::EstimationResult::Builder getEst();
+  inline void setEst( ::ipc::capnp::messages::EstimationResult::Reader value);
+  inline  ::ipc::capnp::messages::EstimationResult::Builder initEst();
+  inline void adoptEst(::capnp::Orphan< ::ipc::capnp::messages::EstimationResult>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::EstimationResult> disownEst();
+
+  inline  ::int32_t getReason();
+  inline void setReason( ::int32_t value);
+
+  inline  ::int32_t getDesiredTarget();
+  inline void setDesiredTarget( ::int32_t value);
+
+  inline  ::int32_t getReturnedTarget();
+  inline void setReturnedTarget( ::int32_t value);
+
+  inline  ::uint32_t getBestHeight();
+  inline void setBestHeight( ::uint32_t value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class FeeCalculation::Pipeline {
+public:
+  typedef FeeCalculation Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::EstimationResult::Pipeline getEst();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class EstimationResult::Reader {
+public:
+  typedef EstimationResult Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasPass() const;
+  inline  ::ipc::capnp::messages::EstimatorBucket::Reader getPass() const;
+
+  inline bool hasFail() const;
+  inline  ::ipc::capnp::messages::EstimatorBucket::Reader getFail() const;
+
+  inline double getDecay() const;
+
+  inline  ::uint32_t getScale() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class EstimationResult::Builder {
+public:
+  typedef EstimationResult Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasPass();
+  inline  ::ipc::capnp::messages::EstimatorBucket::Builder getPass();
+  inline void setPass( ::ipc::capnp::messages::EstimatorBucket::Reader value);
+  inline  ::ipc::capnp::messages::EstimatorBucket::Builder initPass();
+  inline void adoptPass(::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket> disownPass();
+
+  inline bool hasFail();
+  inline  ::ipc::capnp::messages::EstimatorBucket::Builder getFail();
+  inline void setFail( ::ipc::capnp::messages::EstimatorBucket::Reader value);
+  inline  ::ipc::capnp::messages::EstimatorBucket::Builder initFail();
+  inline void adoptFail(::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket> disownFail();
+
+  inline double getDecay();
+  inline void setDecay(double value);
+
+  inline  ::uint32_t getScale();
+  inline void setScale( ::uint32_t value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class EstimationResult::Pipeline {
+public:
+  typedef EstimationResult Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::EstimatorBucket::Pipeline getPass();
+  inline  ::ipc::capnp::messages::EstimatorBucket::Pipeline getFail();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class EstimatorBucket::Reader {
+public:
+  typedef EstimatorBucket Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline double getStart() const;
+
+  inline double getEnd() const;
+
+  inline double getWithinTarget() const;
+
+  inline double getTotalConfirmed() const;
+
+  inline double getInMempool() const;
+
+  inline double getLeftMempool() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class EstimatorBucket::Builder {
+public:
+  typedef EstimatorBucket Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline double getStart();
+  inline void setStart(double value);
+
+  inline double getEnd();
+  inline void setEnd(double value);
+
+  inline double getWithinTarget();
+  inline void setWithinTarget(double value);
+
+  inline double getTotalConfirmed();
+  inline void setTotalConfirmed(double value);
+
+  inline double getInMempool();
+  inline void setInMempool(double value);
+
+  inline double getLeftMempool();
+  inline void setLeftMempool(double value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class EstimatorBucket::Pipeline {
+public:
+  typedef EstimatorBucket Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 class BilingualStr::Reader {
 public:
   typedef BilingualStr Reads;
@@ -336,7 +690,7 @@ public:
 #endif  // !CAPNP_LITE
 
   template <typename Value2 = ::capnp::AnyPointer>
-  typename Result<Value2>::Reader asGeneric() {
+  typename Result<Value2>::Reader asGeneric() const {
     return typename Result<Value2>::Reader(_reader);
   }
 
@@ -443,7 +797,7 @@ public:
 #endif  // !CAPNP_LITE
 
   template <typename Value2 = ::capnp::AnyPointer>
-  typename ResultVoid<Value2>::Reader asGeneric() {
+  typename ResultVoid<Value2>::Reader asGeneric() const {
     return typename ResultVoid<Value2>::Reader(_reader);
   }
 
@@ -538,7 +892,7 @@ public:
 #endif  // !CAPNP_LITE
 
   template <typename Key2 = ::capnp::AnyPointer, typename Value2 = ::capnp::AnyPointer>
-  typename Pair<Key2, Value2>::Reader asGeneric() {
+  typename Pair<Key2, Value2>::Reader asGeneric() const {
     return typename Pair<Key2, Value2>::Reader(_reader);
   }
 
@@ -646,7 +1000,7 @@ public:
 #endif  // !CAPNP_LITE
 
   template <typename Key2 = ::capnp::AnyPointer>
-  typename PairInt64<Key2>::Reader asGeneric() {
+  typename PairInt64<Key2>::Reader asGeneric() const {
     return typename PairInt64<Key2>::Reader(_reader);
   }
 
@@ -776,6 +1130,291 @@ inline  ::int32_t BlockRef::Builder::getHeight() {
 inline void BlockRef::Builder::setHeight( ::int32_t value) {
   _builder.setDataField< ::int32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool FeeCalculation::Reader::hasEst() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool FeeCalculation::Builder::hasEst() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::EstimationResult::Reader FeeCalculation::Reader::getEst() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::EstimationResult::Builder FeeCalculation::Builder::getEst() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::EstimationResult::Pipeline FeeCalculation::Pipeline::getEst() {
+  return  ::ipc::capnp::messages::EstimationResult::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void FeeCalculation::Builder::setEst( ::ipc::capnp::messages::EstimationResult::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::EstimationResult::Builder FeeCalculation::Builder::initEst() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void FeeCalculation::Builder::adoptEst(
+    ::capnp::Orphan< ::ipc::capnp::messages::EstimationResult>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::EstimationResult> FeeCalculation::Builder::disownEst() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimationResult>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline  ::int32_t FeeCalculation::Reader::getReason() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeeCalculation::Builder::getReason() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void FeeCalculation::Builder::setReason( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int32_t FeeCalculation::Reader::getDesiredTarget() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeeCalculation::Builder::getDesiredTarget() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void FeeCalculation::Builder::setDesiredTarget( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int32_t FeeCalculation::Reader::getReturnedTarget() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeeCalculation::Builder::getReturnedTarget() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void FeeCalculation::Builder::setReturnedTarget( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::uint32_t FeeCalculation::Reader::getBestHeight() const {
+  return _reader.getDataField< ::uint32_t>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+
+inline  ::uint32_t FeeCalculation::Builder::getBestHeight() {
+  return _builder.getDataField< ::uint32_t>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+inline void FeeCalculation::Builder::setBestHeight( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool EstimationResult::Reader::hasPass() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool EstimationResult::Builder::hasPass() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Reader EstimationResult::Reader::getPass() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Builder EstimationResult::Builder::getPass() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::EstimatorBucket::Pipeline EstimationResult::Pipeline::getPass() {
+  return  ::ipc::capnp::messages::EstimatorBucket::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void EstimationResult::Builder::setPass( ::ipc::capnp::messages::EstimatorBucket::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Builder EstimationResult::Builder::initPass() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void EstimationResult::Builder::adoptPass(
+    ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket> EstimationResult::Builder::disownPass() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool EstimationResult::Reader::hasFail() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool EstimationResult::Builder::hasFail() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Reader EstimationResult::Reader::getFail() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Builder EstimationResult::Builder::getFail() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::EstimatorBucket::Pipeline EstimationResult::Pipeline::getFail() {
+  return  ::ipc::capnp::messages::EstimatorBucket::Pipeline(_typeless.getPointerField(1));
+}
+#endif  // !CAPNP_LITE
+inline void EstimationResult::Builder::setFail( ::ipc::capnp::messages::EstimatorBucket::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::EstimatorBucket::Builder EstimationResult::Builder::initFail() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void EstimationResult::Builder::adoptFail(
+    ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::EstimatorBucket> EstimationResult::Builder::disownFail() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::EstimatorBucket>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline double EstimationResult::Reader::getDecay() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimationResult::Builder::getDecay() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void EstimationResult::Builder::setDecay(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::uint32_t EstimationResult::Reader::getScale() const {
+  return _reader.getDataField< ::uint32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline  ::uint32_t EstimationResult::Builder::getScale() {
+  return _builder.getDataField< ::uint32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void EstimationResult::Builder::setScale( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getStart() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getStart() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setStart(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getEnd() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getEnd() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setEnd(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getWithinTarget() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getWithinTarget() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setWithinTarget(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getTotalConfirmed() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getTotalConfirmed() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setTotalConfirmed(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<3>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getInMempool() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getInMempool() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setInMempool(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, value);
+}
+
+inline double EstimatorBucket::Reader::getLeftMempool() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS);
+}
+
+inline double EstimatorBucket::Builder::getLeftMempool() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS);
+}
+inline void EstimatorBucket::Builder::setLeftMempool(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<5>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool BilingualStr::Reader::hasOriginal() const {

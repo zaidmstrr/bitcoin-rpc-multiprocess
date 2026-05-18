@@ -3,11 +3,11 @@
 #ifndef CAPNP_INIT_CAPNP_PROXY_H
 #define CAPNP_INIT_CAPNP_PROXY_H
 
-#include <src/ipc/capnp/init.capnp.h>
-#include <interfaces/chain.h>
-#include <interfaces/echo.h>
-#include <interfaces/init.h>
-#include <interfaces/mining.h>
+#include <capnp/init.capnp.h> // IWYU pragma: keep
+#include "interfaces/chain.h" // IWYU pragma: export
+#include "interfaces/echo.h" // IWYU pragma: export
+#include "interfaces/init.h" // IWYU pragma: export
+#include "interfaces/mining.h" // IWYU pragma: export
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)
@@ -26,9 +26,21 @@ struct ProxyMethod<ipc::capnp::messages::Init::MakeEchoParams>
 };
 
 template<>
+struct ProxyMethod<ipc::capnp::messages::Init::MakeMiningOld2Params>
+{
+    static constexpr auto impl = &interfaces::Init::makeMiningOld2;
+};
+
+template<>
 struct ProxyMethod<ipc::capnp::messages::Init::MakeMiningParams>
 {
     static constexpr auto impl = &interfaces::Init::makeMining;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::Init::MakeRpcParams>
+{
+    static constexpr auto impl = &interfaces::Init::makeRpc;
 };
 
 template<>
@@ -83,10 +95,14 @@ public:
     static typename M0::Result construct(Super& super);
     using M1 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeEchoParams>;
     typename M1::Result makeEcho();
-    using M2 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeMiningParams>;
-    typename M2::Result makeMining();
-    using M3 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeChainParams>;
-    typename M3::Result makeChain();
+    using M2 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeMiningOld2Params>;
+    typename M2::Result makeMiningOld2();
+    using M3 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeMiningParams>;
+    typename M3::Result makeMining();
+    using M4 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeRpcParams>;
+    typename M4::Result makeRpc();
+    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::Init::MakeChainParams>;
+    typename M5::Result makeChain();
 };
 
 template<>
@@ -97,7 +113,9 @@ public:
     ~ProxyServer();
     kj::Promise<void> construct(ConstructContext call_context) override;
     kj::Promise<void> makeEcho(MakeEchoContext call_context) override;
+    kj::Promise<void> makeMiningOld2(MakeMiningOld2Context call_context) override;
     kj::Promise<void> makeMining(MakeMiningContext call_context) override;
+    kj::Promise<void> makeRpc(MakeRpcContext call_context) override;
     kj::Promise<void> makeChain(MakeChainContext call_context) override;
 };
 

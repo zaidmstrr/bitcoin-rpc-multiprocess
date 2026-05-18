@@ -3,8 +3,8 @@
 #ifndef CAPNP_MINING_CAPNP_PROXY_H
 #define CAPNP_MINING_CAPNP_PROXY_H
 
-#include <src/ipc/capnp/mining.capnp.h>
-#include <interfaces/mining.h>
+#include <capnp/mining.capnp.h> // IWYU pragma: keep
+#include "interfaces/mining.h" // IWYU pragma: export
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)
@@ -47,6 +47,18 @@ struct ProxyMethod<ipc::capnp::messages::Mining::CreateNewBlockParams>
 };
 
 template<>
+struct ProxyMethod<ipc::capnp::messages::Mining::CheckBlockParams>
+{
+    static constexpr auto impl = &interfaces::Mining::checkBlock;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::Mining::InterruptParams>
+{
+    static constexpr auto impl = &interfaces::Mining::interrupt;
+};
+
+template<>
 struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetBlockHeaderParams>
 {
     static constexpr auto impl = &interfaces::BlockTemplate::getBlockHeader;
@@ -77,18 +89,6 @@ struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetCoinbaseTxParams>
 };
 
 template<>
-struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentParams>
-{
-    static constexpr auto impl = &interfaces::BlockTemplate::getCoinbaseCommitment;
-};
-
-template<>
-struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexParams>
-{
-    static constexpr auto impl = &interfaces::BlockTemplate::getWitnessCommitmentIndex;
-};
-
-template<>
 struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams>
 {
     static constexpr auto impl = &interfaces::BlockTemplate::getCoinbaseMerklePath;
@@ -98,6 +98,18 @@ template<>
 struct ProxyMethod<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>
 {
     static constexpr auto impl = &interfaces::BlockTemplate::submitSolution;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::BlockTemplate::WaitNextParams>
+{
+    static constexpr auto impl = &interfaces::BlockTemplate::waitNext;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::BlockTemplate::InterruptWaitParams>
+{
+    static constexpr auto impl = &interfaces::BlockTemplate::interruptWait;
 };
 
 namespace mining_fields {
@@ -155,6 +167,50 @@ struct Options
     template<typename S> static void setWant(S&& s) { s.setWantOptions(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasOptions(); }
     template<typename S> static void setHas(S&& s) { s.setHasOptions(true); }
+};
+struct Cooldown
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getCooldown()) { return s.getCooldown(); }
+    template<typename S> static bool has(S&& s) { return s.hasCooldown(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setCooldown(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initCooldown(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantCooldown(); }
+    template<typename S> static void setWant(S&& s) { s.setWantCooldown(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasCooldown(); }
+    template<typename S> static void setHas(S&& s) { s.setHasCooldown(true); }
+};
+struct Block
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getBlock()) { return s.getBlock(); }
+    template<typename S> static bool has(S&& s) { return s.hasBlock(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBlock(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBlock(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantBlock(); }
+    template<typename S> static void setWant(S&& s) { s.setWantBlock(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasBlock(); }
+    template<typename S> static void setHas(S&& s) { s.setHasBlock(true); }
+};
+struct Reason
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getReason()) { return s.getReason(); }
+    template<typename S> static bool has(S&& s) { return s.hasReason(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReason(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReason(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantReason(); }
+    template<typename S> static void setWant(S&& s) { s.setWantReason(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasReason(); }
+    template<typename S> static void setHas(S&& s) { s.setHasReason(true); }
+};
+struct Debug
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getDebug()) { return s.getDebug(); }
+    template<typename S> static bool has(S&& s) { return s.hasDebug(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDebug(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDebug(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantDebug(); }
+    template<typename S> static void setWant(S&& s) { s.setWantDebug(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasDebug(); }
+    template<typename S> static void setHas(S&& s) { s.setHasDebug(true); }
 };
 struct Version
 {
@@ -233,38 +289,104 @@ struct CoinbaseOutputMaxAdditionalSigops
     template<typename S> static bool getHas(S&& s) { return s.getHasCoinbaseOutputMaxAdditionalSigops(); }
     template<typename S> static void setHas(S&& s) { s.setHasCoinbaseOutputMaxAdditionalSigops(true); }
 };
-struct Mode
+struct FeeThreshold
 {
-    template<typename S> static auto get(S&& s) -> decltype(s.getMode()) { return s.getMode(); }
-    template<typename S> static bool has(S&& s) { return s.hasMode(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setMode(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initMode(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantMode(); }
-    template<typename S> static void setWant(S&& s) { s.setWantMode(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasMode(); }
-    template<typename S> static void setHas(S&& s) { s.setHasMode(true); }
+    template<typename S> static auto get(S&& s) -> decltype(s.getFeeThreshold()) { return s.getFeeThreshold(); }
+    template<typename S> static bool has(S&& s) { return s.hasFeeThreshold(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFeeThreshold(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFeeThreshold(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantFeeThreshold(); }
+    template<typename S> static void setWant(S&& s) { s.setWantFeeThreshold(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasFeeThreshold(); }
+    template<typename S> static void setHas(S&& s) { s.setHasFeeThreshold(true); }
 };
-struct RejectReason
+struct CheckMerkleRoot
 {
-    template<typename S> static auto get(S&& s) -> decltype(s.getRejectReason()) { return s.getRejectReason(); }
-    template<typename S> static bool has(S&& s) { return s.hasRejectReason(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setRejectReason(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initRejectReason(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantRejectReason(); }
-    template<typename S> static void setWant(S&& s) { s.setWantRejectReason(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasRejectReason(); }
-    template<typename S> static void setHas(S&& s) { s.setHasRejectReason(true); }
+    template<typename S> static auto get(S&& s) -> decltype(s.getCheckMerkleRoot()) { return s.getCheckMerkleRoot(); }
+    template<typename S> static bool has(S&& s) { return s.hasCheckMerkleRoot(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setCheckMerkleRoot(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initCheckMerkleRoot(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantCheckMerkleRoot(); }
+    template<typename S> static void setWant(S&& s) { s.setWantCheckMerkleRoot(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasCheckMerkleRoot(); }
+    template<typename S> static void setHas(S&& s) { s.setHasCheckMerkleRoot(true); }
 };
-struct DebugMessage
+struct CheckPow
 {
-    template<typename S> static auto get(S&& s) -> decltype(s.getDebugMessage()) { return s.getDebugMessage(); }
-    template<typename S> static bool has(S&& s) { return s.hasDebugMessage(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDebugMessage(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDebugMessage(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantDebugMessage(); }
-    template<typename S> static void setWant(S&& s) { s.setWantDebugMessage(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasDebugMessage(); }
-    template<typename S> static void setHas(S&& s) { s.setHasDebugMessage(true); }
+    template<typename S> static auto get(S&& s) -> decltype(s.getCheckPow()) { return s.getCheckPow(); }
+    template<typename S> static bool has(S&& s) { return s.hasCheckPow(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setCheckPow(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initCheckPow(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantCheckPow(); }
+    template<typename S> static void setWant(S&& s) { s.setWantCheckPow(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasCheckPow(); }
+    template<typename S> static void setHas(S&& s) { s.setHasCheckPow(true); }
+};
+struct Sequence
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getSequence()) { return s.getSequence(); }
+    template<typename S> static bool has(S&& s) { return s.hasSequence(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setSequence(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initSequence(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantSequence(); }
+    template<typename S> static void setWant(S&& s) { s.setWantSequence(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasSequence(); }
+    template<typename S> static void setHas(S&& s) { s.setHasSequence(true); }
+};
+struct ScriptSigPrefix
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getScriptSigPrefix()) { return s.getScriptSigPrefix(); }
+    template<typename S> static bool has(S&& s) { return s.hasScriptSigPrefix(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setScriptSigPrefix(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initScriptSigPrefix(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantScriptSigPrefix(); }
+    template<typename S> static void setWant(S&& s) { s.setWantScriptSigPrefix(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasScriptSigPrefix(); }
+    template<typename S> static void setHas(S&& s) { s.setHasScriptSigPrefix(true); }
+};
+struct Witness
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getWitness()) { return s.getWitness(); }
+    template<typename S> static bool has(S&& s) { return s.hasWitness(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setWitness(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initWitness(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantWitness(); }
+    template<typename S> static void setWant(S&& s) { s.setWantWitness(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasWitness(); }
+    template<typename S> static void setHas(S&& s) { s.setHasWitness(true); }
+};
+struct BlockRewardRemaining
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getBlockRewardRemaining()) { return s.getBlockRewardRemaining(); }
+    template<typename S> static bool has(S&& s) { return s.hasBlockRewardRemaining(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBlockRewardRemaining(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBlockRewardRemaining(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantBlockRewardRemaining(); }
+    template<typename S> static void setWant(S&& s) { s.setWantBlockRewardRemaining(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasBlockRewardRemaining(); }
+    template<typename S> static void setHas(S&& s) { s.setHasBlockRewardRemaining(true); }
+};
+struct RequiredOutputs
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getRequiredOutputs()) { return s.getRequiredOutputs(); }
+    template<typename S> static bool has(S&& s) { return s.hasRequiredOutputs(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setRequiredOutputs(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initRequiredOutputs(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantRequiredOutputs(); }
+    template<typename S> static void setWant(S&& s) { s.setWantRequiredOutputs(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasRequiredOutputs(); }
+    template<typename S> static void setHas(S&& s) { s.setHasRequiredOutputs(true); }
+};
+struct LockTime
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getLockTime()) { return s.getLockTime(); }
+    template<typename S> static bool has(S&& s) { return s.hasLockTime(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setLockTime(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initLockTime(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantLockTime(); }
+    template<typename S> static void setWant(S&& s) { s.setWantLockTime(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasLockTime(); }
+    template<typename S> static void setHas(S&& s) { s.setHasLockTime(true); }
 };
 } // namespace mining_fields
 
@@ -283,7 +405,11 @@ public:
     using M3 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::WaitTipChangedParams>;
     typename M3::Result waitTipChanged(M3::Param<0> currentTip,M3::Param<1> timeout);
     using M4 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::CreateNewBlockParams>;
-    typename M4::Result createNewBlock(M4::Param<0> options);
+    typename M4::Result createNewBlock(M4::Param<0> options,M4::Param<1> cooldown);
+    using M5 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::CheckBlockParams>;
+    typename M5::Result checkBlock(M5::Param<0> block,M5::Param<1> options,M5::Param<2> reason,M5::Param<3> debug);
+    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::InterruptParams>;
+    typename M6::Result interrupt();
 };
 
 template<>
@@ -297,6 +423,8 @@ public:
     kj::Promise<void> getTip(GetTipContext call_context) override;
     kj::Promise<void> waitTipChanged(WaitTipChangedContext call_context) override;
     kj::Promise<void> createNewBlock(CreateNewBlockContext call_context) override;
+    kj::Promise<void> checkBlock(CheckBlockContext call_context) override;
+    kj::Promise<void> interrupt(InterruptContext call_context) override;
 };
 
 template<>
@@ -326,14 +454,14 @@ public:
     typename M4::Result getTxSigops();
     using M5 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetCoinbaseTxParams>;
     typename M5::Result getCoinbaseTx();
-    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentParams>;
-    typename M6::Result getCoinbaseCommitment();
-    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexParams>;
-    typename M7::Result getWitnessCommitmentIndex();
-    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams>;
-    typename M8::Result getCoinbaseMerklePath();
-    using M9 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>;
-    typename M9::Result submitSolution(M9::Param<0> version,M9::Param<1> timestamp,M9::Param<2> nonce,M9::Param<3> coinbase);
+    using M6 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams>;
+    typename M6::Result getCoinbaseMerklePath();
+    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>;
+    typename M7::Result submitSolution(M7::Param<0> version,M7::Param<1> timestamp,M7::Param<2> nonce,M7::Param<3> coinbase);
+    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::WaitNextParams>;
+    typename M8::Result waitNext(M8::Param<0> options);
+    using M9 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::InterruptWaitParams>;
+    typename M9::Result interruptWait();
 };
 
 template<>
@@ -348,10 +476,10 @@ public:
     kj::Promise<void> getTxFees(GetTxFeesContext call_context) override;
     kj::Promise<void> getTxSigops(GetTxSigopsContext call_context) override;
     kj::Promise<void> getCoinbaseTx(GetCoinbaseTxContext call_context) override;
-    kj::Promise<void> getCoinbaseCommitment(GetCoinbaseCommitmentContext call_context) override;
-    kj::Promise<void> getWitnessCommitmentIndex(GetWitnessCommitmentIndexContext call_context) override;
     kj::Promise<void> getCoinbaseMerklePath(GetCoinbaseMerklePathContext call_context) override;
     kj::Promise<void> submitSolution(SubmitSolutionContext call_context) override;
+    kj::Promise<void> waitNext(WaitNextContext call_context) override;
+    kj::Promise<void> interruptWait(InterruptWaitContext call_context) override;
 };
 
 template<>
@@ -373,15 +501,36 @@ struct ProxyStruct<ipc::capnp::messages::BlockCreateOptions>
     static constexpr size_t fields = 3;
 };
 template<>
-struct ProxyStruct<ipc::capnp::messages::BlockValidationState>
+struct ProxyStruct<ipc::capnp::messages::BlockWaitOptions>
 {
-    using Struct = ipc::capnp::messages::BlockValidationState;
-    using ModeAccessor = Accessor<mining_fields::Mode, FIELD_IN | FIELD_OUT>;
-    using ResultAccessor = Accessor<mining_fields::Result, FIELD_IN | FIELD_OUT>;
-    using RejectReasonAccessor = Accessor<mining_fields::RejectReason, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
-    using DebugMessageAccessor = Accessor<mining_fields::DebugMessage, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
-    using Accessors = std::tuple<ModeAccessor, ResultAccessor, RejectReasonAccessor, DebugMessageAccessor>;
-    static constexpr size_t fields = 4;
+    using Struct = ipc::capnp::messages::BlockWaitOptions;
+    using TimeoutAccessor = Accessor<mining_fields::Timeout, FIELD_IN | FIELD_OUT>;
+    using FeeThresholdAccessor = Accessor<mining_fields::FeeThreshold, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<TimeoutAccessor, FeeThresholdAccessor>;
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::BlockCheckOptions>
+{
+    using Struct = ipc::capnp::messages::BlockCheckOptions;
+    using CheckMerkleRootAccessor = Accessor<mining_fields::CheckMerkleRoot, FIELD_IN | FIELD_OUT>;
+    using CheckPowAccessor = Accessor<mining_fields::CheckPow, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<CheckMerkleRootAccessor, CheckPowAccessor>;
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::CoinbaseTx>
+{
+    using Struct = ipc::capnp::messages::CoinbaseTx;
+    using VersionAccessor = Accessor<mining_fields::Version, FIELD_IN | FIELD_OUT>;
+    using SequenceAccessor = Accessor<mining_fields::Sequence, FIELD_IN | FIELD_OUT>;
+    using ScriptSigPrefixAccessor = Accessor<mining_fields::ScriptSigPrefix, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using WitnessAccessor = Accessor<mining_fields::Witness, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using BlockRewardRemainingAccessor = Accessor<mining_fields::BlockRewardRemaining, FIELD_IN | FIELD_OUT>;
+    using RequiredOutputsAccessor = Accessor<mining_fields::RequiredOutputs, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using LockTimeAccessor = Accessor<mining_fields::LockTime, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<VersionAccessor, SequenceAccessor, ScriptSigPrefixAccessor, WitnessAccessor, BlockRewardRemainingAccessor, RequiredOutputsAccessor, LockTimeAccessor>;
+    static constexpr size_t fields = 7;
 };
 } // namespace mp
 #if defined(__GNUC__)

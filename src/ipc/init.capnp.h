@@ -11,7 +11,7 @@
 
 #ifndef CAPNP_VERSION
 #error "CAPNP_VERSION is not defined, is capnp/generated-header-support.h missing?"
-#elif CAPNP_VERSION != 1000001
+#elif CAPNP_VERSION != 1002000
 #error "Version mismatch between generated code and library headers.  You must use the same version of the Cap'n Proto compiler and library."
 #endif
 
@@ -19,6 +19,7 @@
 #include "chain.capnp.h"
 #include "echo.capnp.h"
 #include "mining.capnp.h"
+#include "rpc.capnp.h"
 
 CAPNP_BEGIN_HEADER
 
@@ -34,6 +35,10 @@ CAPNP_DECLARE_SCHEMA(ecc9a12bacbb6a49);
 CAPNP_DECLARE_SCHEMA(b40b3d0b48ea1c10);
 CAPNP_DECLARE_SCHEMA(f0919d79a695b715);
 CAPNP_DECLARE_SCHEMA(9b5015dfcf3b9509);
+CAPNP_DECLARE_SCHEMA(f11dc73bbf0383aa);
+CAPNP_DECLARE_SCHEMA(d8c71cdcfdae2edb);
+CAPNP_DECLARE_SCHEMA(9dea045570096acd);
+CAPNP_DECLARE_SCHEMA(f0b73b240801f383);
 
 }  // namespace schemas
 }  // namespace capnp
@@ -54,8 +59,12 @@ struct Init {
   struct ConstructResults;
   struct MakeEchoParams;
   struct MakeEchoResults;
+  struct MakeMiningOld2Params;
+  struct MakeMiningOld2Results;
   struct MakeMiningParams;
   struct MakeMiningResults;
+  struct MakeRpcParams;
+  struct MakeRpcResults;
   struct MakeChainParams;
   struct MakeChainResults;
 
@@ -127,6 +136,36 @@ struct Init::MakeEchoResults {
   };
 };
 
+struct Init::MakeMiningOld2Params {
+  MakeMiningOld2Params() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(ecc9a12bacbb6a49, 0, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Init::MakeMiningOld2Results {
+  MakeMiningOld2Results() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(b40b3d0b48ea1c10, 0, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
 struct Init::MakeMiningParams {
   MakeMiningParams() = delete;
 
@@ -135,7 +174,7 @@ struct Init::MakeMiningParams {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(ecc9a12bacbb6a49, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(f0919d79a695b715, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -150,7 +189,37 @@ struct Init::MakeMiningResults {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(b40b3d0b48ea1c10, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(9b5015dfcf3b9509, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Init::MakeRpcParams {
+  MakeRpcParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(f11dc73bbf0383aa, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Init::MakeRpcResults {
+  MakeRpcResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(d8c71cdcfdae2edb, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -165,7 +234,7 @@ struct Init::MakeChainParams {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(f0919d79a695b715, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(9dea045570096acd, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -180,7 +249,7 @@ struct Init::MakeChainResults {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(9b5015dfcf3b9509, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(f0b73b240801f383, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -212,7 +281,11 @@ public:
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Init::MakeEchoParams,  ::ipc::capnp::messages::Init::MakeEchoResults> makeEchoRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::Init::MakeMiningOld2Params,  ::ipc::capnp::messages::Init::MakeMiningOld2Results> makeMiningOld2Request(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Init::MakeMiningParams,  ::ipc::capnp::messages::Init::MakeMiningResults> makeMiningRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::Init::MakeRpcParams,  ::ipc::capnp::messages::Init::MakeRpcResults> makeRpcRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Init::MakeChainParams,  ::ipc::capnp::messages::Init::MakeChainResults> makeChainRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
@@ -240,10 +313,18 @@ protected:
   typedef  ::ipc::capnp::messages::Init::MakeEchoResults MakeEchoResults;
   typedef ::capnp::CallContext<MakeEchoParams, MakeEchoResults> MakeEchoContext;
   virtual ::kj::Promise<void> makeEcho(MakeEchoContext context);
+  typedef  ::ipc::capnp::messages::Init::MakeMiningOld2Params MakeMiningOld2Params;
+  typedef  ::ipc::capnp::messages::Init::MakeMiningOld2Results MakeMiningOld2Results;
+  typedef ::capnp::CallContext<MakeMiningOld2Params, MakeMiningOld2Results> MakeMiningOld2Context;
+  virtual ::kj::Promise<void> makeMiningOld2(MakeMiningOld2Context context);
   typedef  ::ipc::capnp::messages::Init::MakeMiningParams MakeMiningParams;
   typedef  ::ipc::capnp::messages::Init::MakeMiningResults MakeMiningResults;
   typedef ::capnp::CallContext<MakeMiningParams, MakeMiningResults> MakeMiningContext;
   virtual ::kj::Promise<void> makeMining(MakeMiningContext context);
+  typedef  ::ipc::capnp::messages::Init::MakeRpcParams MakeRpcParams;
+  typedef  ::ipc::capnp::messages::Init::MakeRpcResults MakeRpcResults;
+  typedef ::capnp::CallContext<MakeRpcParams, MakeRpcResults> MakeRpcContext;
+  virtual ::kj::Promise<void> makeRpc(MakeRpcContext context);
   typedef  ::ipc::capnp::messages::Init::MakeChainParams MakeChainParams;
   typedef  ::ipc::capnp::messages::Init::MakeChainResults MakeChainResults;
   typedef ::capnp::CallContext<MakeChainParams, MakeChainResults> MakeChainContext;
@@ -600,6 +681,148 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class Init::MakeMiningOld2Params::Reader {
+public:
+  typedef MakeMiningOld2Params Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Init::MakeMiningOld2Params::Builder {
+public:
+  typedef MakeMiningOld2Params Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Init::MakeMiningOld2Params::Pipeline {
+public:
+  typedef MakeMiningOld2Params Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Init::MakeMiningOld2Results::Reader {
+public:
+  typedef MakeMiningOld2Results Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Init::MakeMiningOld2Results::Builder {
+public:
+  typedef MakeMiningOld2Results Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Init::MakeMiningOld2Results::Pipeline {
+public:
+  typedef MakeMiningOld2Results Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 class Init::MakeMiningParams::Reader {
 public:
   typedef MakeMiningParams Reads;
@@ -760,6 +983,174 @@ public:
       : _typeless(kj::mv(typeless)) {}
 
   inline  ::ipc::capnp::messages::Mining::Client getResult();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Init::MakeRpcParams::Reader {
+public:
+  typedef MakeRpcParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext() const;
+  inline  ::mp::Context::Reader getContext() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Init::MakeRpcParams::Builder {
+public:
+  typedef MakeRpcParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext();
+  inline  ::mp::Context::Builder getContext();
+  inline void setContext( ::mp::Context::Reader value);
+  inline  ::mp::Context::Builder initContext();
+  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
+  inline ::capnp::Orphan< ::mp::Context> disownContext();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Init::MakeRpcParams::Pipeline {
+public:
+  typedef MakeRpcParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::mp::Context::Pipeline getContext();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Init::MakeRpcResults::Reader {
+public:
+  typedef MakeRpcResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasResult() const;
+#if !CAPNP_LITE
+  inline  ::ipc::capnp::messages::Rpc::Client getResult() const;
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Init::MakeRpcResults::Builder {
+public:
+  typedef MakeRpcResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasResult();
+#if !CAPNP_LITE
+  inline  ::ipc::capnp::messages::Rpc::Client getResult();
+  inline void setResult( ::ipc::capnp::messages::Rpc::Client&& value);
+  inline void setResult( ::ipc::capnp::messages::Rpc::Client& value);
+  inline void adoptResult(::capnp::Orphan< ::ipc::capnp::messages::Rpc>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::Rpc> disownResult();
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Init::MakeRpcResults::Pipeline {
+public:
+  typedef MakeRpcResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::Rpc::Client getResult();
 private:
   ::capnp::AnyPointer::Pipeline _typeless;
   friend class ::capnp::PipelineHook;
@@ -1192,6 +1583,84 @@ inline void Init::MakeMiningResults::Builder::adoptResult(
 }
 inline ::capnp::Orphan< ::ipc::capnp::messages::Mining> Init::MakeMiningResults::Builder::disownResult() {
   return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Mining>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#endif  // !CAPNP_LITE
+
+inline bool Init::MakeRpcParams::Reader::hasContext() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Init::MakeRpcParams::Builder::hasContext() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::mp::Context::Reader Init::MakeRpcParams::Reader::getContext() const {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::mp::Context::Builder Init::MakeRpcParams::Builder::getContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::mp::Context::Pipeline Init::MakeRpcParams::Pipeline::getContext() {
+  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void Init::MakeRpcParams::Builder::setContext( ::mp::Context::Reader value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::mp::Context::Builder Init::MakeRpcParams::Builder::initContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Init::MakeRpcParams::Builder::adoptContext(
+    ::capnp::Orphan< ::mp::Context>&& value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::mp::Context> Init::MakeRpcParams::Builder::disownContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Init::MakeRpcResults::Reader::hasResult() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Init::MakeRpcResults::Builder::hasResult() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::Rpc::Client Init::MakeRpcResults::Reader::getResult() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::Rpc::Client Init::MakeRpcResults::Builder::getResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::Rpc::Client Init::MakeRpcResults::Pipeline::getResult() {
+  return  ::ipc::capnp::messages::Rpc::Client(_typeless.getPointerField(0).asCap());
+}
+inline void Init::MakeRpcResults::Builder::setResult( ::ipc::capnp::messages::Rpc::Client&& cap) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(cap));
+}
+inline void Init::MakeRpcResults::Builder::setResult( ::ipc::capnp::messages::Rpc::Client& cap) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), cap);
+}
+inline void Init::MakeRpcResults::Builder::adoptResult(
+    ::capnp::Orphan< ::ipc::capnp::messages::Rpc>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::Rpc> Init::MakeRpcResults::Builder::disownResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Rpc>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #endif  // !CAPNP_LITE

@@ -3,8 +3,10 @@
 #ifndef CAPNP_ECHO_CAPNP_PROXY_TYPES_H
 #define CAPNP_ECHO_CAPNP_PROXY_TYPES_H
 
-#include <src/ipc/capnp/echo.capnp.proxy.h>
-#include <ipc/capnp/echo-types.h>
+// IWYU pragma: no_include "mp/proxy.h"
+#include <mp/proxy.h> // IWYU pragma: keep
+#include <capnp/echo.capnp.proxy.h> // IWYU pragma: keep
+#include "ipc/capnp/echo-types.h" // IWYU pragma: export
 namespace mp {
 } // namespace mp
 #endif

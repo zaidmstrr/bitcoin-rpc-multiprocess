@@ -11,7 +11,7 @@
 
 #ifndef CAPNP_VERSION
 #error "CAPNP_VERSION is not defined, is capnp/generated-header-support.h missing?"
-#elif CAPNP_VERSION != 1000001
+#elif CAPNP_VERSION != 1002000
 #error "Version mismatch between generated code and library headers.  You must use the same version of the Cap'n Proto compiler and library."
 #endif
 
@@ -23,6 +23,10 @@ CAPNP_BEGIN_HEADER
 namespace capnp {
 namespace schemas {
 
+CAPNP_DECLARE_SCHEMA(895d3c3ab1c80b14);
+CAPNP_DECLARE_SCHEMA(90fa0dee435f19a6);
+CAPNP_DECLARE_SCHEMA(d79ce061d3167841);
+CAPNP_DECLARE_SCHEMA(9c05d9dcd5e01942);
 CAPNP_DECLARE_SCHEMA(f9c68436df3af39e);
 CAPNP_DECLARE_SCHEMA(d62a851f0a406fba);
 CAPNP_DECLARE_SCHEMA(d26da946a6fc07cb);
@@ -34,6 +38,10 @@ CAPNP_DECLARE_SCHEMA(e2dfd3582b92b229);
 CAPNP_DECLARE_SCHEMA(8f132f96e3f130ea);
 CAPNP_DECLARE_SCHEMA(f23d59d452aea8de);
 CAPNP_DECLARE_SCHEMA(a0b06cebf3da9e15);
+CAPNP_DECLARE_SCHEMA(93a3f56b84a97b70);
+CAPNP_DECLARE_SCHEMA(a6eb9eb6f5c4e0d0);
+CAPNP_DECLARE_SCHEMA(a7258ce6c158ebe0);
+CAPNP_DECLARE_SCHEMA(ef712094c22c332c);
 CAPNP_DECLARE_SCHEMA(f9671ad841b2f622);
 CAPNP_DECLARE_SCHEMA(898c75958f8eab40);
 CAPNP_DECLARE_SCHEMA(b277e9484368f871);
@@ -56,7 +64,9 @@ CAPNP_DECLARE_SCHEMA(dafdbfbfce655b00);
 CAPNP_DECLARE_SCHEMA(b889895bf2d4ecb1);
 CAPNP_DECLARE_SCHEMA(fe3cdff3007f0bc2);
 CAPNP_DECLARE_SCHEMA(80fca083ef81a559);
-CAPNP_DECLARE_SCHEMA(9f6631a52550e381);
+CAPNP_DECLARE_SCHEMA(9ba437d9de0c452e);
+CAPNP_DECLARE_SCHEMA(89f3f39b6c9dd162);
+CAPNP_DECLARE_SCHEMA(dc399c6d34ae7e69);
 
 }  // namespace schemas
 }  // namespace capnp
@@ -65,6 +75,10 @@ namespace ipc {
 namespace capnp {
 namespace messages {
 
+static constexpr  ::int64_t MAX_MONEY = 2100000000000000ll;
+static KJ_CONSTEXPR(const) double MAX_DOUBLE CAPNP_NON_INT_CONSTEXPR_DECL_INIT(1.7976931348623157e308);
+static constexpr  ::uint32_t DEFAULT_BLOCK_RESERVED_WEIGHT = 8000u;
+static constexpr  ::uint32_t DEFAULT_COINBASE_OUTPUT_MAX_ADDITIONAL_SIGOPS = 400u;
 struct Mining {
   Mining() = delete;
 
@@ -83,6 +97,10 @@ struct Mining {
   struct WaitTipChangedResults;
   struct CreateNewBlockParams;
   struct CreateNewBlockResults;
+  struct CheckBlockParams;
+  struct CheckBlockResults;
+  struct InterruptParams;
+  struct InterruptResults;
 
   #if !CAPNP_LITE
   struct _capnpPrivate {
@@ -220,7 +238,7 @@ struct Mining::CreateNewBlockParams {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(f23d59d452aea8de, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(f23d59d452aea8de, 1, 2)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -236,6 +254,66 @@ struct Mining::CreateNewBlockResults {
 
   struct _capnpPrivate {
     CAPNP_DECLARE_STRUCT_HEADER(a0b06cebf3da9e15, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Mining::CheckBlockParams {
+  CheckBlockParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(93a3f56b84a97b70, 0, 3)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Mining::CheckBlockResults {
+  CheckBlockResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(a6eb9eb6f5c4e0d0, 1, 2)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Mining::InterruptParams {
+  InterruptParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(a7258ce6c158ebe0, 0, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct Mining::InterruptResults {
+  InterruptResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(ef712094c22c332c, 0, 0)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -262,14 +340,14 @@ struct BlockTemplate {
   struct GetTxSigopsResults;
   struct GetCoinbaseTxParams;
   struct GetCoinbaseTxResults;
-  struct GetCoinbaseCommitmentParams;
-  struct GetCoinbaseCommitmentResults;
-  struct GetWitnessCommitmentIndexParams;
-  struct GetWitnessCommitmentIndexResults;
   struct GetCoinbaseMerklePathParams;
   struct GetCoinbaseMerklePathResults;
   struct SubmitSolutionParams;
   struct SubmitSolutionResults;
+  struct WaitNextParams;
+  struct WaitNextResults;
+  struct InterruptWaitParams;
+  struct InterruptWaitResults;
 
   #if !CAPNP_LITE
   struct _capnpPrivate {
@@ -459,66 +537,6 @@ struct BlockTemplate::GetCoinbaseTxResults {
   };
 };
 
-struct BlockTemplate::GetCoinbaseCommitmentParams {
-  GetCoinbaseCommitmentParams() = delete;
-
-  class Reader;
-  class Builder;
-  class Pipeline;
-
-  struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(a12657e0ad662f4b, 0, 1)
-    #if !CAPNP_LITE
-    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
-    #endif  // !CAPNP_LITE
-  };
-};
-
-struct BlockTemplate::GetCoinbaseCommitmentResults {
-  GetCoinbaseCommitmentResults() = delete;
-
-  class Reader;
-  class Builder;
-  class Pipeline;
-
-  struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(da952a06f76488ff, 0, 1)
-    #if !CAPNP_LITE
-    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
-    #endif  // !CAPNP_LITE
-  };
-};
-
-struct BlockTemplate::GetWitnessCommitmentIndexParams {
-  GetWitnessCommitmentIndexParams() = delete;
-
-  class Reader;
-  class Builder;
-  class Pipeline;
-
-  struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(f6e81eb0866e3b87, 0, 1)
-    #if !CAPNP_LITE
-    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
-    #endif  // !CAPNP_LITE
-  };
-};
-
-struct BlockTemplate::GetWitnessCommitmentIndexResults {
-  GetWitnessCommitmentIndexResults() = delete;
-
-  class Reader;
-  class Builder;
-  class Pipeline;
-
-  struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(97f6899fb5e3c15f, 1, 0)
-    #if !CAPNP_LITE
-    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
-    #endif  // !CAPNP_LITE
-  };
-};
-
 struct BlockTemplate::GetCoinbaseMerklePathParams {
   GetCoinbaseMerklePathParams() = delete;
 
@@ -527,7 +545,7 @@ struct BlockTemplate::GetCoinbaseMerklePathParams {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(b726a965fac04db3, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(a12657e0ad662f4b, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -542,7 +560,7 @@ struct BlockTemplate::GetCoinbaseMerklePathResults {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(dafdbfbfce655b00, 0, 1)
+    CAPNP_DECLARE_STRUCT_HEADER(da952a06f76488ff, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -557,7 +575,7 @@ struct BlockTemplate::SubmitSolutionParams {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(b889895bf2d4ecb1, 2, 2)
+    CAPNP_DECLARE_STRUCT_HEADER(f6e81eb0866e3b87, 2, 2)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -572,7 +590,67 @@ struct BlockTemplate::SubmitSolutionResults {
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(fe3cdff3007f0bc2, 1, 0)
+    CAPNP_DECLARE_STRUCT_HEADER(97f6899fb5e3c15f, 1, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct BlockTemplate::WaitNextParams {
+  WaitNextParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(b726a965fac04db3, 0, 2)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct BlockTemplate::WaitNextResults {
+  WaitNextResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(dafdbfbfce655b00, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct BlockTemplate::InterruptWaitParams {
+  InterruptWaitParams() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(b889895bf2d4ecb1, 0, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct BlockTemplate::InterruptWaitResults {
+  InterruptWaitResults() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(fe3cdff3007f0bc2, 0, 0)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -594,15 +672,45 @@ struct BlockCreateOptions {
   };
 };
 
-struct BlockValidationState {
-  BlockValidationState() = delete;
+struct BlockWaitOptions {
+  BlockWaitOptions() = delete;
 
   class Reader;
   class Builder;
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(9f6631a52550e381, 1, 2)
+    CAPNP_DECLARE_STRUCT_HEADER(9ba437d9de0c452e, 2, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct BlockCheckOptions {
+  BlockCheckOptions() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(89f3f39b6c9dd162, 1, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct CoinbaseTx {
+  CoinbaseTx() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(dc399c6d34ae7e69, 3, 3)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -640,6 +748,10 @@ public:
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Mining::CreateNewBlockParams,  ::ipc::capnp::messages::Mining::CreateNewBlockResults> createNewBlockRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::Mining::CheckBlockParams,  ::ipc::capnp::messages::Mining::CheckBlockResults> checkBlockRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::Mining::InterruptParams,  ::ipc::capnp::messages::Mining::InterruptResults> interruptRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
 
 protected:
   Client() = default;
@@ -676,6 +788,14 @@ protected:
   typedef  ::ipc::capnp::messages::Mining::CreateNewBlockResults CreateNewBlockResults;
   typedef ::capnp::CallContext<CreateNewBlockParams, CreateNewBlockResults> CreateNewBlockContext;
   virtual ::kj::Promise<void> createNewBlock(CreateNewBlockContext context);
+  typedef  ::ipc::capnp::messages::Mining::CheckBlockParams CheckBlockParams;
+  typedef  ::ipc::capnp::messages::Mining::CheckBlockResults CheckBlockResults;
+  typedef ::capnp::CallContext<CheckBlockParams, CheckBlockResults> CheckBlockContext;
+  virtual ::kj::Promise<void> checkBlock(CheckBlockContext context);
+  typedef  ::ipc::capnp::messages::Mining::InterruptParams InterruptParams;
+  typedef  ::ipc::capnp::messages::Mining::InterruptResults InterruptResults;
+  typedef ::capnp::CallContext<InterruptParams, InterruptResults> InterruptContext;
+  virtual ::kj::Promise<void> interrupt(InterruptContext context);
 
   inline  ::ipc::capnp::messages::Mining::Client thisCap() {
     return ::capnp::Capability::Server::thisCap()
@@ -1369,8 +1489,13 @@ public:
   }
 #endif  // !CAPNP_LITE
 
+  inline bool hasContext() const;
+  inline  ::mp::Context::Reader getContext() const;
+
   inline bool hasOptions() const;
   inline  ::ipc::capnp::messages::BlockCreateOptions::Reader getOptions() const;
+
+  inline bool getCooldown() const;
 
 private:
   ::capnp::_::StructReader _reader;
@@ -1400,12 +1525,22 @@ public:
   inline ::kj::StringTree toString() const { return asReader().toString(); }
 #endif  // !CAPNP_LITE
 
+  inline bool hasContext();
+  inline  ::mp::Context::Builder getContext();
+  inline void setContext( ::mp::Context::Reader value);
+  inline  ::mp::Context::Builder initContext();
+  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
+  inline ::capnp::Orphan< ::mp::Context> disownContext();
+
   inline bool hasOptions();
   inline  ::ipc::capnp::messages::BlockCreateOptions::Builder getOptions();
   inline void setOptions( ::ipc::capnp::messages::BlockCreateOptions::Reader value);
   inline  ::ipc::capnp::messages::BlockCreateOptions::Builder initOptions();
   inline void adoptOptions(::capnp::Orphan< ::ipc::capnp::messages::BlockCreateOptions>&& value);
   inline ::capnp::Orphan< ::ipc::capnp::messages::BlockCreateOptions> disownOptions();
+
+  inline bool getCooldown();
+  inline void setCooldown(bool value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -1425,6 +1560,7 @@ public:
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
       : _typeless(kj::mv(typeless)) {}
 
+  inline  ::mp::Context::Pipeline getContext();
   inline  ::ipc::capnp::messages::BlockCreateOptions::Pipeline getOptions();
 private:
   ::capnp::AnyPointer::Pipeline _typeless;
@@ -1520,6 +1656,347 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class Mining::CheckBlockParams::Reader {
+public:
+  typedef CheckBlockParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext() const;
+  inline  ::mp::Context::Reader getContext() const;
+
+  inline bool hasBlock() const;
+  inline  ::capnp::Data::Reader getBlock() const;
+
+  inline bool hasOptions() const;
+  inline  ::ipc::capnp::messages::BlockCheckOptions::Reader getOptions() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Mining::CheckBlockParams::Builder {
+public:
+  typedef CheckBlockParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext();
+  inline  ::mp::Context::Builder getContext();
+  inline void setContext( ::mp::Context::Reader value);
+  inline  ::mp::Context::Builder initContext();
+  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
+  inline ::capnp::Orphan< ::mp::Context> disownContext();
+
+  inline bool hasBlock();
+  inline  ::capnp::Data::Builder getBlock();
+  inline void setBlock( ::capnp::Data::Reader value);
+  inline  ::capnp::Data::Builder initBlock(unsigned int size);
+  inline void adoptBlock(::capnp::Orphan< ::capnp::Data>&& value);
+  inline ::capnp::Orphan< ::capnp::Data> disownBlock();
+
+  inline bool hasOptions();
+  inline  ::ipc::capnp::messages::BlockCheckOptions::Builder getOptions();
+  inline void setOptions( ::ipc::capnp::messages::BlockCheckOptions::Reader value);
+  inline  ::ipc::capnp::messages::BlockCheckOptions::Builder initOptions();
+  inline void adoptOptions(::capnp::Orphan< ::ipc::capnp::messages::BlockCheckOptions>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::BlockCheckOptions> disownOptions();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Mining::CheckBlockParams::Pipeline {
+public:
+  typedef CheckBlockParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::mp::Context::Pipeline getContext();
+  inline  ::ipc::capnp::messages::BlockCheckOptions::Pipeline getOptions();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Mining::CheckBlockResults::Reader {
+public:
+  typedef CheckBlockResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasReason() const;
+  inline  ::capnp::Text::Reader getReason() const;
+
+  inline bool hasDebug() const;
+  inline  ::capnp::Text::Reader getDebug() const;
+
+  inline bool getResult() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Mining::CheckBlockResults::Builder {
+public:
+  typedef CheckBlockResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasReason();
+  inline  ::capnp::Text::Builder getReason();
+  inline void setReason( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initReason(unsigned int size);
+  inline void adoptReason(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownReason();
+
+  inline bool hasDebug();
+  inline  ::capnp::Text::Builder getDebug();
+  inline void setDebug( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initDebug(unsigned int size);
+  inline void adoptDebug(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownDebug();
+
+  inline bool getResult();
+  inline void setResult(bool value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Mining::CheckBlockResults::Pipeline {
+public:
+  typedef CheckBlockResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Mining::InterruptParams::Reader {
+public:
+  typedef InterruptParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Mining::InterruptParams::Builder {
+public:
+  typedef InterruptParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Mining::InterruptParams::Pipeline {
+public:
+  typedef InterruptParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class Mining::InterruptResults::Reader {
+public:
+  typedef InterruptResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class Mining::InterruptResults::Builder {
+public:
+  typedef InterruptResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class Mining::InterruptResults::Pipeline {
+public:
+  typedef InterruptResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 #if !CAPNP_LITE
 class BlockTemplate::Client
     : public virtual ::capnp::Capability::Client {
@@ -1551,13 +2028,13 @@ public:
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::GetCoinbaseTxParams,  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseTxResults> getCoinbaseTxRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
-  ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentParams,  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentResults> getCoinbaseCommitmentRequest(
-      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
-  ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexParams,  ::ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexResults> getWitnessCommitmentIndexRequest(
-      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams,  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathResults> getCoinbaseMerklePathRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::SubmitSolutionParams,  ::ipc::capnp::messages::BlockTemplate::SubmitSolutionResults> submitSolutionRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::WaitNextParams,  ::ipc::capnp::messages::BlockTemplate::WaitNextResults> waitNextRequest(
+      ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
+  ::capnp::Request< ::ipc::capnp::messages::BlockTemplate::InterruptWaitParams,  ::ipc::capnp::messages::BlockTemplate::InterruptWaitResults> interruptWaitRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
 
 protected:
@@ -1599,14 +2076,6 @@ protected:
   typedef  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseTxResults GetCoinbaseTxResults;
   typedef ::capnp::CallContext<GetCoinbaseTxParams, GetCoinbaseTxResults> GetCoinbaseTxContext;
   virtual ::kj::Promise<void> getCoinbaseTx(GetCoinbaseTxContext context);
-  typedef  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentParams GetCoinbaseCommitmentParams;
-  typedef  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseCommitmentResults GetCoinbaseCommitmentResults;
-  typedef ::capnp::CallContext<GetCoinbaseCommitmentParams, GetCoinbaseCommitmentResults> GetCoinbaseCommitmentContext;
-  virtual ::kj::Promise<void> getCoinbaseCommitment(GetCoinbaseCommitmentContext context);
-  typedef  ::ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexParams GetWitnessCommitmentIndexParams;
-  typedef  ::ipc::capnp::messages::BlockTemplate::GetWitnessCommitmentIndexResults GetWitnessCommitmentIndexResults;
-  typedef ::capnp::CallContext<GetWitnessCommitmentIndexParams, GetWitnessCommitmentIndexResults> GetWitnessCommitmentIndexContext;
-  virtual ::kj::Promise<void> getWitnessCommitmentIndex(GetWitnessCommitmentIndexContext context);
   typedef  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams GetCoinbaseMerklePathParams;
   typedef  ::ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathResults GetCoinbaseMerklePathResults;
   typedef ::capnp::CallContext<GetCoinbaseMerklePathParams, GetCoinbaseMerklePathResults> GetCoinbaseMerklePathContext;
@@ -1615,6 +2084,14 @@ protected:
   typedef  ::ipc::capnp::messages::BlockTemplate::SubmitSolutionResults SubmitSolutionResults;
   typedef ::capnp::CallContext<SubmitSolutionParams, SubmitSolutionResults> SubmitSolutionContext;
   virtual ::kj::Promise<void> submitSolution(SubmitSolutionContext context);
+  typedef  ::ipc::capnp::messages::BlockTemplate::WaitNextParams WaitNextParams;
+  typedef  ::ipc::capnp::messages::BlockTemplate::WaitNextResults WaitNextResults;
+  typedef ::capnp::CallContext<WaitNextParams, WaitNextResults> WaitNextContext;
+  virtual ::kj::Promise<void> waitNext(WaitNextContext context);
+  typedef  ::ipc::capnp::messages::BlockTemplate::InterruptWaitParams InterruptWaitParams;
+  typedef  ::ipc::capnp::messages::BlockTemplate::InterruptWaitResults InterruptWaitResults;
+  typedef ::capnp::CallContext<InterruptWaitParams, InterruptWaitResults> InterruptWaitContext;
+  virtual ::kj::Promise<void> interruptWait(InterruptWaitContext context);
 
   inline  ::ipc::capnp::messages::BlockTemplate::Client thisCap() {
     return ::capnp::Capability::Server::thisCap()
@@ -2534,7 +3011,7 @@ public:
 #endif  // !CAPNP_LITE
 
   inline bool hasResult() const;
-  inline  ::capnp::Data::Reader getResult() const;
+  inline  ::ipc::capnp::messages::CoinbaseTx::Reader getResult() const;
 
 private:
   ::capnp::_::StructReader _reader;
@@ -2565,11 +3042,11 @@ public:
 #endif  // !CAPNP_LITE
 
   inline bool hasResult();
-  inline  ::capnp::Data::Builder getResult();
-  inline void setResult( ::capnp::Data::Reader value);
-  inline  ::capnp::Data::Builder initResult(unsigned int size);
-  inline void adoptResult(::capnp::Orphan< ::capnp::Data>&& value);
-  inline ::capnp::Orphan< ::capnp::Data> disownResult();
+  inline  ::ipc::capnp::messages::CoinbaseTx::Builder getResult();
+  inline void setResult( ::ipc::capnp::messages::CoinbaseTx::Reader value);
+  inline  ::ipc::capnp::messages::CoinbaseTx::Builder initResult();
+  inline void adoptResult(::capnp::Orphan< ::ipc::capnp::messages::CoinbaseTx>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::CoinbaseTx> disownResult();
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -2589,327 +3066,7 @@ public:
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
       : _typeless(kj::mv(typeless)) {}
 
-private:
-  ::capnp::AnyPointer::Pipeline _typeless;
-  friend class ::capnp::PipelineHook;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-};
-#endif  // !CAPNP_LITE
-
-class BlockTemplate::GetCoinbaseCommitmentParams::Reader {
-public:
-  typedef GetCoinbaseCommitmentParams Reads;
-
-  Reader() = default;
-  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
-
-  inline ::capnp::MessageSize totalSize() const {
-    return _reader.totalSize().asPublic();
-  }
-
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const {
-    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
-  }
-#endif  // !CAPNP_LITE
-
-  inline bool hasContext() const;
-  inline  ::mp::Context::Reader getContext() const;
-
-private:
-  ::capnp::_::StructReader _reader;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::List;
-  friend class ::capnp::MessageBuilder;
-  friend class ::capnp::Orphanage;
-};
-
-class BlockTemplate::GetCoinbaseCommitmentParams::Builder {
-public:
-  typedef GetCoinbaseCommitmentParams Builds;
-
-  Builder() = delete;  // Deleted to discourage incorrect usage.
-                       // You can explicitly initialize to nullptr instead.
-  inline Builder(decltype(nullptr)) {}
-  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
-  inline operator Reader() const { return Reader(_builder.asReader()); }
-  inline Reader asReader() const { return *this; }
-
-  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const { return asReader().toString(); }
-#endif  // !CAPNP_LITE
-
-  inline bool hasContext();
-  inline  ::mp::Context::Builder getContext();
-  inline void setContext( ::mp::Context::Reader value);
-  inline  ::mp::Context::Builder initContext();
-  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
-  inline ::capnp::Orphan< ::mp::Context> disownContext();
-
-private:
-  ::capnp::_::StructBuilder _builder;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  friend class ::capnp::Orphanage;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-};
-
-#if !CAPNP_LITE
-class BlockTemplate::GetCoinbaseCommitmentParams::Pipeline {
-public:
-  typedef GetCoinbaseCommitmentParams Pipelines;
-
-  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
-  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
-      : _typeless(kj::mv(typeless)) {}
-
-  inline  ::mp::Context::Pipeline getContext();
-private:
-  ::capnp::AnyPointer::Pipeline _typeless;
-  friend class ::capnp::PipelineHook;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-};
-#endif  // !CAPNP_LITE
-
-class BlockTemplate::GetCoinbaseCommitmentResults::Reader {
-public:
-  typedef GetCoinbaseCommitmentResults Reads;
-
-  Reader() = default;
-  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
-
-  inline ::capnp::MessageSize totalSize() const {
-    return _reader.totalSize().asPublic();
-  }
-
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const {
-    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
-  }
-#endif  // !CAPNP_LITE
-
-  inline bool hasResult() const;
-  inline  ::capnp::Data::Reader getResult() const;
-
-private:
-  ::capnp::_::StructReader _reader;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::List;
-  friend class ::capnp::MessageBuilder;
-  friend class ::capnp::Orphanage;
-};
-
-class BlockTemplate::GetCoinbaseCommitmentResults::Builder {
-public:
-  typedef GetCoinbaseCommitmentResults Builds;
-
-  Builder() = delete;  // Deleted to discourage incorrect usage.
-                       // You can explicitly initialize to nullptr instead.
-  inline Builder(decltype(nullptr)) {}
-  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
-  inline operator Reader() const { return Reader(_builder.asReader()); }
-  inline Reader asReader() const { return *this; }
-
-  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const { return asReader().toString(); }
-#endif  // !CAPNP_LITE
-
-  inline bool hasResult();
-  inline  ::capnp::Data::Builder getResult();
-  inline void setResult( ::capnp::Data::Reader value);
-  inline  ::capnp::Data::Builder initResult(unsigned int size);
-  inline void adoptResult(::capnp::Orphan< ::capnp::Data>&& value);
-  inline ::capnp::Orphan< ::capnp::Data> disownResult();
-
-private:
-  ::capnp::_::StructBuilder _builder;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  friend class ::capnp::Orphanage;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-};
-
-#if !CAPNP_LITE
-class BlockTemplate::GetCoinbaseCommitmentResults::Pipeline {
-public:
-  typedef GetCoinbaseCommitmentResults Pipelines;
-
-  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
-  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
-      : _typeless(kj::mv(typeless)) {}
-
-private:
-  ::capnp::AnyPointer::Pipeline _typeless;
-  friend class ::capnp::PipelineHook;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-};
-#endif  // !CAPNP_LITE
-
-class BlockTemplate::GetWitnessCommitmentIndexParams::Reader {
-public:
-  typedef GetWitnessCommitmentIndexParams Reads;
-
-  Reader() = default;
-  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
-
-  inline ::capnp::MessageSize totalSize() const {
-    return _reader.totalSize().asPublic();
-  }
-
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const {
-    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
-  }
-#endif  // !CAPNP_LITE
-
-  inline bool hasContext() const;
-  inline  ::mp::Context::Reader getContext() const;
-
-private:
-  ::capnp::_::StructReader _reader;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::List;
-  friend class ::capnp::MessageBuilder;
-  friend class ::capnp::Orphanage;
-};
-
-class BlockTemplate::GetWitnessCommitmentIndexParams::Builder {
-public:
-  typedef GetWitnessCommitmentIndexParams Builds;
-
-  Builder() = delete;  // Deleted to discourage incorrect usage.
-                       // You can explicitly initialize to nullptr instead.
-  inline Builder(decltype(nullptr)) {}
-  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
-  inline operator Reader() const { return Reader(_builder.asReader()); }
-  inline Reader asReader() const { return *this; }
-
-  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const { return asReader().toString(); }
-#endif  // !CAPNP_LITE
-
-  inline bool hasContext();
-  inline  ::mp::Context::Builder getContext();
-  inline void setContext( ::mp::Context::Reader value);
-  inline  ::mp::Context::Builder initContext();
-  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
-  inline ::capnp::Orphan< ::mp::Context> disownContext();
-
-private:
-  ::capnp::_::StructBuilder _builder;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  friend class ::capnp::Orphanage;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-};
-
-#if !CAPNP_LITE
-class BlockTemplate::GetWitnessCommitmentIndexParams::Pipeline {
-public:
-  typedef GetWitnessCommitmentIndexParams Pipelines;
-
-  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
-  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
-      : _typeless(kj::mv(typeless)) {}
-
-  inline  ::mp::Context::Pipeline getContext();
-private:
-  ::capnp::AnyPointer::Pipeline _typeless;
-  friend class ::capnp::PipelineHook;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-};
-#endif  // !CAPNP_LITE
-
-class BlockTemplate::GetWitnessCommitmentIndexResults::Reader {
-public:
-  typedef GetWitnessCommitmentIndexResults Reads;
-
-  Reader() = default;
-  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
-
-  inline ::capnp::MessageSize totalSize() const {
-    return _reader.totalSize().asPublic();
-  }
-
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const {
-    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
-  }
-#endif  // !CAPNP_LITE
-
-  inline  ::int32_t getResult() const;
-
-private:
-  ::capnp::_::StructReader _reader;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::List;
-  friend class ::capnp::MessageBuilder;
-  friend class ::capnp::Orphanage;
-};
-
-class BlockTemplate::GetWitnessCommitmentIndexResults::Builder {
-public:
-  typedef GetWitnessCommitmentIndexResults Builds;
-
-  Builder() = delete;  // Deleted to discourage incorrect usage.
-                       // You can explicitly initialize to nullptr instead.
-  inline Builder(decltype(nullptr)) {}
-  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
-  inline operator Reader() const { return Reader(_builder.asReader()); }
-  inline Reader asReader() const { return *this; }
-
-  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
-#if !CAPNP_LITE
-  inline ::kj::StringTree toString() const { return asReader().toString(); }
-#endif  // !CAPNP_LITE
-
-  inline  ::int32_t getResult();
-  inline void setResult( ::int32_t value);
-
-private:
-  ::capnp::_::StructBuilder _builder;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::ToDynamic_;
-  friend class ::capnp::Orphanage;
-  template <typename, ::capnp::Kind>
-  friend struct ::capnp::_::PointerHelpers;
-};
-
-#if !CAPNP_LITE
-class BlockTemplate::GetWitnessCommitmentIndexResults::Pipeline {
-public:
-  typedef GetWitnessCommitmentIndexResults Pipelines;
-
-  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
-  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
-      : _typeless(kj::mv(typeless)) {}
-
+  inline  ::ipc::capnp::messages::CoinbaseTx::Pipeline getResult();
 private:
   ::capnp::AnyPointer::Pipeline _typeless;
   friend class ::capnp::PipelineHook;
@@ -3265,6 +3422,327 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class BlockTemplate::WaitNextParams::Reader {
+public:
+  typedef WaitNextParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext() const;
+  inline  ::mp::Context::Reader getContext() const;
+
+  inline bool hasOptions() const;
+  inline  ::ipc::capnp::messages::BlockWaitOptions::Reader getOptions() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class BlockTemplate::WaitNextParams::Builder {
+public:
+  typedef WaitNextParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasContext();
+  inline  ::mp::Context::Builder getContext();
+  inline void setContext( ::mp::Context::Reader value);
+  inline  ::mp::Context::Builder initContext();
+  inline void adoptContext(::capnp::Orphan< ::mp::Context>&& value);
+  inline ::capnp::Orphan< ::mp::Context> disownContext();
+
+  inline bool hasOptions();
+  inline  ::ipc::capnp::messages::BlockWaitOptions::Builder getOptions();
+  inline void setOptions( ::ipc::capnp::messages::BlockWaitOptions::Reader value);
+  inline  ::ipc::capnp::messages::BlockWaitOptions::Builder initOptions();
+  inline void adoptOptions(::capnp::Orphan< ::ipc::capnp::messages::BlockWaitOptions>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::BlockWaitOptions> disownOptions();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class BlockTemplate::WaitNextParams::Pipeline {
+public:
+  typedef WaitNextParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::mp::Context::Pipeline getContext();
+  inline  ::ipc::capnp::messages::BlockWaitOptions::Pipeline getOptions();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class BlockTemplate::WaitNextResults::Reader {
+public:
+  typedef WaitNextResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasResult() const;
+#if !CAPNP_LITE
+  inline  ::ipc::capnp::messages::BlockTemplate::Client getResult() const;
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class BlockTemplate::WaitNextResults::Builder {
+public:
+  typedef WaitNextResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasResult();
+#if !CAPNP_LITE
+  inline  ::ipc::capnp::messages::BlockTemplate::Client getResult();
+  inline void setResult( ::ipc::capnp::messages::BlockTemplate::Client&& value);
+  inline void setResult( ::ipc::capnp::messages::BlockTemplate::Client& value);
+  inline void adoptResult(::capnp::Orphan< ::ipc::capnp::messages::BlockTemplate>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::BlockTemplate> disownResult();
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class BlockTemplate::WaitNextResults::Pipeline {
+public:
+  typedef WaitNextResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::BlockTemplate::Client getResult();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class BlockTemplate::InterruptWaitParams::Reader {
+public:
+  typedef InterruptWaitParams Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class BlockTemplate::InterruptWaitParams::Builder {
+public:
+  typedef InterruptWaitParams Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class BlockTemplate::InterruptWaitParams::Pipeline {
+public:
+  typedef InterruptWaitParams Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class BlockTemplate::InterruptWaitResults::Reader {
+public:
+  typedef InterruptWaitResults Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class BlockTemplate::InterruptWaitResults::Builder {
+public:
+  typedef InterruptWaitResults Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class BlockTemplate::InterruptWaitResults::Pipeline {
+public:
+  typedef InterruptWaitResults Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 class BlockCreateOptions::Reader {
 public:
   typedef BlockCreateOptions Reads;
@@ -3351,9 +3829,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class BlockValidationState::Reader {
+class BlockWaitOptions::Reader {
 public:
-  typedef BlockValidationState Reads;
+  typedef BlockWaitOptions Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -3368,15 +3846,9 @@ public:
   }
 #endif  // !CAPNP_LITE
 
-  inline  ::int32_t getMode() const;
+  inline double getTimeout() const;
 
-  inline  ::int32_t getResult() const;
-
-  inline bool hasRejectReason() const;
-  inline  ::capnp::Text::Reader getRejectReason() const;
-
-  inline bool hasDebugMessage() const;
-  inline  ::capnp::Text::Reader getDebugMessage() const;
+  inline  ::int64_t getFeeThreshold() const;
 
 private:
   ::capnp::_::StructReader _reader;
@@ -3390,9 +3862,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class BlockValidationState::Builder {
+class BlockWaitOptions::Builder {
 public:
-  typedef BlockValidationState Builds;
+  typedef BlockWaitOptions Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -3406,25 +3878,11 @@ public:
   inline ::kj::StringTree toString() const { return asReader().toString(); }
 #endif  // !CAPNP_LITE
 
-  inline  ::int32_t getMode();
-  inline void setMode( ::int32_t value);
+  inline double getTimeout();
+  inline void setTimeout(double value);
 
-  inline  ::int32_t getResult();
-  inline void setResult( ::int32_t value);
-
-  inline bool hasRejectReason();
-  inline  ::capnp::Text::Builder getRejectReason();
-  inline void setRejectReason( ::capnp::Text::Reader value);
-  inline  ::capnp::Text::Builder initRejectReason(unsigned int size);
-  inline void adoptRejectReason(::capnp::Orphan< ::capnp::Text>&& value);
-  inline ::capnp::Orphan< ::capnp::Text> disownRejectReason();
-
-  inline bool hasDebugMessage();
-  inline  ::capnp::Text::Builder getDebugMessage();
-  inline void setDebugMessage( ::capnp::Text::Reader value);
-  inline  ::capnp::Text::Builder initDebugMessage(unsigned int size);
-  inline void adoptDebugMessage(::capnp::Orphan< ::capnp::Text>&& value);
-  inline ::capnp::Orphan< ::capnp::Text> disownDebugMessage();
+  inline  ::int64_t getFeeThreshold();
+  inline void setFeeThreshold( ::int64_t value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -3436,9 +3894,212 @@ private:
 };
 
 #if !CAPNP_LITE
-class BlockValidationState::Pipeline {
+class BlockWaitOptions::Pipeline {
 public:
-  typedef BlockValidationState Pipelines;
+  typedef BlockWaitOptions Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class BlockCheckOptions::Reader {
+public:
+  typedef BlockCheckOptions Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool getCheckMerkleRoot() const;
+
+  inline bool getCheckPow() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class BlockCheckOptions::Builder {
+public:
+  typedef BlockCheckOptions Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool getCheckMerkleRoot();
+  inline void setCheckMerkleRoot(bool value);
+
+  inline bool getCheckPow();
+  inline void setCheckPow(bool value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class BlockCheckOptions::Pipeline {
+public:
+  typedef BlockCheckOptions Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class CoinbaseTx::Reader {
+public:
+  typedef CoinbaseTx Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline  ::uint32_t getVersion() const;
+
+  inline  ::uint32_t getSequence() const;
+
+  inline bool hasScriptSigPrefix() const;
+  inline  ::capnp::Data::Reader getScriptSigPrefix() const;
+
+  inline bool hasWitness() const;
+  inline  ::capnp::Data::Reader getWitness() const;
+
+  inline  ::int64_t getBlockRewardRemaining() const;
+
+  inline bool hasRequiredOutputs() const;
+  inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Reader getRequiredOutputs() const;
+
+  inline  ::uint32_t getLockTime() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class CoinbaseTx::Builder {
+public:
+  typedef CoinbaseTx Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline  ::uint32_t getVersion();
+  inline void setVersion( ::uint32_t value);
+
+  inline  ::uint32_t getSequence();
+  inline void setSequence( ::uint32_t value);
+
+  inline bool hasScriptSigPrefix();
+  inline  ::capnp::Data::Builder getScriptSigPrefix();
+  inline void setScriptSigPrefix( ::capnp::Data::Reader value);
+  inline  ::capnp::Data::Builder initScriptSigPrefix(unsigned int size);
+  inline void adoptScriptSigPrefix(::capnp::Orphan< ::capnp::Data>&& value);
+  inline ::capnp::Orphan< ::capnp::Data> disownScriptSigPrefix();
+
+  inline bool hasWitness();
+  inline  ::capnp::Data::Builder getWitness();
+  inline void setWitness( ::capnp::Data::Reader value);
+  inline  ::capnp::Data::Builder initWitness(unsigned int size);
+  inline void adoptWitness(::capnp::Orphan< ::capnp::Data>&& value);
+  inline ::capnp::Orphan< ::capnp::Data> disownWitness();
+
+  inline  ::int64_t getBlockRewardRemaining();
+  inline void setBlockRewardRemaining( ::int64_t value);
+
+  inline bool hasRequiredOutputs();
+  inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Builder getRequiredOutputs();
+  inline void setRequiredOutputs( ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Reader value);
+  inline void setRequiredOutputs(::kj::ArrayPtr<const  ::capnp::Data::Reader> value);
+  inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Builder initRequiredOutputs(unsigned int size);
+  inline void adoptRequiredOutputs(::capnp::Orphan< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>&& value);
+  inline ::capnp::Orphan< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>> disownRequiredOutputs();
+
+  inline  ::uint32_t getLockTime();
+  inline void setLockTime( ::uint32_t value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class CoinbaseTx::Pipeline {
+public:
+  typedef CoinbaseTx Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -3751,16 +4412,16 @@ inline ::capnp::Orphan< ::capnp::Data> Mining::WaitTipChangedParams::Builder::di
 
 inline double Mining::WaitTipChangedParams::Reader::getTimeout() const {
   return _reader.getDataField<double>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, 9218868437227405311ull);
 }
 
 inline double Mining::WaitTipChangedParams::Builder::getTimeout() {
   return _builder.getDataField<double>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, 9218868437227405311ull);
 }
 inline void Mining::WaitTipChangedParams::Builder::setTimeout(double value) {
   _builder.setDataField<double>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value, 9218868437227405311ull);
 }
 
 inline bool Mining::WaitTipChangedResults::Reader::hasResult() const {
@@ -3802,43 +4463,96 @@ inline ::capnp::Orphan< ::ipc::capnp::messages::BlockRef> Mining::WaitTipChanged
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool Mining::CreateNewBlockParams::Reader::hasOptions() const {
+inline bool Mining::CreateNewBlockParams::Reader::hasContext() const {
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Mining::CreateNewBlockParams::Builder::hasOptions() {
+inline bool Mining::CreateNewBlockParams::Builder::hasContext() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::ipc::capnp::messages::BlockCreateOptions::Reader Mining::CreateNewBlockParams::Reader::getOptions() const {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::get(_reader.getPointerField(
+inline  ::mp::Context::Reader Mining::CreateNewBlockParams::Reader::getContext() const {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::ipc::capnp::messages::BlockCreateOptions::Builder Mining::CreateNewBlockParams::Builder::getOptions() {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::get(_builder.getPointerField(
+inline  ::mp::Context::Builder Mining::CreateNewBlockParams::Builder::getContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #if !CAPNP_LITE
+inline  ::mp::Context::Pipeline Mining::CreateNewBlockParams::Pipeline::getContext() {
+  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void Mining::CreateNewBlockParams::Builder::setContext( ::mp::Context::Reader value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::mp::Context::Builder Mining::CreateNewBlockParams::Builder::initContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Mining::CreateNewBlockParams::Builder::adoptContext(
+    ::capnp::Orphan< ::mp::Context>&& value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::mp::Context> Mining::CreateNewBlockParams::Builder::disownContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CreateNewBlockParams::Reader::hasOptions() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CreateNewBlockParams::Builder::hasOptions() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::BlockCreateOptions::Reader Mining::CreateNewBlockParams::Reader::getOptions() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::BlockCreateOptions::Builder Mining::CreateNewBlockParams::Builder::getOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
 inline  ::ipc::capnp::messages::BlockCreateOptions::Pipeline Mining::CreateNewBlockParams::Pipeline::getOptions() {
-  return  ::ipc::capnp::messages::BlockCreateOptions::Pipeline(_typeless.getPointerField(0));
+  return  ::ipc::capnp::messages::BlockCreateOptions::Pipeline(_typeless.getPointerField(1));
 }
 #endif  // !CAPNP_LITE
 inline void Mining::CreateNewBlockParams::Builder::setOptions( ::ipc::capnp::messages::BlockCreateOptions::Reader value) {
   ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::set(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
 }
 inline  ::ipc::capnp::messages::BlockCreateOptions::Builder Mining::CreateNewBlockParams::Builder::initOptions() {
   return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::init(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
 }
 inline void Mining::CreateNewBlockParams::Builder::adoptOptions(
     ::capnp::Orphan< ::ipc::capnp::messages::BlockCreateOptions>&& value) {
   ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::adopt(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
 }
 inline ::capnp::Orphan< ::ipc::capnp::messages::BlockCreateOptions> Mining::CreateNewBlockParams::Builder::disownOptions() {
   return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCreateOptions>::disown(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CreateNewBlockParams::Reader::getCooldown() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
+}
+
+inline bool Mining::CreateNewBlockParams::Builder::getCooldown() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
+}
+inline void Mining::CreateNewBlockParams::Builder::setCooldown(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value, true);
 }
 
 inline bool Mining::CreateNewBlockResults::Reader::hasResult() const {
@@ -3879,6 +4593,200 @@ inline ::capnp::Orphan< ::ipc::capnp::messages::BlockTemplate> Mining::CreateNew
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #endif  // !CAPNP_LITE
+
+inline bool Mining::CheckBlockParams::Reader::hasContext() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CheckBlockParams::Builder::hasContext() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::mp::Context::Reader Mining::CheckBlockParams::Reader::getContext() const {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::mp::Context::Builder Mining::CheckBlockParams::Builder::getContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::mp::Context::Pipeline Mining::CheckBlockParams::Pipeline::getContext() {
+  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void Mining::CheckBlockParams::Builder::setContext( ::mp::Context::Reader value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::mp::Context::Builder Mining::CheckBlockParams::Builder::initContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Mining::CheckBlockParams::Builder::adoptContext(
+    ::capnp::Orphan< ::mp::Context>&& value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::mp::Context> Mining::CheckBlockParams::Builder::disownContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CheckBlockParams::Reader::hasBlock() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CheckBlockParams::Builder::hasBlock() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Data::Reader Mining::CheckBlockParams::Reader::getBlock() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Data::Builder Mining::CheckBlockParams::Builder::getBlock() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void Mining::CheckBlockParams::Builder::setBlock( ::capnp::Data::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Data::Builder Mining::CheckBlockParams::Builder::initBlock(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void Mining::CheckBlockParams::Builder::adoptBlock(
+    ::capnp::Orphan< ::capnp::Data>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Data> Mining::CheckBlockParams::Builder::disownBlock() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CheckBlockParams::Reader::hasOptions() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CheckBlockParams::Builder::hasOptions() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::BlockCheckOptions::Reader Mining::CheckBlockParams::Reader::getOptions() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::get(_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::BlockCheckOptions::Builder Mining::CheckBlockParams::Builder::getOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::get(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::BlockCheckOptions::Pipeline Mining::CheckBlockParams::Pipeline::getOptions() {
+  return  ::ipc::capnp::messages::BlockCheckOptions::Pipeline(_typeless.getPointerField(2));
+}
+#endif  // !CAPNP_LITE
+inline void Mining::CheckBlockParams::Builder::setOptions( ::ipc::capnp::messages::BlockCheckOptions::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::BlockCheckOptions::Builder Mining::CheckBlockParams::Builder::initOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::init(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline void Mining::CheckBlockParams::Builder::adoptOptions(
+    ::capnp::Orphan< ::ipc::capnp::messages::BlockCheckOptions>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::adopt(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::BlockCheckOptions> Mining::CheckBlockParams::Builder::disownOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockCheckOptions>::disown(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CheckBlockResults::Reader::hasReason() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CheckBlockResults::Builder::hasReason() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader Mining::CheckBlockResults::Reader::getReason() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder Mining::CheckBlockResults::Builder::getReason() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Mining::CheckBlockResults::Builder::setReason( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder Mining::CheckBlockResults::Builder::initReason(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void Mining::CheckBlockResults::Builder::adoptReason(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> Mining::CheckBlockResults::Builder::disownReason() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CheckBlockResults::Reader::hasDebug() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool Mining::CheckBlockResults::Builder::hasDebug() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader Mining::CheckBlockResults::Reader::getDebug() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder Mining::CheckBlockResults::Builder::getDebug() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void Mining::CheckBlockResults::Builder::setDebug( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder Mining::CheckBlockResults::Builder::initDebug(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void Mining::CheckBlockResults::Builder::adoptDebug(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> Mining::CheckBlockResults::Builder::disownDebug() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool Mining::CheckBlockResults::Reader::getResult() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline bool Mining::CheckBlockResults::Builder::getResult() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void Mining::CheckBlockResults::Builder::setResult(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
 
 #if !CAPNP_LITE
 inline BlockTemplate::Client::Client(decltype(nullptr))
@@ -4290,156 +5198,35 @@ inline bool BlockTemplate::GetCoinbaseTxResults::Builder::hasResult() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::capnp::Data::Reader BlockTemplate::GetCoinbaseTxResults::Reader::getResult() const {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
+inline  ::ipc::capnp::messages::CoinbaseTx::Reader BlockTemplate::GetCoinbaseTxResults::Reader::getResult() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::capnp::Data::Builder BlockTemplate::GetCoinbaseTxResults::Builder::getResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
+inline  ::ipc::capnp::messages::CoinbaseTx::Builder BlockTemplate::GetCoinbaseTxResults::Builder::getResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void BlockTemplate::GetCoinbaseTxResults::Builder::setResult( ::capnp::Data::Reader value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::CoinbaseTx::Pipeline BlockTemplate::GetCoinbaseTxResults::Pipeline::getResult() {
+  return  ::ipc::capnp::messages::CoinbaseTx::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void BlockTemplate::GetCoinbaseTxResults::Builder::setResult( ::ipc::capnp::messages::CoinbaseTx::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::capnp::Data::Builder BlockTemplate::GetCoinbaseTxResults::Builder::initResult(unsigned int size) {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+inline  ::ipc::capnp::messages::CoinbaseTx::Builder BlockTemplate::GetCoinbaseTxResults::Builder::initResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 inline void BlockTemplate::GetCoinbaseTxResults::Builder::adoptResult(
-    ::capnp::Orphan< ::capnp::Data>&& value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
+    ::capnp::Orphan< ::ipc::capnp::messages::CoinbaseTx>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::capnp::Data> BlockTemplate::GetCoinbaseTxResults::Builder::disownResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
+inline ::capnp::Orphan< ::ipc::capnp::messages::CoinbaseTx> BlockTemplate::GetCoinbaseTxResults::Builder::disownResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::CoinbaseTx>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-
-inline bool BlockTemplate::GetCoinbaseCommitmentParams::Reader::hasContext() const {
-  return !_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline bool BlockTemplate::GetCoinbaseCommitmentParams::Builder::hasContext() {
-  return !_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline  ::mp::Context::Reader BlockTemplate::GetCoinbaseCommitmentParams::Reader::getContext() const {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline  ::mp::Context::Builder BlockTemplate::GetCoinbaseCommitmentParams::Builder::getContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-#if !CAPNP_LITE
-inline  ::mp::Context::Pipeline BlockTemplate::GetCoinbaseCommitmentParams::Pipeline::getContext() {
-  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
-}
-#endif  // !CAPNP_LITE
-inline void BlockTemplate::GetCoinbaseCommitmentParams::Builder::setContext( ::mp::Context::Reader value) {
-  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
-}
-inline  ::mp::Context::Builder BlockTemplate::GetCoinbaseCommitmentParams::Builder::initContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline void BlockTemplate::GetCoinbaseCommitmentParams::Builder::adoptContext(
-    ::capnp::Orphan< ::mp::Context>&& value) {
-  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
-}
-inline ::capnp::Orphan< ::mp::Context> BlockTemplate::GetCoinbaseCommitmentParams::Builder::disownContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-
-inline bool BlockTemplate::GetCoinbaseCommitmentResults::Reader::hasResult() const {
-  return !_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline bool BlockTemplate::GetCoinbaseCommitmentResults::Builder::hasResult() {
-  return !_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline  ::capnp::Data::Reader BlockTemplate::GetCoinbaseCommitmentResults::Reader::getResult() const {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline  ::capnp::Data::Builder BlockTemplate::GetCoinbaseCommitmentResults::Builder::getResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline void BlockTemplate::GetCoinbaseCommitmentResults::Builder::setResult( ::capnp::Data::Reader value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
-}
-inline  ::capnp::Data::Builder BlockTemplate::GetCoinbaseCommitmentResults::Builder::initResult(unsigned int size) {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
-}
-inline void BlockTemplate::GetCoinbaseCommitmentResults::Builder::adoptResult(
-    ::capnp::Orphan< ::capnp::Data>&& value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
-}
-inline ::capnp::Orphan< ::capnp::Data> BlockTemplate::GetCoinbaseCommitmentResults::Builder::disownResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-
-inline bool BlockTemplate::GetWitnessCommitmentIndexParams::Reader::hasContext() const {
-  return !_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline bool BlockTemplate::GetWitnessCommitmentIndexParams::Builder::hasContext() {
-  return !_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
-}
-inline  ::mp::Context::Reader BlockTemplate::GetWitnessCommitmentIndexParams::Reader::getContext() const {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline  ::mp::Context::Builder BlockTemplate::GetWitnessCommitmentIndexParams::Builder::getContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-#if !CAPNP_LITE
-inline  ::mp::Context::Pipeline BlockTemplate::GetWitnessCommitmentIndexParams::Pipeline::getContext() {
-  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
-}
-#endif  // !CAPNP_LITE
-inline void BlockTemplate::GetWitnessCommitmentIndexParams::Builder::setContext( ::mp::Context::Reader value) {
-  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
-}
-inline  ::mp::Context::Builder BlockTemplate::GetWitnessCommitmentIndexParams::Builder::initContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-inline void BlockTemplate::GetWitnessCommitmentIndexParams::Builder::adoptContext(
-    ::capnp::Orphan< ::mp::Context>&& value) {
-  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
-}
-inline ::capnp::Orphan< ::mp::Context> BlockTemplate::GetWitnessCommitmentIndexParams::Builder::disownContext() {
-  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
-      ::capnp::bounded<0>() * ::capnp::POINTERS));
-}
-
-inline  ::int32_t BlockTemplate::GetWitnessCommitmentIndexResults::Reader::getResult() const {
-  return _reader.getDataField< ::int32_t>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
-}
-
-inline  ::int32_t BlockTemplate::GetWitnessCommitmentIndexResults::Builder::getResult() {
-  return _builder.getDataField< ::int32_t>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
-}
-inline void BlockTemplate::GetWitnessCommitmentIndexResults::Builder::setResult( ::int32_t value) {
-  _builder.setDataField< ::int32_t>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool BlockTemplate::GetCoinbaseMerklePathParams::Reader::hasContext() const {
@@ -4648,142 +5435,381 @@ inline void BlockTemplate::SubmitSolutionResults::Builder::setResult(bool value)
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }
 
+inline bool BlockTemplate::WaitNextParams::Reader::hasContext() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool BlockTemplate::WaitNextParams::Builder::hasContext() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::mp::Context::Reader BlockTemplate::WaitNextParams::Reader::getContext() const {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::mp::Context::Builder BlockTemplate::WaitNextParams::Builder::getContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::mp::Context::Pipeline BlockTemplate::WaitNextParams::Pipeline::getContext() {
+  return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void BlockTemplate::WaitNextParams::Builder::setContext( ::mp::Context::Reader value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::mp::Context::Builder BlockTemplate::WaitNextParams::Builder::initContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void BlockTemplate::WaitNextParams::Builder::adoptContext(
+    ::capnp::Orphan< ::mp::Context>&& value) {
+  ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::mp::Context> BlockTemplate::WaitNextParams::Builder::disownContext() {
+  return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool BlockTemplate::WaitNextParams::Reader::hasOptions() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool BlockTemplate::WaitNextParams::Builder::hasOptions() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::BlockWaitOptions::Reader BlockTemplate::WaitNextParams::Reader::getOptions() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::BlockWaitOptions::Builder BlockTemplate::WaitNextParams::Builder::getOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::BlockWaitOptions::Pipeline BlockTemplate::WaitNextParams::Pipeline::getOptions() {
+  return  ::ipc::capnp::messages::BlockWaitOptions::Pipeline(_typeless.getPointerField(1));
+}
+#endif  // !CAPNP_LITE
+inline void BlockTemplate::WaitNextParams::Builder::setOptions( ::ipc::capnp::messages::BlockWaitOptions::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::BlockWaitOptions::Builder BlockTemplate::WaitNextParams::Builder::initOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void BlockTemplate::WaitNextParams::Builder::adoptOptions(
+    ::capnp::Orphan< ::ipc::capnp::messages::BlockWaitOptions>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::BlockWaitOptions> BlockTemplate::WaitNextParams::Builder::disownOptions() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockWaitOptions>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline bool BlockTemplate::WaitNextResults::Reader::hasResult() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool BlockTemplate::WaitNextResults::Builder::hasResult() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::BlockTemplate::Client BlockTemplate::WaitNextResults::Reader::getResult() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::BlockTemplate::Client BlockTemplate::WaitNextResults::Builder::getResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::BlockTemplate::Client BlockTemplate::WaitNextResults::Pipeline::getResult() {
+  return  ::ipc::capnp::messages::BlockTemplate::Client(_typeless.getPointerField(0).asCap());
+}
+inline void BlockTemplate::WaitNextResults::Builder::setResult( ::ipc::capnp::messages::BlockTemplate::Client&& cap) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(cap));
+}
+inline void BlockTemplate::WaitNextResults::Builder::setResult( ::ipc::capnp::messages::BlockTemplate::Client& cap) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), cap);
+}
+inline void BlockTemplate::WaitNextResults::Builder::adoptResult(
+    ::capnp::Orphan< ::ipc::capnp::messages::BlockTemplate>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::BlockTemplate> BlockTemplate::WaitNextResults::Builder::disownResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::BlockTemplate>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#endif  // !CAPNP_LITE
+
 inline bool BlockCreateOptions::Reader::getUseMempool() const {
   return _reader.getDataField<bool>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
 }
 
 inline bool BlockCreateOptions::Builder::getUseMempool() {
   return _builder.getDataField<bool>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
 }
 inline void BlockCreateOptions::Builder::setUseMempool(bool value) {
   _builder.setDataField<bool>(
-      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value, true);
 }
 
 inline  ::uint64_t BlockCreateOptions::Reader::getBlockReservedWeight() const {
   return _reader.getDataField< ::uint64_t>(
-      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, 8000ull);
 }
 
 inline  ::uint64_t BlockCreateOptions::Builder::getBlockReservedWeight() {
   return _builder.getDataField< ::uint64_t>(
-      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, 8000ull);
 }
 inline void BlockCreateOptions::Builder::setBlockReservedWeight( ::uint64_t value) {
   _builder.setDataField< ::uint64_t>(
-      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value, 8000ull);
 }
 
 inline  ::uint64_t BlockCreateOptions::Reader::getCoinbaseOutputMaxAdditionalSigops() const {
   return _reader.getDataField< ::uint64_t>(
-      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, 400ull);
 }
 
 inline  ::uint64_t BlockCreateOptions::Builder::getCoinbaseOutputMaxAdditionalSigops() {
   return _builder.getDataField< ::uint64_t>(
-      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, 400ull);
 }
 inline void BlockCreateOptions::Builder::setCoinbaseOutputMaxAdditionalSigops( ::uint64_t value) {
   _builder.setDataField< ::uint64_t>(
-      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value, 400ull);
 }
 
-inline  ::int32_t BlockValidationState::Reader::getMode() const {
-  return _reader.getDataField< ::int32_t>(
+inline double BlockWaitOptions::Reader::getTimeout() const {
+  return _reader.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, 9218868437227405311ull);
+}
+
+inline double BlockWaitOptions::Builder::getTimeout() {
+  return _builder.getDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, 9218868437227405311ull);
+}
+inline void BlockWaitOptions::Builder::setTimeout(double value) {
+  _builder.setDataField<double>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value, 9218868437227405311ull);
+}
+
+inline  ::int64_t BlockWaitOptions::Reader::getFeeThreshold() const {
+  return _reader.getDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, 2100000000000000ll);
+}
+
+inline  ::int64_t BlockWaitOptions::Builder::getFeeThreshold() {
+  return _builder.getDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, 2100000000000000ll);
+}
+inline void BlockWaitOptions::Builder::setFeeThreshold( ::int64_t value) {
+  _builder.setDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value, 2100000000000000ll);
+}
+
+inline bool BlockCheckOptions::Reader::getCheckMerkleRoot() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
+}
+
+inline bool BlockCheckOptions::Builder::getCheckMerkleRoot() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, true);
+}
+inline void BlockCheckOptions::Builder::setCheckMerkleRoot(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value, true);
+}
+
+inline bool BlockCheckOptions::Reader::getCheckPow() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, true);
+}
+
+inline bool BlockCheckOptions::Builder::getCheckPow() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, true);
+}
+inline void BlockCheckOptions::Builder::setCheckPow(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value, true);
+}
+
+inline  ::uint32_t CoinbaseTx::Reader::getVersion() const {
+  return _reader.getDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
 
-inline  ::int32_t BlockValidationState::Builder::getMode() {
-  return _builder.getDataField< ::int32_t>(
+inline  ::uint32_t CoinbaseTx::Builder::getVersion() {
+  return _builder.getDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
-inline void BlockValidationState::Builder::setMode( ::int32_t value) {
-  _builder.setDataField< ::int32_t>(
+inline void CoinbaseTx::Builder::setVersion( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }
 
-inline  ::int32_t BlockValidationState::Reader::getResult() const {
-  return _reader.getDataField< ::int32_t>(
+inline  ::uint32_t CoinbaseTx::Reader::getSequence() const {
+  return _reader.getDataField< ::uint32_t>(
       ::capnp::bounded<1>() * ::capnp::ELEMENTS);
 }
 
-inline  ::int32_t BlockValidationState::Builder::getResult() {
-  return _builder.getDataField< ::int32_t>(
+inline  ::uint32_t CoinbaseTx::Builder::getSequence() {
+  return _builder.getDataField< ::uint32_t>(
       ::capnp::bounded<1>() * ::capnp::ELEMENTS);
 }
-inline void BlockValidationState::Builder::setResult( ::int32_t value) {
-  _builder.setDataField< ::int32_t>(
+inline void CoinbaseTx::Builder::setSequence( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
       ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
 }
 
-inline bool BlockValidationState::Reader::hasRejectReason() const {
+inline bool CoinbaseTx::Reader::hasScriptSigPrefix() const {
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool BlockValidationState::Builder::hasRejectReason() {
+inline bool CoinbaseTx::Builder::hasScriptSigPrefix() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::capnp::Text::Reader BlockValidationState::Reader::getRejectReason() const {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+inline  ::capnp::Data::Reader CoinbaseTx::Reader::getScriptSigPrefix() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::capnp::Text::Builder BlockValidationState::Builder::getRejectReason() {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+inline  ::capnp::Data::Builder CoinbaseTx::Builder::getScriptSigPrefix() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void BlockValidationState::Builder::setRejectReason( ::capnp::Text::Reader value) {
-  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+inline void CoinbaseTx::Builder::setScriptSigPrefix( ::capnp::Data::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::capnp::Text::Builder BlockValidationState::Builder::initRejectReason(unsigned int size) {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+inline  ::capnp::Data::Builder CoinbaseTx::Builder::initScriptSigPrefix(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), size);
 }
-inline void BlockValidationState::Builder::adoptRejectReason(
-    ::capnp::Orphan< ::capnp::Text>&& value) {
-  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+inline void CoinbaseTx::Builder::adoptScriptSigPrefix(
+    ::capnp::Orphan< ::capnp::Data>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::capnp::Text> BlockValidationState::Builder::disownRejectReason() {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+inline ::capnp::Orphan< ::capnp::Data> CoinbaseTx::Builder::disownScriptSigPrefix() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool BlockValidationState::Reader::hasDebugMessage() const {
+inline bool CoinbaseTx::Reader::hasWitness() const {
   return !_reader.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
 }
-inline bool BlockValidationState::Builder::hasDebugMessage() {
+inline bool CoinbaseTx::Builder::hasWitness() {
   return !_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
 }
-inline  ::capnp::Text::Reader BlockValidationState::Reader::getDebugMessage() const {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+inline  ::capnp::Data::Reader CoinbaseTx::Reader::getWitness() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS));
 }
-inline  ::capnp::Text::Builder BlockValidationState::Builder::getDebugMessage() {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+inline  ::capnp::Data::Builder CoinbaseTx::Builder::getWitness() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS));
 }
-inline void BlockValidationState::Builder::setDebugMessage( ::capnp::Text::Reader value) {
-  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+inline void CoinbaseTx::Builder::setWitness( ::capnp::Data::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS), value);
 }
-inline  ::capnp::Text::Builder BlockValidationState::Builder::initDebugMessage(unsigned int size) {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+inline  ::capnp::Data::Builder CoinbaseTx::Builder::initWitness(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS), size);
 }
-inline void BlockValidationState::Builder::adoptDebugMessage(
-    ::capnp::Orphan< ::capnp::Text>&& value) {
-  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+inline void CoinbaseTx::Builder::adoptWitness(
+    ::capnp::Orphan< ::capnp::Data>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::capnp::Text> BlockValidationState::Builder::disownDebugMessage() {
-  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+inline ::capnp::Orphan< ::capnp::Data> CoinbaseTx::Builder::disownWitness() {
+  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
       ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
+inline  ::int64_t CoinbaseTx::Reader::getBlockRewardRemaining() const {
+  return _reader.getDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int64_t CoinbaseTx::Builder::getBlockRewardRemaining() {
+  return _builder.getDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void CoinbaseTx::Builder::setBlockRewardRemaining( ::int64_t value) {
+  _builder.setDataField< ::int64_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool CoinbaseTx::Reader::hasRequiredOutputs() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline bool CoinbaseTx::Builder::hasRequiredOutputs() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Reader CoinbaseTx::Reader::getRequiredOutputs() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::get(_reader.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Builder CoinbaseTx::Builder::getRequiredOutputs() {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::get(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+inline void CoinbaseTx::Builder::setRequiredOutputs( ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline void CoinbaseTx::Builder::setRequiredOutputs(::kj::ArrayPtr<const  ::capnp::Data::Reader> value) {
+  ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::set(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>::Builder CoinbaseTx::Builder::initRequiredOutputs(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::init(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), size);
+}
+inline void CoinbaseTx::Builder::adoptRequiredOutputs(
+    ::capnp::Orphan< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>> CoinbaseTx::Builder::disownRequiredOutputs() {
+  return ::capnp::_::PointerHelpers< ::capnp::List< ::capnp::Data,  ::capnp::Kind::BLOB>>::disown(_builder.getPointerField(
+      ::capnp::bounded<2>() * ::capnp::POINTERS));
+}
+
+inline  ::uint32_t CoinbaseTx::Reader::getLockTime() const {
+  return _reader.getDataField< ::uint32_t>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+
+inline  ::uint32_t CoinbaseTx::Builder::getLockTime() {
+  return _builder.getDataField< ::uint32_t>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS);
+}
+inline void CoinbaseTx::Builder::setLockTime( ::uint32_t value) {
+  _builder.setDataField< ::uint32_t>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, value);
 }
 
 }  // namespace

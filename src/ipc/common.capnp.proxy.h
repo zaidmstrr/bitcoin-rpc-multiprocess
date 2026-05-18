@@ -3,7 +3,7 @@
 #ifndef CAPNP_COMMON_CAPNP_PROXY_H
 #define CAPNP_COMMON_CAPNP_PROXY_H
 
-#include <common.capnp.h>
+#include <capnp/common.capnp.h> // IWYU pragma: keep
 #include <mp/proxy.h>
 
 #if defined(__GNUC__)
@@ -37,6 +37,171 @@ struct Height
     template<typename S> static void setWant(S&& s) { s.setWantHeight(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasHeight(); }
     template<typename S> static void setHas(S&& s) { s.setHasHeight(true); }
+};
+struct Est
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getEst()) { return s.getEst(); }
+    template<typename S> static bool has(S&& s) { return s.hasEst(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setEst(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initEst(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantEst(); }
+    template<typename S> static void setWant(S&& s) { s.setWantEst(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasEst(); }
+    template<typename S> static void setHas(S&& s) { s.setHasEst(true); }
+};
+struct Reason
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getReason()) { return s.getReason(); }
+    template<typename S> static bool has(S&& s) { return s.hasReason(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReason(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReason(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantReason(); }
+    template<typename S> static void setWant(S&& s) { s.setWantReason(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasReason(); }
+    template<typename S> static void setHas(S&& s) { s.setHasReason(true); }
+};
+struct DesiredTarget
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getDesiredTarget()) { return s.getDesiredTarget(); }
+    template<typename S> static bool has(S&& s) { return s.hasDesiredTarget(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDesiredTarget(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDesiredTarget(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantDesiredTarget(); }
+    template<typename S> static void setWant(S&& s) { s.setWantDesiredTarget(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasDesiredTarget(); }
+    template<typename S> static void setHas(S&& s) { s.setHasDesiredTarget(true); }
+};
+struct ReturnedTarget
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getReturnedTarget()) { return s.getReturnedTarget(); }
+    template<typename S> static bool has(S&& s) { return s.hasReturnedTarget(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReturnedTarget(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReturnedTarget(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantReturnedTarget(); }
+    template<typename S> static void setWant(S&& s) { s.setWantReturnedTarget(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasReturnedTarget(); }
+    template<typename S> static void setHas(S&& s) { s.setHasReturnedTarget(true); }
+};
+struct BestHeight
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getBestHeight()) { return s.getBestHeight(); }
+    template<typename S> static bool has(S&& s) { return s.hasBestHeight(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setBestHeight(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initBestHeight(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantBestHeight(); }
+    template<typename S> static void setWant(S&& s) { s.setWantBestHeight(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasBestHeight(); }
+    template<typename S> static void setHas(S&& s) { s.setHasBestHeight(true); }
+};
+struct Pass
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getPass()) { return s.getPass(); }
+    template<typename S> static bool has(S&& s) { return s.hasPass(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setPass(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initPass(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantPass(); }
+    template<typename S> static void setWant(S&& s) { s.setWantPass(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasPass(); }
+    template<typename S> static void setHas(S&& s) { s.setHasPass(true); }
+};
+struct Fail
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getFail()) { return s.getFail(); }
+    template<typename S> static bool has(S&& s) { return s.hasFail(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFail(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFail(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantFail(); }
+    template<typename S> static void setWant(S&& s) { s.setWantFail(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasFail(); }
+    template<typename S> static void setHas(S&& s) { s.setHasFail(true); }
+};
+struct Decay
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getDecay()) { return s.getDecay(); }
+    template<typename S> static bool has(S&& s) { return s.hasDecay(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setDecay(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initDecay(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantDecay(); }
+    template<typename S> static void setWant(S&& s) { s.setWantDecay(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasDecay(); }
+    template<typename S> static void setHas(S&& s) { s.setHasDecay(true); }
+};
+struct Scale
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getScale()) { return s.getScale(); }
+    template<typename S> static bool has(S&& s) { return s.hasScale(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setScale(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initScale(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantScale(); }
+    template<typename S> static void setWant(S&& s) { s.setWantScale(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasScale(); }
+    template<typename S> static void setHas(S&& s) { s.setHasScale(true); }
+};
+struct Start
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getStart()) { return s.getStart(); }
+    template<typename S> static bool has(S&& s) { return s.hasStart(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setStart(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initStart(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantStart(); }
+    template<typename S> static void setWant(S&& s) { s.setWantStart(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasStart(); }
+    template<typename S> static void setHas(S&& s) { s.setHasStart(true); }
+};
+struct End
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getEnd()) { return s.getEnd(); }
+    template<typename S> static bool has(S&& s) { return s.hasEnd(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setEnd(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initEnd(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantEnd(); }
+    template<typename S> static void setWant(S&& s) { s.setWantEnd(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasEnd(); }
+    template<typename S> static void setHas(S&& s) { s.setHasEnd(true); }
+};
+struct WithinTarget
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getWithinTarget()) { return s.getWithinTarget(); }
+    template<typename S> static bool has(S&& s) { return s.hasWithinTarget(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setWithinTarget(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initWithinTarget(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantWithinTarget(); }
+    template<typename S> static void setWant(S&& s) { s.setWantWithinTarget(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasWithinTarget(); }
+    template<typename S> static void setHas(S&& s) { s.setHasWithinTarget(true); }
+};
+struct TotalConfirmed
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getTotalConfirmed()) { return s.getTotalConfirmed(); }
+    template<typename S> static bool has(S&& s) { return s.hasTotalConfirmed(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setTotalConfirmed(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initTotalConfirmed(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantTotalConfirmed(); }
+    template<typename S> static void setWant(S&& s) { s.setWantTotalConfirmed(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasTotalConfirmed(); }
+    template<typename S> static void setHas(S&& s) { s.setHasTotalConfirmed(true); }
+};
+struct InMempool
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getInMempool()) { return s.getInMempool(); }
+    template<typename S> static bool has(S&& s) { return s.hasInMempool(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setInMempool(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initInMempool(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantInMempool(); }
+    template<typename S> static void setWant(S&& s) { s.setWantInMempool(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasInMempool(); }
+    template<typename S> static void setHas(S&& s) { s.setHasInMempool(true); }
+};
+struct LeftMempool
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getLeftMempool()) { return s.getLeftMempool(); }
+    template<typename S> static bool has(S&& s) { return s.hasLeftMempool(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setLeftMempool(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initLeftMempool(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantLeftMempool(); }
+    template<typename S> static void setWant(S&& s) { s.setWantLeftMempool(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasLeftMempool(); }
+    template<typename S> static void setHas(S&& s) { s.setHasLeftMempool(true); }
 };
 struct Original
 {
@@ -102,6 +267,42 @@ struct ProxyStruct<ipc::capnp::messages::BlockRef>
     using HeightAccessor = Accessor<common_fields::Height, FIELD_IN | FIELD_OUT>;
     using Accessors = std::tuple<HashAccessor, HeightAccessor>;
     static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::FeeCalculation>
+{
+    using Struct = ipc::capnp::messages::FeeCalculation;
+    using EstAccessor = Accessor<common_fields::Est, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using ReasonAccessor = Accessor<common_fields::Reason, FIELD_IN | FIELD_OUT>;
+    using DesiredTargetAccessor = Accessor<common_fields::DesiredTarget, FIELD_IN | FIELD_OUT>;
+    using ReturnedTargetAccessor = Accessor<common_fields::ReturnedTarget, FIELD_IN | FIELD_OUT>;
+    using BestHeightAccessor = Accessor<common_fields::BestHeight, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<EstAccessor, ReasonAccessor, DesiredTargetAccessor, ReturnedTargetAccessor, BestHeightAccessor>;
+    static constexpr size_t fields = 5;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::EstimationResult>
+{
+    using Struct = ipc::capnp::messages::EstimationResult;
+    using PassAccessor = Accessor<common_fields::Pass, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using FailAccessor = Accessor<common_fields::Fail, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using DecayAccessor = Accessor<common_fields::Decay, FIELD_IN | FIELD_OUT>;
+    using ScaleAccessor = Accessor<common_fields::Scale, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<PassAccessor, FailAccessor, DecayAccessor, ScaleAccessor>;
+    static constexpr size_t fields = 4;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::EstimatorBucket>
+{
+    using Struct = ipc::capnp::messages::EstimatorBucket;
+    using StartAccessor = Accessor<common_fields::Start, FIELD_IN | FIELD_OUT>;
+    using EndAccessor = Accessor<common_fields::End, FIELD_IN | FIELD_OUT>;
+    using WithinTargetAccessor = Accessor<common_fields::WithinTarget, FIELD_IN | FIELD_OUT>;
+    using TotalConfirmedAccessor = Accessor<common_fields::TotalConfirmed, FIELD_IN | FIELD_OUT>;
+    using InMempoolAccessor = Accessor<common_fields::InMempool, FIELD_IN | FIELD_OUT>;
+    using LeftMempoolAccessor = Accessor<common_fields::LeftMempool, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<StartAccessor, EndAccessor, WithinTargetAccessor, TotalConfirmedAccessor, InMempoolAccessor, LeftMempoolAccessor>;
+    static constexpr size_t fields = 6;
 };
 template<>
 struct ProxyStruct<ipc::capnp::messages::BilingualStr>
