@@ -25,6 +25,7 @@ CAPNP_DECLARE_SCHEMA(9f5f7cf3583faae9);
 CAPNP_DECLARE_SCHEMA(8ab5bd30b9c0e6b8);
 CAPNP_DECLARE_SCHEMA(e9ccda4c4ecfcc58);
 CAPNP_DECLARE_SCHEMA(c55a33a945f4410c);
+CAPNP_DECLARE_SCHEMA(c72bb3d5de0f2a3f);
 CAPNP_DECLARE_SCHEMA(8ef2f6fc4199a71e);
 CAPNP_DECLARE_SCHEMA(b6061f707b66a314);
 
@@ -144,6 +145,29 @@ struct ResultVoid {
     static const ::capnp::_::RawBrandedSchema::Binding brandBindings[];
     static const ::capnp::_::RawBrandedSchema specificBrand;
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return ::capnp::_::ChooseBrand<_capnpPrivate, Value>::brand(); }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+template <typename Value = ::capnp::AnyPointer, typename Error = ::capnp::AnyPointer>
+struct Expected {
+  Expected() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+  enum Which: uint16_t {
+    VALUE,
+    ERROR,
+  };
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(c72bb3d5de0f2a3f, 1, 1)
+    #if !CAPNP_LITE
+    static const ::capnp::_::RawBrandedSchema::Scope brandScopes[];
+    static const ::capnp::_::RawBrandedSchema::Binding brandBindings[];
+    static const ::capnp::_::RawBrandedSchema specificBrand;
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return ::capnp::_::ChooseBrand<_capnpPrivate, Value, Error>::brand(); }
     #endif  // !CAPNP_LITE
   };
 };
@@ -865,6 +889,118 @@ public:
       : _typeless(kj::mv(typeless)) {}
 
   inline  ::ipc::capnp::messages::BilingualStr::Pipeline getError();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+template <typename Value, typename Error>
+class Expected<Value, Error>::Reader {
+public:
+  typedef Expected Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  template <typename Value2 = ::capnp::AnyPointer, typename Error2 = ::capnp::AnyPointer>
+  typename Expected<Value2, Error2>::Reader asGeneric() const {
+    return typename Expected<Value2, Error2>::Reader(_reader);
+  }
+
+  inline Which which() const;
+  inline bool isValue() const;
+  inline bool hasValue() const;
+  inline  ::capnp::ReaderFor<Value> getValue() const;
+
+  inline bool isError() const;
+  inline bool hasError() const;
+  inline  ::capnp::ReaderFor<Error> getError() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+template <typename Value, typename Error>
+class Expected<Value, Error>::Builder {
+public:
+  typedef Expected Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  template <typename Value2 = ::capnp::AnyPointer, typename Error2 = ::capnp::AnyPointer>
+  typename Expected<Value2, Error2>::Builder asGeneric() {
+    return typename Expected<Value2, Error2>::Builder(_builder);
+  }
+
+  inline Which which();
+  inline bool isValue();
+  inline bool hasValue();
+  inline  ::capnp::BuilderFor<Value> getValue();
+  inline void setValue( ::capnp::ReaderFor<Value> value);
+  inline  ::capnp::BuilderFor<Value> initValue();
+  inline  ::capnp::BuilderFor<Value> initValue(unsigned int size);
+  inline void adoptValue(::capnp::Orphan<Value>&& value);
+  inline ::capnp::Orphan<Value> disownValue();
+
+  inline bool isError();
+  inline bool hasError();
+  inline  ::capnp::BuilderFor<Error> getError();
+  inline void setError( ::capnp::ReaderFor<Error> value);
+  inline  ::capnp::BuilderFor<Error> initError();
+  inline  ::capnp::BuilderFor<Error> initError(unsigned int size);
+  inline void adoptError(::capnp::Orphan<Error>&& value);
+  inline ::capnp::Orphan<Error> disownError();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+template <typename Value, typename Error>
+class Expected<Value, Error>::Pipeline {
+public:
+  typedef Expected Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
 private:
   ::capnp::AnyPointer::Pipeline _typeless;
   friend class ::capnp::PipelineHook;
@@ -1688,6 +1824,189 @@ const ::capnp::_::RawBrandedSchema::Binding ResultVoid<Value>::_capnpPrivate::br
 template <typename Value>
 const ::capnp::_::RawBrandedSchema ResultVoid<Value>::_capnpPrivate::specificBrand = {
   &::capnp::schemas::s_c55a33a945f4410c, brandScopes, nullptr,
+  1, 0, nullptr
+};
+#endif  // !CAPNP_LITE
+
+template <typename Value, typename Error>
+inline typename  ::ipc::capnp::messages::Expected<Value, Error>::Which Expected<Value, Error>::Reader::which() const {
+  return _reader.getDataField<Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+template <typename Value, typename Error>
+inline typename  ::ipc::capnp::messages::Expected<Value, Error>::Which Expected<Value, Error>::Builder::which() {
+  return _builder.getDataField<Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Reader::isValue() const {
+  return which() == Expected<Value, Error>::VALUE;
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Builder::isValue() {
+  return which() == Expected<Value, Error>::VALUE;
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Reader::hasValue() const {
+  if (which() != Expected<Value, Error>::VALUE) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Builder::hasValue() {
+  if (which() != Expected<Value, Error>::VALUE) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+template <typename Value, typename Error>
+inline  ::capnp::ReaderFor<Value> Expected<Value, Error>::Reader::getValue() const {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::VALUE),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Value>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Value> Expected<Value, Error>::Builder::getValue() {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::VALUE),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Value>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline void Expected<Value, Error>::Builder::setValue( ::capnp::ReaderFor<Value> value) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::VALUE);
+  ::capnp::_::PointerHelpers<Value>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Value> Expected<Value, Error>::Builder::initValue() {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::VALUE);
+  return ::capnp::_::PointerHelpers<Value>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Value> Expected<Value, Error>::Builder::initValue(unsigned int size) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::VALUE);
+  return ::capnp::_::PointerHelpers<Value>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+template <typename Value, typename Error>
+inline void Expected<Value, Error>::Builder::adoptValue(
+    ::capnp::Orphan<Value>&& value) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::VALUE);
+  ::capnp::_::PointerHelpers<Value>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+template <typename Value, typename Error>
+inline ::capnp::Orphan<Value> Expected<Value, Error>::Builder::disownValue() {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::VALUE),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Value>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Reader::isError() const {
+  return which() == Expected<Value, Error>::ERROR;
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Builder::isError() {
+  return which() == Expected<Value, Error>::ERROR;
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Reader::hasError() const {
+  if (which() != Expected<Value, Error>::ERROR) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+template <typename Value, typename Error>
+inline bool Expected<Value, Error>::Builder::hasError() {
+  if (which() != Expected<Value, Error>::ERROR) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+template <typename Value, typename Error>
+inline  ::capnp::ReaderFor<Error> Expected<Value, Error>::Reader::getError() const {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::ERROR),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Error>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Error> Expected<Value, Error>::Builder::getError() {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::ERROR),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Error>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline void Expected<Value, Error>::Builder::setError( ::capnp::ReaderFor<Error> value) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::ERROR);
+  ::capnp::_::PointerHelpers<Error>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Error> Expected<Value, Error>::Builder::initError() {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::ERROR);
+  return ::capnp::_::PointerHelpers<Error>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+template <typename Value, typename Error>
+inline  ::capnp::BuilderFor<Error> Expected<Value, Error>::Builder::initError(unsigned int size) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::ERROR);
+  return ::capnp::_::PointerHelpers<Error>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+template <typename Value, typename Error>
+inline void Expected<Value, Error>::Builder::adoptError(
+    ::capnp::Orphan<Error>&& value) {
+  _builder.setDataField<Expected<Value, Error>::Which>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, Expected<Value, Error>::ERROR);
+  ::capnp::_::PointerHelpers<Error>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+template <typename Value, typename Error>
+inline ::capnp::Orphan<Error> Expected<Value, Error>::Builder::disownError() {
+  KJ_IREQUIRE((which() == Expected<Value, Error>::ERROR),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers<Error>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+// Expected<Value, Error>
+#if CAPNP_NEED_REDUNDANT_CONSTEXPR_DECL
+template <typename Value, typename Error>
+constexpr uint16_t Expected<Value, Error>::_capnpPrivate::dataWordSize;
+template <typename Value, typename Error>
+constexpr uint16_t Expected<Value, Error>::_capnpPrivate::pointerCount;
+#endif  // !CAPNP_NEED_REDUNDANT_CONSTEXPR_DECL
+#if !CAPNP_LITE
+#if CAPNP_NEED_REDUNDANT_CONSTEXPR_DECL
+template <typename Value, typename Error>
+constexpr ::capnp::Kind Expected<Value, Error>::_capnpPrivate::kind;
+template <typename Value, typename Error>
+constexpr ::capnp::_::RawSchema const* Expected<Value, Error>::_capnpPrivate::schema;
+#endif  // !CAPNP_NEED_REDUNDANT_CONSTEXPR_DECL
+template <typename Value, typename Error>
+const ::capnp::_::RawBrandedSchema::Scope Expected<Value, Error>::_capnpPrivate::brandScopes[] = {
+  { 0xc72bb3d5de0f2a3f, brandBindings + 0, 2, false},
+};
+template <typename Value, typename Error>
+const ::capnp::_::RawBrandedSchema::Binding Expected<Value, Error>::_capnpPrivate::brandBindings[] = {
+  ::capnp::_::brandBindingFor<Value>(),
+  ::capnp::_::brandBindingFor<Error>(),
+};
+template <typename Value, typename Error>
+const ::capnp::_::RawBrandedSchema Expected<Value, Error>::_capnpPrivate::specificBrand = {
+  &::capnp::schemas::s_c72bb3d5de0f2a3f, brandScopes, nullptr,
   1, 0, nullptr
 };
 #endif  // !CAPNP_LITE

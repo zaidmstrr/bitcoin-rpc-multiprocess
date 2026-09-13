@@ -156,15 +156,15 @@ struct ProxyMethod<ipc::capnp::messages::Chain::CheckChainLimitsParams>
 };
 
 template<>
-struct ProxyMethod<ipc::capnp::messages::Chain::EstimateSmartFeeParams>
+struct ProxyMethod<ipc::capnp::messages::Chain::GetFeeRateEstimateParams>
 {
-    static constexpr auto impl = &interfaces::Chain::estimateSmartFee;
+    static constexpr auto impl = &interfaces::Chain::getFeeRateEstimate;
 };
 
 template<>
-struct ProxyMethod<ipc::capnp::messages::Chain::EstimateMaxBlocksParams>
+struct ProxyMethod<ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksParams>
 {
-    static constexpr auto impl = &interfaces::Chain::estimateMaxBlocks;
+    static constexpr auto impl = &interfaces::Chain::maximumFeeEstimationTargetBlocks;
 };
 
 template<>
@@ -414,6 +414,83 @@ struct ProxyMethod<ipc::capnp::messages::SettingsUpdateCallback::CallParams>
 };
 
 namespace chain_fields {
+struct Fee
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getFee()) { return s.getFee(); }
+    template<typename S> static bool has(S&& s) { return s.hasFee(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFee(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFee(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantFee(); }
+    template<typename S> static void setWant(S&& s) { s.setWantFee(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasFee(); }
+    template<typename S> static void setHas(S&& s) { s.setHasFee(true); }
+};
+struct Size
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getSize()) { return s.getSize(); }
+    template<typename S> static bool has(S&& s) { return s.hasSize(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setSize(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initSize(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantSize(); }
+    template<typename S> static void setWant(S&& s) { s.setWantSize(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasSize(); }
+    template<typename S> static void setHas(S&& s) { s.setHasSize(true); }
+};
+struct FeerateEstimator
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getFeerateEstimator()) { return s.getFeerateEstimator(); }
+    template<typename S> static bool has(S&& s) { return s.hasFeerateEstimator(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFeerateEstimator(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFeerateEstimator(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantFeerateEstimator(); }
+    template<typename S> static void setWant(S&& s) { s.setWantFeerateEstimator(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasFeerateEstimator(); }
+    template<typename S> static void setHas(S&& s) { s.setHasFeerateEstimator(true); }
+};
+struct Feerate
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getFeerate()) { return s.getFeerate(); }
+    template<typename S> static bool has(S&& s) { return s.hasFeerate(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setFeerate(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initFeerate(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantFeerate(); }
+    template<typename S> static void setWant(S&& s) { s.setWantFeerate(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasFeerate(); }
+    template<typename S> static void setHas(S&& s) { s.setHasFeerate(true); }
+};
+struct ReturnedTarget
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getReturnedTarget()) { return s.getReturnedTarget(); }
+    template<typename S> static bool has(S&& s) { return s.hasReturnedTarget(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReturnedTarget(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReturnedTarget(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantReturnedTarget(); }
+    template<typename S> static void setWant(S&& s) { s.setWantReturnedTarget(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasReturnedTarget(); }
+    template<typename S> static void setHas(S&& s) { s.setHasReturnedTarget(true); }
+};
+struct Estimation
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getEstimation()) { return s.getEstimation(); }
+    template<typename S> static bool has(S&& s) { return s.hasEstimation(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setEstimation(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initEstimation(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantEstimation(); }
+    template<typename S> static void setWant(S&& s) { s.setWantEstimation(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasEstimation(); }
+    template<typename S> static void setHas(S&& s) { s.setHasEstimation(true); }
+};
+struct Reason
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getReason()) { return s.getReason(); }
+    template<typename S> static bool has(S&& s) { return s.hasReason(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReason(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReason(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantReason(); }
+    template<typename S> static void setWant(S&& s) { s.setWantReason(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasReason(); }
+    template<typename S> static void setHas(S&& s) { s.setHasReason(true); }
+};
 struct Context
 {
     template<typename S> static auto get(S&& s) -> decltype(s.getContext()) { return s.getContext(); }
@@ -777,17 +854,6 @@ struct Conservative
     template<typename S> static bool getHas(S&& s) { return s.getHasConservative(); }
     template<typename S> static void setHas(S&& s) { s.setHasConservative(true); }
 };
-struct Calc
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getCalc()) { return s.getCalc(); }
-    template<typename S> static bool has(S&& s) { return s.hasCalc(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setCalc(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initCalc(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantCalc(); }
-    template<typename S> static void setWant(S&& s) { s.setWantCalc(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasCalc(); }
-    template<typename S> static void setHas(S&& s) { s.setHasCalc(true); }
-};
 struct Message
 {
     template<typename S> static auto get(S&& s) -> decltype(s.getMessage()) { return s.getMessage(); }
@@ -919,17 +985,6 @@ struct Action
     template<typename S> static void setWant(S&& s) { s.setWantAction(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasAction(); }
     template<typename S> static void setHas(S&& s) { s.setHasAction(true); }
-};
-struct Reason
-{
-    template<typename S> static auto get(S&& s) -> decltype(s.getReason()) { return s.getReason(); }
-    template<typename S> static bool has(S&& s) { return s.hasReason(); }
-    template<typename S, typename A> static void set(S&& s, A&& a) { s.setReason(std::forward<A>(a)); }
-    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initReason(std::forward<A>(a)...); }
-    template<typename S> static bool getWant(S&& s) { return s.getWantReason(); }
-    template<typename S> static void setWant(S&& s) { s.setWantReason(true); }
-    template<typename S> static bool getHas(S&& s) { return s.getHasReason(); }
-    template<typename S> static void setHas(S&& s) { s.setHasReason(true); }
 };
 struct Role
 {
@@ -1405,6 +1460,34 @@ struct Historical
     template<typename S> static void setHas(S&& s) { s.setHasHistorical(true); }
 };
 } // namespace chain_fields
+template<>
+struct ProxyStruct<ipc::capnp::messages::FeePerVSize>
+{
+    using Struct = ipc::capnp::messages::FeePerVSize;
+    using FeeAccessor = Accessor<chain_fields::Fee, FIELD_IN | FIELD_OUT>;
+    using SizeAccessor = Accessor<chain_fields::Size, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<FeeAccessor, SizeAccessor>;
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::FeeRateEstimation>
+{
+    using Struct = ipc::capnp::messages::FeeRateEstimation;
+    using FeerateEstimatorAccessor = Accessor<chain_fields::FeerateEstimator, FIELD_IN | FIELD_OUT>;
+    using FeerateAccessor = Accessor<chain_fields::Feerate, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using ReturnedTargetAccessor = Accessor<chain_fields::ReturnedTarget, FIELD_IN | FIELD_OUT>;
+    using Accessors = std::tuple<FeerateEstimatorAccessor, FeerateAccessor, ReturnedTargetAccessor>;
+    static constexpr size_t fields = 3;
+};
+template<>
+struct ProxyStruct<ipc::capnp::messages::FeeRateEstimationError>
+{
+    using Struct = ipc::capnp::messages::FeeRateEstimationError;
+    using EstimationAccessor = Accessor<chain_fields::Estimation, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using ReasonAccessor = Accessor<chain_fields::Reason, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using Accessors = std::tuple<EstimationAccessor, ReasonAccessor>;
+    static constexpr size_t fields = 2;
+};
 
 template<>
 struct ProxyClient<ipc::capnp::messages::Chain> final : public ProxyClientCustom<ipc::capnp::messages::Chain, interfaces::Chain>
@@ -1460,10 +1543,10 @@ public:
     typename M22::Result getPackageLimits(M22::Param<0> ancestors,M22::Param<1> descendants);
     using M23 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::CheckChainLimitsParams>;
     typename M23::Result checkChainLimits(M23::Param<0> tx);
-    using M24 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateSmartFeeParams>;
-    typename M24::Result estimateSmartFee(M24::Param<0> numBlocks,M24::Param<1> conservative,M24::Param<2> calc);
-    using M25 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::EstimateMaxBlocksParams>;
-    typename M25::Result estimateMaxBlocks();
+    using M24 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::GetFeeRateEstimateParams>;
+    typename M24::Result getFeeRateEstimate(M24::Param<0> numBlocks,M24::Param<1> conservative);
+    using M25 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksParams>;
+    typename M25::Result maximumFeeEstimationTargetBlocks();
     using M26 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::MempoolMinFeeParams>;
     typename M26::Result mempoolMinFee();
     using M27 = ProxyClientMethodTraits<ipc::capnp::messages::Chain::RelayMinFeeParams>;
@@ -1548,8 +1631,8 @@ public:
     kj::Promise<void> calculateCombinedBumpFee(CalculateCombinedBumpFeeContext call_context) override;
     kj::Promise<void> getPackageLimits(GetPackageLimitsContext call_context) override;
     kj::Promise<void> checkChainLimits(CheckChainLimitsContext call_context) override;
-    kj::Promise<void> estimateSmartFee(EstimateSmartFeeContext call_context) override;
-    kj::Promise<void> estimateMaxBlocks(EstimateMaxBlocksContext call_context) override;
+    kj::Promise<void> getFeeRateEstimate(GetFeeRateEstimateContext call_context) override;
+    kj::Promise<void> maximumFeeEstimationTargetBlocks(MaximumFeeEstimationTargetBlocksContext call_context) override;
     kj::Promise<void> mempoolMinFee(MempoolMinFeeContext call_context) override;
     kj::Promise<void> relayMinFee(RelayMinFeeContext call_context) override;
     kj::Promise<void> relayIncrementalFee(RelayIncrementalFeeContext call_context) override;

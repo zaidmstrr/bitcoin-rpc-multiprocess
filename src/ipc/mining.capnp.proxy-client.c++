@@ -6,12 +6,18 @@
 #include <capnp/mining.capnp.h>
 #include <capnp/mining.capnp.proxy.h>
 #include <capnp/mining.capnp.proxy-types.h>
+#include <capnp/capability.h>
+#include <capnp/common.h>
 #include <capnp/generated-header-support.h>
 #include <cstring>
-#include <vector>
+#include <functional>
 #include <kj/common.h>
+#include <map>
 #include <mp/proxy.h>
+#include <mp/proxy-io.h>
 #include <mp/util.h>
+#include <string>
+#include <vector>
 #include <mp/proxy-types.h>
 // IWYU pragma: end_keep
 
@@ -49,6 +55,21 @@ ProxyClient<ipc::capnp::messages::Mining>::M5::Result ProxyClient<ipc::capnp::me
 ProxyClient<ipc::capnp::messages::Mining>::M6::Result ProxyClient<ipc::capnp::messages::Mining>::interrupt() {
     clientInvoke(*this, &ipc::capnp::messages::Mining::Client::interruptRequest);
 }
+ProxyClient<ipc::capnp::messages::Mining>::M7::Result ProxyClient<ipc::capnp::messages::Mining>::submitBlock(M7::Param<0> block,M7::Param<1> reason,M7::Param<2> debug) {
+    typename M7::Result result;
+    clientInvoke(*this, &ipc::capnp::messages::Mining::Client::submitBlockRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Block, FIELD_IN | FIELD_BOXED>>(M7::Fwd<0>(block)), MakeClientParam<Accessor<mining_fields::Reason, FIELD_OUT | FIELD_BOXED>>(M7::Fwd<1>(reason)), MakeClientParam<Accessor<mining_fields::Debug, FIELD_OUT | FIELD_BOXED>>(M7::Fwd<2>(debug)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT>>(result));
+    return result;
+}
+ProxyClient<ipc::capnp::messages::Mining>::M8::Result ProxyClient<ipc::capnp::messages::Mining>::getTransactionsByTxID(M8::Param<0> txids) {
+    typename M8::Result result;
+    clientInvoke(*this, &ipc::capnp::messages::Mining::Client::getTransactionsByTxIDRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Txids, FIELD_IN | FIELD_BOXED>>(M8::Fwd<0>(txids)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
+    return result;
+}
+ProxyClient<ipc::capnp::messages::Mining>::M9::Result ProxyClient<ipc::capnp::messages::Mining>::getTransactionsByWitnessID(M9::Param<0> wtxids) {
+    typename M9::Result result;
+    clientInvoke(*this, &ipc::capnp::messages::Mining::Client::getTransactionsByWitnessIDRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Wtxids, FIELD_IN | FIELD_BOXED>>(M9::Fwd<0>(wtxids)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
+    return result;
+}
 ProxyClient<ipc::capnp::messages::BlockTemplate>::M0::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::destroy(Super& super) {
     clientInvoke(super, &ipc::capnp::messages::BlockTemplate::Client::destroyRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>());
 }
@@ -82,9 +103,9 @@ ProxyClient<ipc::capnp::messages::BlockTemplate>::M6::Result ProxyClient<ipc::ca
     clientInvoke(*this, &ipc::capnp::messages::BlockTemplate::Client::getCoinbaseMerklePathRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
     return result;
 }
-ProxyClient<ipc::capnp::messages::BlockTemplate>::M7::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::submitSolution(M7::Param<0> version,M7::Param<1> timestamp,M7::Param<2> nonce,M7::Param<3> coinbase) {
+ProxyClient<ipc::capnp::messages::BlockTemplate>::M7::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::submitSolutionOld7(M7::Param<0> version,M7::Param<1> timestamp,M7::Param<2> nonce,M7::Param<3> coinbase) {
     typename M7::Result result;
-    clientInvoke(*this, &ipc::capnp::messages::BlockTemplate::Client::submitSolutionRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Version, FIELD_IN>>(M7::Fwd<0>(version)), MakeClientParam<Accessor<mining_fields::Timestamp, FIELD_IN>>(M7::Fwd<1>(timestamp)), MakeClientParam<Accessor<mining_fields::Nonce, FIELD_IN>>(M7::Fwd<2>(nonce)), MakeClientParam<Accessor<mining_fields::Coinbase, FIELD_IN | FIELD_BOXED>>(M7::Fwd<3>(coinbase)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT>>(result));
+    clientInvoke(*this, &ipc::capnp::messages::BlockTemplate::Client::submitSolutionOld7Request, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Version, FIELD_IN>>(M7::Fwd<0>(version)), MakeClientParam<Accessor<mining_fields::Timestamp, FIELD_IN>>(M7::Fwd<1>(timestamp)), MakeClientParam<Accessor<mining_fields::Nonce, FIELD_IN>>(M7::Fwd<2>(nonce)), MakeClientParam<Accessor<mining_fields::Coinbase, FIELD_IN | FIELD_BOXED>>(M7::Fwd<3>(coinbase)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT>>(result));
     return result;
 }
 ProxyClient<ipc::capnp::messages::BlockTemplate>::M8::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::waitNext(M8::Param<0> options) {
@@ -94,6 +115,11 @@ ProxyClient<ipc::capnp::messages::BlockTemplate>::M8::Result ProxyClient<ipc::ca
 }
 ProxyClient<ipc::capnp::messages::BlockTemplate>::M9::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::interruptWait() {
     clientInvoke(*this, &ipc::capnp::messages::BlockTemplate::Client::interruptWaitRequest);
+}
+ProxyClient<ipc::capnp::messages::BlockTemplate>::M10::Result ProxyClient<ipc::capnp::messages::BlockTemplate>::submitSolution(M10::Param<0> version,M10::Param<1> timestamp,M10::Param<2> nonce,M10::Param<3> coinbase,M10::Param<4> reason,M10::Param<5> debug) {
+    typename M10::Result result;
+    clientInvoke(*this, &ipc::capnp::messages::BlockTemplate::Client::submitSolutionRequest, MakeClientParam<Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<mining_fields::Version, FIELD_IN>>(M10::Fwd<0>(version)), MakeClientParam<Accessor<mining_fields::Timestamp, FIELD_IN>>(M10::Fwd<1>(timestamp)), MakeClientParam<Accessor<mining_fields::Nonce, FIELD_IN>>(M10::Fwd<2>(nonce)), MakeClientParam<Accessor<mining_fields::Coinbase, FIELD_IN | FIELD_BOXED>>(M10::Fwd<3>(coinbase)), MakeClientParam<Accessor<mining_fields::Reason, FIELD_OUT | FIELD_BOXED>>(M10::Fwd<4>(reason)), MakeClientParam<Accessor<mining_fields::Debug, FIELD_OUT | FIELD_BOXED>>(M10::Fwd<5>(debug)), MakeClientParam<Accessor<mining_fields::Result, FIELD_OUT>>(result));
+    return result;
 }
 namespace {
 ProxyTypeRegister t17998218332041048990{TypeList<interfaces::Mining>{}};

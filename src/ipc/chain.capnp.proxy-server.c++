@@ -89,10 +89,10 @@ kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::getPackageLimits(Get
 kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::checkChainLimits(CheckChainLimitsContext call_context) {
     return serverInvoke(*this, call_context, MakeServerField<0, Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<chain_fields::Tx, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall()))));
 }
-kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::estimateSmartFee(EstimateSmartFeeContext call_context) {
-    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<chain_fields::NumBlocks, FIELD_IN>>(MakeServerField<1, Accessor<chain_fields::Conservative, FIELD_IN>>(MakeServerField<1, Accessor<chain_fields::Calc, FIELD_OUT | FIELD_REQUESTED | FIELD_BOXED>>(Make<ServerRet, Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall()))))));
+kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::getFeeRateEstimate(GetFeeRateEstimateContext call_context) {
+    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<chain_fields::NumBlocks, FIELD_IN>>(MakeServerField<1, Accessor<chain_fields::Conservative, FIELD_IN>>(Make<ServerRet, Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall())))));
 }
-kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::estimateMaxBlocks(EstimateMaxBlocksContext call_context) {
+kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::maximumFeeEstimationTargetBlocks(MaximumFeeEstimationTargetBlocksContext call_context) {
     return serverInvoke(*this, call_context, MakeServerField<0, Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<chain_fields::Result, FIELD_OUT>>(ServerCall())));
 }
 kj::Promise<void> ProxyServer<ipc::capnp::messages::Chain>::mempoolMinFee(MempoolMinFeeContext call_context) {

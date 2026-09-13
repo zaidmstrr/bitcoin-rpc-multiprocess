@@ -330,6 +330,15 @@ struct ProxyStruct<ipc::capnp::messages::ResultVoid<Value>>
     using Accessors = std::tuple<ErrorAccessor>;
     static constexpr size_t fields = 1;
 };
+template<typename Value, typename Error>
+struct ProxyStruct<ipc::capnp::messages::Expected<Value, Error>>
+{
+    using Struct = ipc::capnp::messages::Expected<Value, Error>;
+    using ValueAccessor = Accessor<common_fields::Value, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using ErrorAccessor = Accessor<common_fields::Error, FIELD_IN | FIELD_OUT | FIELD_BOXED>;
+    using Accessors = std::tuple<ValueAccessor, ErrorAccessor>;
+    static constexpr size_t fields = 2;
+};
 template<typename Key, typename Value>
 struct ProxyStruct<ipc::capnp::messages::Pair<Key, Value>>
 {

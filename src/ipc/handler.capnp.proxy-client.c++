@@ -6,12 +6,18 @@
 #include <capnp/handler.capnp.h>
 #include <capnp/handler.capnp.proxy.h>
 #include <capnp/handler.capnp.proxy-types.h>
+#include <capnp/capability.h>
+#include <capnp/common.h>
 #include <capnp/generated-header-support.h>
 #include <cstring>
-#include <vector>
+#include <functional>
 #include <kj/common.h>
+#include <map>
 #include <mp/proxy.h>
+#include <mp/proxy-io.h>
 #include <mp/util.h>
+#include <string>
+#include <vector>
 #include <mp/proxy-types.h>
 // IWYU pragma: end_keep
 

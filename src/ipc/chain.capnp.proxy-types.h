@@ -9,6 +9,34 @@
 #include "ipc/capnp/chain-types.h" // IWYU pragma: export
 namespace mp {
 template<>
+struct ProxyType<FeePerVSize>
+{
+public:
+    using Struct = ipc::capnp::messages::FeePerVSize;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &FeePerVSize::fee; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &FeePerVSize::size; }
+    static constexpr size_t fields = 2;
+};
+template<>
+struct ProxyType<FeeRateEstimation>
+{
+public:
+    using Struct = ipc::capnp::messages::FeeRateEstimation;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &FeeRateEstimation::feerate_estimator; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &FeeRateEstimation::feerate; }
+    static decltype(auto) get(std::integral_constant<size_t, 2>) { return &FeeRateEstimation::returned_target; }
+    static constexpr size_t fields = 3;
+};
+template<>
+struct ProxyType<FeeRateEstimationError>
+{
+public:
+    using Struct = ipc::capnp::messages::FeeRateEstimationError;
+    static decltype(auto) get(std::integral_constant<size_t, 0>) { return &FeeRateEstimationError::estimation; }
+    static decltype(auto) get(std::integral_constant<size_t, 1>) { return &FeeRateEstimationError::reason; }
+    static constexpr size_t fields = 2;
+};
+template<>
 struct ProxyType<CRPCCommand>
 {
 public:
