@@ -24,6 +24,9 @@ CAPNP_BEGIN_HEADER
 namespace capnp {
 namespace schemas {
 
+CAPNP_DECLARE_SCHEMA(98aeb9eab7da32ce);
+CAPNP_DECLARE_SCHEMA(ee08a729d1d2aeac);
+CAPNP_DECLARE_SCHEMA(c66bc932ed3c99e2);
 CAPNP_DECLARE_SCHEMA(ddfb1d54c24414b3);
 CAPNP_DECLARE_SCHEMA(fbe5afe509594fb1);
 CAPNP_DECLARE_SCHEMA(f96a75c60924a0a9);
@@ -185,6 +188,51 @@ namespace ipc {
 namespace capnp {
 namespace messages {
 
+struct FeePerVSize {
+  FeePerVSize() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(98aeb9eab7da32ce, 2, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct FeeRateEstimation {
+  FeeRateEstimation() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(ee08a729d1d2aeac, 1, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct FeeRateEstimationError {
+  FeeRateEstimationError() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(c66bc932ed3c99e2, 0, 2)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
 struct Chain {
   Chain() = delete;
 
@@ -241,10 +289,10 @@ struct Chain {
   struct GetPackageLimitsResults;
   struct CheckChainLimitsParams;
   struct CheckChainLimitsResults;
-  struct EstimateSmartFeeParams;
-  struct EstimateSmartFeeResults;
-  struct EstimateMaxBlocksParams;
-  struct EstimateMaxBlocksResults;
+  struct GetFeeRateEstimateParams;
+  struct GetFeeRateEstimateResults;
+  struct MaximumFeeEstimationTargetBlocksParams;
+  struct MaximumFeeEstimationTargetBlocksResults;
   struct MempoolMinFeeParams;
   struct MempoolMinFeeResults;
   struct RelayMinFeeParams;
@@ -1026,8 +1074,8 @@ struct Chain::CheckChainLimitsResults {
   };
 };
 
-struct Chain::EstimateSmartFeeParams {
-  EstimateSmartFeeParams() = delete;
+struct Chain::GetFeeRateEstimateParams {
+  GetFeeRateEstimateParams() = delete;
 
   class Reader;
   class Builder;
@@ -1041,23 +1089,23 @@ struct Chain::EstimateSmartFeeParams {
   };
 };
 
-struct Chain::EstimateSmartFeeResults {
-  EstimateSmartFeeResults() = delete;
+struct Chain::GetFeeRateEstimateResults {
+  GetFeeRateEstimateResults() = delete;
 
   class Reader;
   class Builder;
   class Pipeline;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(bbd26e43c970f3ca, 0, 2)
+    CAPNP_DECLARE_STRUCT_HEADER(bbd26e43c970f3ca, 0, 1)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
   };
 };
 
-struct Chain::EstimateMaxBlocksParams {
-  EstimateMaxBlocksParams() = delete;
+struct Chain::MaximumFeeEstimationTargetBlocksParams {
+  MaximumFeeEstimationTargetBlocksParams() = delete;
 
   class Reader;
   class Builder;
@@ -1071,8 +1119,8 @@ struct Chain::EstimateMaxBlocksParams {
   };
 };
 
-struct Chain::EstimateMaxBlocksResults {
-  EstimateMaxBlocksResults() = delete;
+struct Chain::MaximumFeeEstimationTargetBlocksResults {
+  MaximumFeeEstimationTargetBlocksResults() = delete;
 
   class Reader;
   class Builder;
@@ -2632,6 +2680,271 @@ struct SettingsUpdateCallback::CallResults {
 
 // =======================================================================================
 
+class FeePerVSize::Reader {
+public:
+  typedef FeePerVSize Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline  ::int64_t getFee() const;
+
+  inline  ::int32_t getSize() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class FeePerVSize::Builder {
+public:
+  typedef FeePerVSize Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline  ::int64_t getFee();
+  inline void setFee( ::int64_t value);
+
+  inline  ::int32_t getSize();
+  inline void setSize( ::int32_t value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class FeePerVSize::Pipeline {
+public:
+  typedef FeePerVSize Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class FeeRateEstimation::Reader {
+public:
+  typedef FeeRateEstimation Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline  ::int32_t getFeerateEstimator() const;
+
+  inline bool hasFeerate() const;
+  inline  ::ipc::capnp::messages::FeePerVSize::Reader getFeerate() const;
+
+  inline  ::int32_t getReturnedTarget() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class FeeRateEstimation::Builder {
+public:
+  typedef FeeRateEstimation Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline  ::int32_t getFeerateEstimator();
+  inline void setFeerateEstimator( ::int32_t value);
+
+  inline bool hasFeerate();
+  inline  ::ipc::capnp::messages::FeePerVSize::Builder getFeerate();
+  inline void setFeerate( ::ipc::capnp::messages::FeePerVSize::Reader value);
+  inline  ::ipc::capnp::messages::FeePerVSize::Builder initFeerate();
+  inline void adoptFeerate(::capnp::Orphan< ::ipc::capnp::messages::FeePerVSize>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::FeePerVSize> disownFeerate();
+
+  inline  ::int32_t getReturnedTarget();
+  inline void setReturnedTarget( ::int32_t value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class FeeRateEstimation::Pipeline {
+public:
+  typedef FeeRateEstimation Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::FeePerVSize::Pipeline getFeerate();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class FeeRateEstimationError::Reader {
+public:
+  typedef FeeRateEstimationError Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasEstimation() const;
+  inline  ::ipc::capnp::messages::FeeRateEstimation::Reader getEstimation() const;
+
+  inline bool hasReason() const;
+  inline  ::capnp::Text::Reader getReason() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class FeeRateEstimationError::Builder {
+public:
+  typedef FeeRateEstimationError Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasEstimation();
+  inline  ::ipc::capnp::messages::FeeRateEstimation::Builder getEstimation();
+  inline void setEstimation( ::ipc::capnp::messages::FeeRateEstimation::Reader value);
+  inline  ::ipc::capnp::messages::FeeRateEstimation::Builder initEstimation();
+  inline void adoptEstimation(::capnp::Orphan< ::ipc::capnp::messages::FeeRateEstimation>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::FeeRateEstimation> disownEstimation();
+
+  inline bool hasReason();
+  inline  ::capnp::Text::Builder getReason();
+  inline void setReason( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initReason(unsigned int size);
+  inline void adoptReason(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownReason();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class FeeRateEstimationError::Pipeline {
+public:
+  typedef FeeRateEstimationError Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+  inline  ::ipc::capnp::messages::FeeRateEstimation::Pipeline getEstimation();
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 #if !CAPNP_LITE
 class Chain::Client
     : public virtual ::capnp::Capability::Client {
@@ -2699,9 +3012,9 @@ public:
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Chain::CheckChainLimitsParams,  ::ipc::capnp::messages::Chain::CheckChainLimitsResults> checkChainLimitsRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
-  ::capnp::Request< ::ipc::capnp::messages::Chain::EstimateSmartFeeParams,  ::ipc::capnp::messages::Chain::EstimateSmartFeeResults> estimateSmartFeeRequest(
+  ::capnp::Request< ::ipc::capnp::messages::Chain::GetFeeRateEstimateParams,  ::ipc::capnp::messages::Chain::GetFeeRateEstimateResults> getFeeRateEstimateRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
-  ::capnp::Request< ::ipc::capnp::messages::Chain::EstimateMaxBlocksParams,  ::ipc::capnp::messages::Chain::EstimateMaxBlocksResults> estimateMaxBlocksRequest(
+  ::capnp::Request< ::ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksParams,  ::ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksResults> maximumFeeEstimationTargetBlocksRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
   ::capnp::Request< ::ipc::capnp::messages::Chain::MempoolMinFeeParams,  ::ipc::capnp::messages::Chain::MempoolMinFeeResults> mempoolMinFeeRequest(
       ::kj::Maybe< ::capnp::MessageSize> sizeHint = nullptr);
@@ -2867,14 +3180,14 @@ protected:
   typedef  ::ipc::capnp::messages::Chain::CheckChainLimitsResults CheckChainLimitsResults;
   typedef ::capnp::CallContext<CheckChainLimitsParams, CheckChainLimitsResults> CheckChainLimitsContext;
   virtual ::kj::Promise<void> checkChainLimits(CheckChainLimitsContext context);
-  typedef  ::ipc::capnp::messages::Chain::EstimateSmartFeeParams EstimateSmartFeeParams;
-  typedef  ::ipc::capnp::messages::Chain::EstimateSmartFeeResults EstimateSmartFeeResults;
-  typedef ::capnp::CallContext<EstimateSmartFeeParams, EstimateSmartFeeResults> EstimateSmartFeeContext;
-  virtual ::kj::Promise<void> estimateSmartFee(EstimateSmartFeeContext context);
-  typedef  ::ipc::capnp::messages::Chain::EstimateMaxBlocksParams EstimateMaxBlocksParams;
-  typedef  ::ipc::capnp::messages::Chain::EstimateMaxBlocksResults EstimateMaxBlocksResults;
-  typedef ::capnp::CallContext<EstimateMaxBlocksParams, EstimateMaxBlocksResults> EstimateMaxBlocksContext;
-  virtual ::kj::Promise<void> estimateMaxBlocks(EstimateMaxBlocksContext context);
+  typedef  ::ipc::capnp::messages::Chain::GetFeeRateEstimateParams GetFeeRateEstimateParams;
+  typedef  ::ipc::capnp::messages::Chain::GetFeeRateEstimateResults GetFeeRateEstimateResults;
+  typedef ::capnp::CallContext<GetFeeRateEstimateParams, GetFeeRateEstimateResults> GetFeeRateEstimateContext;
+  virtual ::kj::Promise<void> getFeeRateEstimate(GetFeeRateEstimateContext context);
+  typedef  ::ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksParams MaximumFeeEstimationTargetBlocksParams;
+  typedef  ::ipc::capnp::messages::Chain::MaximumFeeEstimationTargetBlocksResults MaximumFeeEstimationTargetBlocksResults;
+  typedef ::capnp::CallContext<MaximumFeeEstimationTargetBlocksParams, MaximumFeeEstimationTargetBlocksResults> MaximumFeeEstimationTargetBlocksContext;
+  virtual ::kj::Promise<void> maximumFeeEstimationTargetBlocks(MaximumFeeEstimationTargetBlocksContext context);
   typedef  ::ipc::capnp::messages::Chain::MempoolMinFeeParams MempoolMinFeeParams;
   typedef  ::ipc::capnp::messages::Chain::MempoolMinFeeResults MempoolMinFeeResults;
   typedef ::capnp::CallContext<MempoolMinFeeParams, MempoolMinFeeResults> MempoolMinFeeContext;
@@ -7286,9 +7599,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class Chain::EstimateSmartFeeParams::Reader {
+class Chain::GetFeeRateEstimateParams::Reader {
 public:
-  typedef EstimateSmartFeeParams Reads;
+  typedef GetFeeRateEstimateParams Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -7310,8 +7623,6 @@ public:
 
   inline bool getConservative() const;
 
-  inline bool getWantCalc() const;
-
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -7324,9 +7635,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class Chain::EstimateSmartFeeParams::Builder {
+class Chain::GetFeeRateEstimateParams::Builder {
 public:
-  typedef EstimateSmartFeeParams Builds;
+  typedef GetFeeRateEstimateParams Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -7353,9 +7664,6 @@ public:
   inline bool getConservative();
   inline void setConservative(bool value);
 
-  inline bool getWantCalc();
-  inline void setWantCalc(bool value);
-
 private:
   ::capnp::_::StructBuilder _builder;
   template <typename, ::capnp::Kind>
@@ -7366,9 +7674,9 @@ private:
 };
 
 #if !CAPNP_LITE
-class Chain::EstimateSmartFeeParams::Pipeline {
+class Chain::GetFeeRateEstimateParams::Pipeline {
 public:
-  typedef EstimateSmartFeeParams Pipelines;
+  typedef GetFeeRateEstimateParams Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -7383,9 +7691,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class Chain::EstimateSmartFeeResults::Reader {
+class Chain::GetFeeRateEstimateResults::Reader {
 public:
-  typedef EstimateSmartFeeResults Reads;
+  typedef GetFeeRateEstimateResults Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -7400,11 +7708,8 @@ public:
   }
 #endif  // !CAPNP_LITE
 
-  inline bool hasCalc() const;
-  inline  ::ipc::capnp::messages::FeeCalculation::Reader getCalc() const;
-
   inline bool hasResult() const;
-  inline  ::capnp::Data::Reader getResult() const;
+  inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Reader getResult() const;
 
 private:
   ::capnp::_::StructReader _reader;
@@ -7418,9 +7723,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class Chain::EstimateSmartFeeResults::Builder {
+class Chain::GetFeeRateEstimateResults::Builder {
 public:
-  typedef EstimateSmartFeeResults Builds;
+  typedef GetFeeRateEstimateResults Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -7434,19 +7739,12 @@ public:
   inline ::kj::StringTree toString() const { return asReader().toString(); }
 #endif  // !CAPNP_LITE
 
-  inline bool hasCalc();
-  inline  ::ipc::capnp::messages::FeeCalculation::Builder getCalc();
-  inline void setCalc( ::ipc::capnp::messages::FeeCalculation::Reader value);
-  inline  ::ipc::capnp::messages::FeeCalculation::Builder initCalc();
-  inline void adoptCalc(::capnp::Orphan< ::ipc::capnp::messages::FeeCalculation>&& value);
-  inline ::capnp::Orphan< ::ipc::capnp::messages::FeeCalculation> disownCalc();
-
   inline bool hasResult();
-  inline  ::capnp::Data::Builder getResult();
-  inline void setResult( ::capnp::Data::Reader value);
-  inline  ::capnp::Data::Builder initResult(unsigned int size);
-  inline void adoptResult(::capnp::Orphan< ::capnp::Data>&& value);
-  inline ::capnp::Orphan< ::capnp::Data> disownResult();
+  inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Builder getResult();
+  inline void setResult( ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Reader value);
+  inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Builder initResult();
+  inline void adoptResult(::capnp::Orphan< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>&& value);
+  inline ::capnp::Orphan< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>> disownResult();
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -7458,15 +7756,15 @@ private:
 };
 
 #if !CAPNP_LITE
-class Chain::EstimateSmartFeeResults::Pipeline {
+class Chain::GetFeeRateEstimateResults::Pipeline {
 public:
-  typedef EstimateSmartFeeResults Pipelines;
+  typedef GetFeeRateEstimateResults Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
       : _typeless(kj::mv(typeless)) {}
 
-  inline  ::ipc::capnp::messages::FeeCalculation::Pipeline getCalc();
+  inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Pipeline getResult();
 private:
   ::capnp::AnyPointer::Pipeline _typeless;
   friend class ::capnp::PipelineHook;
@@ -7475,9 +7773,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class Chain::EstimateMaxBlocksParams::Reader {
+class Chain::MaximumFeeEstimationTargetBlocksParams::Reader {
 public:
-  typedef EstimateMaxBlocksParams Reads;
+  typedef MaximumFeeEstimationTargetBlocksParams Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -7507,9 +7805,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class Chain::EstimateMaxBlocksParams::Builder {
+class Chain::MaximumFeeEstimationTargetBlocksParams::Builder {
 public:
-  typedef EstimateMaxBlocksParams Builds;
+  typedef MaximumFeeEstimationTargetBlocksParams Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -7540,9 +7838,9 @@ private:
 };
 
 #if !CAPNP_LITE
-class Chain::EstimateMaxBlocksParams::Pipeline {
+class Chain::MaximumFeeEstimationTargetBlocksParams::Pipeline {
 public:
-  typedef EstimateMaxBlocksParams Pipelines;
+  typedef MaximumFeeEstimationTargetBlocksParams Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -7557,9 +7855,9 @@ private:
 };
 #endif  // !CAPNP_LITE
 
-class Chain::EstimateMaxBlocksResults::Reader {
+class Chain::MaximumFeeEstimationTargetBlocksResults::Reader {
 public:
-  typedef EstimateMaxBlocksResults Reads;
+  typedef MaximumFeeEstimationTargetBlocksResults Reads;
 
   Reader() = default;
   inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
@@ -7588,9 +7886,9 @@ private:
   friend class ::capnp::Orphanage;
 };
 
-class Chain::EstimateMaxBlocksResults::Builder {
+class Chain::MaximumFeeEstimationTargetBlocksResults::Builder {
 public:
-  typedef EstimateMaxBlocksResults Builds;
+  typedef MaximumFeeEstimationTargetBlocksResults Builds;
 
   Builder() = delete;  // Deleted to discourage incorrect usage.
                        // You can explicitly initialize to nullptr instead.
@@ -7617,9 +7915,9 @@ private:
 };
 
 #if !CAPNP_LITE
-class Chain::EstimateMaxBlocksResults::Pipeline {
+class Chain::MaximumFeeEstimationTargetBlocksResults::Pipeline {
 public:
-  typedef EstimateMaxBlocksResults Pipelines;
+  typedef MaximumFeeEstimationTargetBlocksResults Pipelines;
 
   inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
   inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
@@ -16148,6 +16446,174 @@ private:
 
 // =======================================================================================
 
+inline  ::int64_t FeePerVSize::Reader::getFee() const {
+  return _reader.getDataField< ::int64_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int64_t FeePerVSize::Builder::getFee() {
+  return _builder.getDataField< ::int64_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void FeePerVSize::Builder::setFee( ::int64_t value) {
+  _builder.setDataField< ::int64_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int32_t FeePerVSize::Reader::getSize() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeePerVSize::Builder::getSize() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void FeePerVSize::Builder::setSize( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int32_t FeeRateEstimation::Reader::getFeerateEstimator() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeeRateEstimation::Builder::getFeerateEstimator() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void FeeRateEstimation::Builder::setFeerateEstimator( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool FeeRateEstimation::Reader::hasFeerate() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool FeeRateEstimation::Builder::hasFeerate() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::FeePerVSize::Reader FeeRateEstimation::Reader::getFeerate() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::FeePerVSize::Builder FeeRateEstimation::Builder::getFeerate() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::FeePerVSize::Pipeline FeeRateEstimation::Pipeline::getFeerate() {
+  return  ::ipc::capnp::messages::FeePerVSize::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void FeeRateEstimation::Builder::setFeerate( ::ipc::capnp::messages::FeePerVSize::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::FeePerVSize::Builder FeeRateEstimation::Builder::initFeerate() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void FeeRateEstimation::Builder::adoptFeerate(
+    ::capnp::Orphan< ::ipc::capnp::messages::FeePerVSize>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::FeePerVSize> FeeRateEstimation::Builder::disownFeerate() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeePerVSize>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline  ::int32_t FeeRateEstimation::Reader::getReturnedTarget() const {
+  return _reader.getDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int32_t FeeRateEstimation::Builder::getReturnedTarget() {
+  return _builder.getDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void FeeRateEstimation::Builder::setReturnedTarget( ::int32_t value) {
+  _builder.setDataField< ::int32_t>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool FeeRateEstimationError::Reader::hasEstimation() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool FeeRateEstimationError::Builder::hasEstimation() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::ipc::capnp::messages::FeeRateEstimation::Reader FeeRateEstimationError::Reader::getEstimation() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::ipc::capnp::messages::FeeRateEstimation::Builder FeeRateEstimationError::Builder::getEstimation() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+#if !CAPNP_LITE
+inline  ::ipc::capnp::messages::FeeRateEstimation::Pipeline FeeRateEstimationError::Pipeline::getEstimation() {
+  return  ::ipc::capnp::messages::FeeRateEstimation::Pipeline(_typeless.getPointerField(0));
+}
+#endif  // !CAPNP_LITE
+inline void FeeRateEstimationError::Builder::setEstimation( ::ipc::capnp::messages::FeeRateEstimation::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::ipc::capnp::messages::FeeRateEstimation::Builder FeeRateEstimationError::Builder::initEstimation() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void FeeRateEstimationError::Builder::adoptEstimation(
+    ::capnp::Orphan< ::ipc::capnp::messages::FeeRateEstimation>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::ipc::capnp::messages::FeeRateEstimation> FeeRateEstimationError::Builder::disownEstimation() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeRateEstimation>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool FeeRateEstimationError::Reader::hasReason() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline bool FeeRateEstimationError::Builder::hasReason() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader FeeRateEstimationError::Reader::getReason() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder FeeRateEstimationError::Builder::getReason() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+inline void FeeRateEstimationError::Builder::setReason( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder FeeRateEstimationError::Builder::initReason(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
+}
+inline void FeeRateEstimationError::Builder::adoptReason(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> FeeRateEstimationError::Builder::disownReason() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<1>() * ::capnp::POINTERS));
+}
+
 #if !CAPNP_LITE
 inline Chain::Client::Client(decltype(nullptr))
     : ::capnp::Capability::Client(nullptr) {}
@@ -19135,209 +19601,161 @@ inline ::capnp::Orphan< ::ipc::capnp::messages::ResultVoid< ::capnp::AnyPointer>
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool Chain::EstimateSmartFeeParams::Reader::hasContext() const {
+inline bool Chain::GetFeeRateEstimateParams::Reader::hasContext() const {
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Chain::EstimateSmartFeeParams::Builder::hasContext() {
+inline bool Chain::GetFeeRateEstimateParams::Builder::hasContext() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::mp::Context::Reader Chain::EstimateSmartFeeParams::Reader::getContext() const {
+inline  ::mp::Context::Reader Chain::GetFeeRateEstimateParams::Reader::getContext() const {
   return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::mp::Context::Builder Chain::EstimateSmartFeeParams::Builder::getContext() {
+inline  ::mp::Context::Builder Chain::GetFeeRateEstimateParams::Builder::getContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #if !CAPNP_LITE
-inline  ::mp::Context::Pipeline Chain::EstimateSmartFeeParams::Pipeline::getContext() {
+inline  ::mp::Context::Pipeline Chain::GetFeeRateEstimateParams::Pipeline::getContext() {
   return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
 }
 #endif  // !CAPNP_LITE
-inline void Chain::EstimateSmartFeeParams::Builder::setContext( ::mp::Context::Reader value) {
+inline void Chain::GetFeeRateEstimateParams::Builder::setContext( ::mp::Context::Reader value) {
   ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::mp::Context::Builder Chain::EstimateSmartFeeParams::Builder::initContext() {
+inline  ::mp::Context::Builder Chain::GetFeeRateEstimateParams::Builder::initContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Chain::EstimateSmartFeeParams::Builder::adoptContext(
+inline void Chain::GetFeeRateEstimateParams::Builder::adoptContext(
     ::capnp::Orphan< ::mp::Context>&& value) {
   ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::mp::Context> Chain::EstimateSmartFeeParams::Builder::disownContext() {
+inline ::capnp::Orphan< ::mp::Context> Chain::GetFeeRateEstimateParams::Builder::disownContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline  ::int32_t Chain::EstimateSmartFeeParams::Reader::getNumBlocks() const {
+inline  ::int32_t Chain::GetFeeRateEstimateParams::Reader::getNumBlocks() const {
   return _reader.getDataField< ::int32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
 
-inline  ::int32_t Chain::EstimateSmartFeeParams::Builder::getNumBlocks() {
+inline  ::int32_t Chain::GetFeeRateEstimateParams::Builder::getNumBlocks() {
   return _builder.getDataField< ::int32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
-inline void Chain::EstimateSmartFeeParams::Builder::setNumBlocks( ::int32_t value) {
+inline void Chain::GetFeeRateEstimateParams::Builder::setNumBlocks( ::int32_t value) {
   _builder.setDataField< ::int32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }
 
-inline bool Chain::EstimateSmartFeeParams::Reader::getConservative() const {
+inline bool Chain::GetFeeRateEstimateParams::Reader::getConservative() const {
   return _reader.getDataField<bool>(
       ::capnp::bounded<32>() * ::capnp::ELEMENTS);
 }
 
-inline bool Chain::EstimateSmartFeeParams::Builder::getConservative() {
+inline bool Chain::GetFeeRateEstimateParams::Builder::getConservative() {
   return _builder.getDataField<bool>(
       ::capnp::bounded<32>() * ::capnp::ELEMENTS);
 }
-inline void Chain::EstimateSmartFeeParams::Builder::setConservative(bool value) {
+inline void Chain::GetFeeRateEstimateParams::Builder::setConservative(bool value) {
   _builder.setDataField<bool>(
       ::capnp::bounded<32>() * ::capnp::ELEMENTS, value);
 }
 
-inline bool Chain::EstimateSmartFeeParams::Reader::getWantCalc() const {
-  return _reader.getDataField<bool>(
-      ::capnp::bounded<33>() * ::capnp::ELEMENTS);
-}
-
-inline bool Chain::EstimateSmartFeeParams::Builder::getWantCalc() {
-  return _builder.getDataField<bool>(
-      ::capnp::bounded<33>() * ::capnp::ELEMENTS);
-}
-inline void Chain::EstimateSmartFeeParams::Builder::setWantCalc(bool value) {
-  _builder.setDataField<bool>(
-      ::capnp::bounded<33>() * ::capnp::ELEMENTS, value);
-}
-
-inline bool Chain::EstimateSmartFeeResults::Reader::hasCalc() const {
+inline bool Chain::GetFeeRateEstimateResults::Reader::hasResult() const {
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Chain::EstimateSmartFeeResults::Builder::hasCalc() {
+inline bool Chain::GetFeeRateEstimateResults::Builder::hasResult() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::ipc::capnp::messages::FeeCalculation::Reader Chain::EstimateSmartFeeResults::Reader::getCalc() const {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::get(_reader.getPointerField(
+inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Reader Chain::GetFeeRateEstimateResults::Reader::getResult() const {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::ipc::capnp::messages::FeeCalculation::Builder Chain::EstimateSmartFeeResults::Builder::getCalc() {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::get(_builder.getPointerField(
+inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Builder Chain::GetFeeRateEstimateResults::Builder::getResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #if !CAPNP_LITE
-inline  ::ipc::capnp::messages::FeeCalculation::Pipeline Chain::EstimateSmartFeeResults::Pipeline::getCalc() {
-  return  ::ipc::capnp::messages::FeeCalculation::Pipeline(_typeless.getPointerField(0));
+inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Pipeline Chain::GetFeeRateEstimateResults::Pipeline::getResult() {
+  return  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Pipeline(_typeless.getPointerField(0));
 }
 #endif  // !CAPNP_LITE
-inline void Chain::EstimateSmartFeeResults::Builder::setCalc( ::ipc::capnp::messages::FeeCalculation::Reader value) {
-  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::set(_builder.getPointerField(
+inline void Chain::GetFeeRateEstimateResults::Builder::setResult( ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Reader value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::ipc::capnp::messages::FeeCalculation::Builder Chain::EstimateSmartFeeResults::Builder::initCalc() {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::init(_builder.getPointerField(
+inline  ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>::Builder Chain::GetFeeRateEstimateResults::Builder::initResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Chain::EstimateSmartFeeResults::Builder::adoptCalc(
-    ::capnp::Orphan< ::ipc::capnp::messages::FeeCalculation>&& value) {
-  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::adopt(_builder.getPointerField(
+inline void Chain::GetFeeRateEstimateResults::Builder::adoptResult(
+    ::capnp::Orphan< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>&& value) {
+  ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::ipc::capnp::messages::FeeCalculation> Chain::EstimateSmartFeeResults::Builder::disownCalc() {
-  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::FeeCalculation>::disown(_builder.getPointerField(
+inline ::capnp::Orphan< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>> Chain::GetFeeRateEstimateResults::Builder::disownResult() {
+  return ::capnp::_::PointerHelpers< ::ipc::capnp::messages::Expected< ::ipc::capnp::messages::FeeRateEstimation,  ::ipc::capnp::messages::FeeRateEstimationError>>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline bool Chain::EstimateSmartFeeResults::Reader::hasResult() const {
-  return !_reader.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
-}
-inline bool Chain::EstimateSmartFeeResults::Builder::hasResult() {
-  return !_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS).isNull();
-}
-inline  ::capnp::Data::Reader Chain::EstimateSmartFeeResults::Reader::getResult() const {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_reader.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS));
-}
-inline  ::capnp::Data::Builder Chain::EstimateSmartFeeResults::Builder::getResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::get(_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS));
-}
-inline void Chain::EstimateSmartFeeResults::Builder::setResult( ::capnp::Data::Reader value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::set(_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS), value);
-}
-inline  ::capnp::Data::Builder Chain::EstimateSmartFeeResults::Builder::initResult(unsigned int size) {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::init(_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS), size);
-}
-inline void Chain::EstimateSmartFeeResults::Builder::adoptResult(
-    ::capnp::Orphan< ::capnp::Data>&& value) {
-  ::capnp::_::PointerHelpers< ::capnp::Data>::adopt(_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS), kj::mv(value));
-}
-inline ::capnp::Orphan< ::capnp::Data> Chain::EstimateSmartFeeResults::Builder::disownResult() {
-  return ::capnp::_::PointerHelpers< ::capnp::Data>::disown(_builder.getPointerField(
-      ::capnp::bounded<1>() * ::capnp::POINTERS));
-}
-
-inline bool Chain::EstimateMaxBlocksParams::Reader::hasContext() const {
+inline bool Chain::MaximumFeeEstimationTargetBlocksParams::Reader::hasContext() const {
   return !_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline bool Chain::EstimateMaxBlocksParams::Builder::hasContext() {
+inline bool Chain::MaximumFeeEstimationTargetBlocksParams::Builder::hasContext() {
   return !_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
 }
-inline  ::mp::Context::Reader Chain::EstimateMaxBlocksParams::Reader::getContext() const {
+inline  ::mp::Context::Reader Chain::MaximumFeeEstimationTargetBlocksParams::Reader::getContext() const {
   return ::capnp::_::PointerHelpers< ::mp::Context>::get(_reader.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline  ::mp::Context::Builder Chain::EstimateMaxBlocksParams::Builder::getContext() {
+inline  ::mp::Context::Builder Chain::MaximumFeeEstimationTargetBlocksParams::Builder::getContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::get(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 #if !CAPNP_LITE
-inline  ::mp::Context::Pipeline Chain::EstimateMaxBlocksParams::Pipeline::getContext() {
+inline  ::mp::Context::Pipeline Chain::MaximumFeeEstimationTargetBlocksParams::Pipeline::getContext() {
   return  ::mp::Context::Pipeline(_typeless.getPointerField(0));
 }
 #endif  // !CAPNP_LITE
-inline void Chain::EstimateMaxBlocksParams::Builder::setContext( ::mp::Context::Reader value) {
+inline void Chain::MaximumFeeEstimationTargetBlocksParams::Builder::setContext( ::mp::Context::Reader value) {
   ::capnp::_::PointerHelpers< ::mp::Context>::set(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), value);
 }
-inline  ::mp::Context::Builder Chain::EstimateMaxBlocksParams::Builder::initContext() {
+inline  ::mp::Context::Builder Chain::MaximumFeeEstimationTargetBlocksParams::Builder::initContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::init(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
-inline void Chain::EstimateMaxBlocksParams::Builder::adoptContext(
+inline void Chain::MaximumFeeEstimationTargetBlocksParams::Builder::adoptContext(
     ::capnp::Orphan< ::mp::Context>&& value) {
   ::capnp::_::PointerHelpers< ::mp::Context>::adopt(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
 }
-inline ::capnp::Orphan< ::mp::Context> Chain::EstimateMaxBlocksParams::Builder::disownContext() {
+inline ::capnp::Orphan< ::mp::Context> Chain::MaximumFeeEstimationTargetBlocksParams::Builder::disownContext() {
   return ::capnp::_::PointerHelpers< ::mp::Context>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 
-inline  ::uint32_t Chain::EstimateMaxBlocksResults::Reader::getResult() const {
+inline  ::uint32_t Chain::MaximumFeeEstimationTargetBlocksResults::Reader::getResult() const {
   return _reader.getDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
 
-inline  ::uint32_t Chain::EstimateMaxBlocksResults::Builder::getResult() {
+inline  ::uint32_t Chain::MaximumFeeEstimationTargetBlocksResults::Builder::getResult() {
   return _builder.getDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS);
 }
-inline void Chain::EstimateMaxBlocksResults::Builder::setResult( ::uint32_t value) {
+inline void Chain::MaximumFeeEstimationTargetBlocksResults::Builder::setResult( ::uint32_t value) {
   _builder.setDataField< ::uint32_t>(
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }

@@ -1,50 +1,42 @@
 #include "rpc_interface.h"
 #include "utils.h"
-#include <iostream>
-#include <bits/algorithmfwd.h>
 #include <algorithm>
+#include <vector>
 
-RpcInterface::RpcInterface(::mp::ThreadMap::Client threadMap,
-             ::mp::Thread::Client thread,
-             ::ipc::capnp::messages::Chain::Client chainInterface)
-    : rawThreadMap(threadMap), rawThread(thread), rawChain(chainInterface),
-      threadMap(threadMap), thread(thread), chainInterface(chainInterface) {}
+// Stores the Cap'n Proto capabilities needed to issue chain requests.
+RpcInterface::RpcInterface(
+    ::mp::ThreadMap::Client threadMap,
+    ::mp::Thread::Client thread,
+    ::ipc::capnp::messages::Chain::Client chainInterface)
+    : threadMap(kj::mv(threadMap)),
+      thread(kj::mv(thread)),
+      chainInterface(kj::mv(chainInterface)) {}
 
-std::string RpcInterface::getBlockHash(int32_t height, kj::WaitScope& waitScope) {
-    std::lock_guard<std::mutex> lock(mutex);
-    try {
-        auto hasBlocksReq = chainInterface.getBlockHashRequest();
-        hasBlocksReq.getContext().setThread(thread);
-        hasBlocksReq.setHeight(height);
-        auto response = hasBlocksReq.send().wait(waitScope);
-        auto blockHashArray = response.getResult().asBytes();
-        
-        std::vector<uint8_t> blockHashVector(blockHashArray.begin(), blockHashArray.end());
-        std::reverse(blockHashVector.begin(), blockHashVector.end());
-        
-        return util::toHex(blockHashVector);
-    } catch (const kj::Exception& e) {
-        std::cerr << "KJ Exception in getBlockHash: " << e.getDescription().cStr() << std::endl;
-        throw;
-    } catch (const std::exception& e) {
-        std::cerr << "Error in getBlockHash: " << e.what() << std::endl;
-        throw;
-    }
+// Fetches the block hash at the given height and returns it as a hex string.
+kj::Promise<UniValue> RpcInterface::getBlockHash(int32_t height) {
+    auto req = chainInterface.getBlockHashRequest();
+    req.getContext().setThread(thread);
+    req.setHeight(height);
+    return req.send().then([](auto response) -> UniValue {
+        auto raw = response.getResult().asBytes();
+        std::vector<uint8_t> bytes(raw.begin(), raw.end());
+        std::reverse(bytes.begin(), bytes.end());
+        UniValue resp(UniValue::VOBJ);
+        resp.pushKV("result", util::toHex(bytes));
+        resp.pushKV("error", UniValue(UniValue::VNULL));
+        return resp;
+    });
 }
 
-bool RpcInterface::sendInitMessage(const std::string& message, kj::WaitScope& waitScope) {
-    std::lock_guard<std::mutex> lock(mutex);
-    try {
-        auto messReq = chainInterface.initMessageRequest();
-        messReq.getContext().setThread(thread);
-        messReq.setMessage(message);
-        auto messResponse = messReq.send().wait(waitScope);
-        return true;
-    } catch (const kj::Exception& e) {
-        std::cerr << "KJ Exception in sendInitMessage: " << e.getDescription().cStr() << std::endl;
-        return false;
-    } catch (const std::exception& e) {
-        std::cerr << "Error in sendInitMessage: " << e.what() << std::endl;
-        return false;
-    }
+// Sends an init message to bitcoin-node over Cap'n Proto.
+kj::Promise<UniValue> RpcInterface::sendInitMessage(std::string message) {
+    auto req = chainInterface.initMessageRequest();
+    req.getContext().setThread(thread);
+    req.setMessage(message);
+    return req.send().then([](auto) -> UniValue {
+        UniValue resp(UniValue::VOBJ);
+        resp.pushKV("result", "Message sent successfully");
+        resp.pushKV("error", UniValue(UniValue::VNULL));
+        return resp;
+    });
 }

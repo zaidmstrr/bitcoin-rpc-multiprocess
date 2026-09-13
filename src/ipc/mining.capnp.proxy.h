@@ -59,6 +59,24 @@ struct ProxyMethod<ipc::capnp::messages::Mining::InterruptParams>
 };
 
 template<>
+struct ProxyMethod<ipc::capnp::messages::Mining::SubmitBlockParams>
+{
+    static constexpr auto impl = &interfaces::Mining::submitBlock;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::Mining::GetTransactionsByTxIDParams>
+{
+    static constexpr auto impl = &interfaces::Mining::getTransactionsByTxID;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::Mining::GetTransactionsByWitnessIDParams>
+{
+    static constexpr auto impl = &interfaces::Mining::getTransactionsByWitnessID;
+};
+
+template<>
 struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetBlockHeaderParams>
 {
     static constexpr auto impl = &interfaces::BlockTemplate::getBlockHeader;
@@ -95,9 +113,9 @@ struct ProxyMethod<ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathPar
 };
 
 template<>
-struct ProxyMethod<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>
+struct ProxyMethod<ipc::capnp::messages::BlockTemplate::SubmitSolutionOld7Params>
 {
-    static constexpr auto impl = &interfaces::BlockTemplate::submitSolution;
+    static constexpr auto impl = &interfaces::BlockTemplate::submitSolutionOld7;
 };
 
 template<>
@@ -110,6 +128,12 @@ template<>
 struct ProxyMethod<ipc::capnp::messages::BlockTemplate::InterruptWaitParams>
 {
     static constexpr auto impl = &interfaces::BlockTemplate::interruptWait;
+};
+
+template<>
+struct ProxyMethod<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>
+{
+    static constexpr auto impl = &interfaces::BlockTemplate::submitSolution;
 };
 
 namespace mining_fields {
@@ -211,6 +235,28 @@ struct Debug
     template<typename S> static void setWant(S&& s) { s.setWantDebug(true); }
     template<typename S> static bool getHas(S&& s) { return s.getHasDebug(); }
     template<typename S> static void setHas(S&& s) { s.setHasDebug(true); }
+};
+struct Txids
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getTxids()) { return s.getTxids(); }
+    template<typename S> static bool has(S&& s) { return s.hasTxids(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setTxids(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initTxids(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantTxids(); }
+    template<typename S> static void setWant(S&& s) { s.setWantTxids(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasTxids(); }
+    template<typename S> static void setHas(S&& s) { s.setHasTxids(true); }
+};
+struct Wtxids
+{
+    template<typename S> static auto get(S&& s) -> decltype(s.getWtxids()) { return s.getWtxids(); }
+    template<typename S> static bool has(S&& s) { return s.hasWtxids(); }
+    template<typename S, typename A> static void set(S&& s, A&& a) { s.setWtxids(std::forward<A>(a)); }
+    template<typename S, typename... A> static decltype(auto) init(S&& s, A&&... a) { return s.initWtxids(std::forward<A>(a)...); }
+    template<typename S> static bool getWant(S&& s) { return s.getWantWtxids(); }
+    template<typename S> static void setWant(S&& s) { s.setWantWtxids(true); }
+    template<typename S> static bool getHas(S&& s) { return s.getHasWtxids(); }
+    template<typename S> static void setHas(S&& s) { s.setHasWtxids(true); }
 };
 struct Version
 {
@@ -410,6 +456,12 @@ public:
     typename M5::Result checkBlock(M5::Param<0> block,M5::Param<1> options,M5::Param<2> reason,M5::Param<3> debug);
     using M6 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::InterruptParams>;
     typename M6::Result interrupt();
+    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::SubmitBlockParams>;
+    typename M7::Result submitBlock(M7::Param<0> block,M7::Param<1> reason,M7::Param<2> debug);
+    using M8 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::GetTransactionsByTxIDParams>;
+    typename M8::Result getTransactionsByTxID(M8::Param<0> txids);
+    using M9 = ProxyClientMethodTraits<ipc::capnp::messages::Mining::GetTransactionsByWitnessIDParams>;
+    typename M9::Result getTransactionsByWitnessID(M9::Param<0> wtxids);
 };
 
 template<>
@@ -425,6 +477,9 @@ public:
     kj::Promise<void> createNewBlock(CreateNewBlockContext call_context) override;
     kj::Promise<void> checkBlock(CheckBlockContext call_context) override;
     kj::Promise<void> interrupt(InterruptContext call_context) override;
+    kj::Promise<void> submitBlock(SubmitBlockContext call_context) override;
+    kj::Promise<void> getTransactionsByTxID(GetTransactionsByTxIDContext call_context) override;
+    kj::Promise<void> getTransactionsByWitnessID(GetTransactionsByWitnessIDContext call_context) override;
 };
 
 template<>
@@ -456,12 +511,14 @@ public:
     typename M5::Result getCoinbaseTx();
     using M6 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::GetCoinbaseMerklePathParams>;
     typename M6::Result getCoinbaseMerklePath();
-    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>;
-    typename M7::Result submitSolution(M7::Param<0> version,M7::Param<1> timestamp,M7::Param<2> nonce,M7::Param<3> coinbase);
+    using M7 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::SubmitSolutionOld7Params>;
+    typename M7::Result submitSolutionOld7(M7::Param<0> version,M7::Param<1> timestamp,M7::Param<2> nonce,M7::Param<3> coinbase);
     using M8 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::WaitNextParams>;
     typename M8::Result waitNext(M8::Param<0> options);
     using M9 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::InterruptWaitParams>;
     typename M9::Result interruptWait();
+    using M10 = ProxyClientMethodTraits<ipc::capnp::messages::BlockTemplate::SubmitSolutionParams>;
+    typename M10::Result submitSolution(M10::Param<0> version,M10::Param<1> timestamp,M10::Param<2> nonce,M10::Param<3> coinbase,M10::Param<4> reason,M10::Param<5> debug);
 };
 
 template<>
@@ -477,9 +534,10 @@ public:
     kj::Promise<void> getTxSigops(GetTxSigopsContext call_context) override;
     kj::Promise<void> getCoinbaseTx(GetCoinbaseTxContext call_context) override;
     kj::Promise<void> getCoinbaseMerklePath(GetCoinbaseMerklePathContext call_context) override;
-    kj::Promise<void> submitSolution(SubmitSolutionContext call_context) override;
+    kj::Promise<void> submitSolutionOld7(SubmitSolutionOld7Context call_context) override;
     kj::Promise<void> waitNext(WaitNextContext call_context) override;
     kj::Promise<void> interruptWait(InterruptWaitContext call_context) override;
+    kj::Promise<void> submitSolution(SubmitSolutionContext call_context) override;
 };
 
 template<>

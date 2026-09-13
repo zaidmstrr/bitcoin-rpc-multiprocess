@@ -1,32 +1,29 @@
 #ifndef RPC_INTERFACE_H
 #define RPC_INTERFACE_H
 
+#include <kj/async.h>
 #include <capnp/rpc-twoparty.h>
-#include <kj/async-io.h>
-#include <mutex>
-#include "init.capnp.h"
-#include "chain.capnp.h"
 #include <mp/proxy.capnp.h>
+#include "chain.capnp.h"
+#include <univalue.h>
 #include <string>
 
+// All methods return kj::Promise and must be called from the KJ event-loop thread.
+// Each returned UniValue already contains "result" and "error" fields;
+// the caller adds "id" after the promise resolves.
 class RpcInterface {
-private:
-    capnp::Capability::Client rawThreadMap;
-    capnp::Capability::Client rawThread;
-    capnp::Capability::Client rawChain;
-    
-    ::mp::ThreadMap::Client threadMap;
-    ::mp::Thread::Client thread;
-    ::ipc::capnp::messages::Chain::Client chainInterface;
-    std::mutex mutex;
-
 public:
     RpcInterface(::mp::ThreadMap::Client threadMap,
                  ::mp::Thread::Client thread,
                  ::ipc::capnp::messages::Chain::Client chainInterface);
-    
-    std::string getBlockHash(int32_t height, kj::WaitScope& waitScope);
-    bool sendInitMessage(const std::string& message, kj::WaitScope& waitScope);
+
+    kj::Promise<UniValue> getBlockHash(int32_t height);
+    kj::Promise<UniValue> sendInitMessage(std::string message);
+
+private:
+    ::mp::ThreadMap::Client threadMap;
+    ::mp::Thread::Client thread;
+    ::ipc::capnp::messages::Chain::Client chainInterface;
 };
 
 #endif // RPC_INTERFACE_H

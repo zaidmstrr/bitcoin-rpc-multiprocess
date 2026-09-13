@@ -5,37 +5,29 @@
 #include <event2/http.h>
 #include <event2/buffer.h>
 #include <event2/util.h>
-#include <event2/keyvalq_struct.h>
-#include <univalue.h>
 #include <memory>
-#include <kj/async-io.h>
-#include <capnp/rpc-twoparty.h>
+#include <string>
 
-class RpcInterface;
+class IpcThread;
 
 class BitcoinHttpServer {
-private:
-    struct event_base* base;
-    struct evhttp* http;
-    std::unique_ptr<RpcInterface> rpcInterface;
-    kj::AsyncIoContext ioContext;
-    kj::Own<kj::AsyncIoStream> socket;
-    kj::Own<capnp::TwoPartyClient> client;
-    
-    void setupCapnpClient(const std::string& bitcoin_socket_path);
-    void setupHttpServer(const std::string& bind_address, int port);
-    void respondWithJson(struct evhttp_request* req, const UniValue& response);
-    UniValue processMethod(const std::string& method, const UniValue& params);
-    
 public:
-    BitcoinHttpServer(const std::string& bitcoin_socket_path, 
-                     const std::string& bind_address, int port);
+    BitcoinHttpServer(const std::string& bitcoinSocketPath,
+                      const std::string& bindAddress, int port);
     ~BitcoinHttpServer();
-    
-    void start();
+
     void run();
-    
-    // Make sure these are properly declared
+
+private:
+    struct event_base* base{nullptr};
+    struct evhttp* http{nullptr};
+    std::unique_ptr<IpcThread> ipcThread;
+
+    // Max body size accepted before the request is rejected.
+    static constexpr size_t kMaxBodyBytes = 4u * 1024u * 1024u;
+
+    void setupHttpServer(const std::string& bindAddress, int port);
+
     static void handleRequest(struct evhttp_request* req, void* arg);
     void processRequest(struct evhttp_request* req);
 };

@@ -6,12 +6,18 @@
 #include <capnp/chain.capnp.h>
 #include <capnp/chain.capnp.proxy.h>
 #include <capnp/chain.capnp.proxy-types.h>
+#include <capnp/capability.h>
+#include <capnp/common.h>
 #include <capnp/generated-header-support.h>
 #include <cstring>
-#include <vector>
+#include <functional>
 #include <kj/common.h>
+#include <map>
 #include <mp/proxy.h>
+#include <mp/proxy-io.h>
 #include <mp/util.h>
+#include <string>
+#include <vector>
 #include <mp/proxy-types.h>
 // IWYU pragma: end_keep
 
@@ -128,14 +134,14 @@ ProxyClient<ipc::capnp::messages::Chain>::M23::Result ProxyClient<ipc::capnp::me
     clientInvoke(*this, &ipc::capnp::messages::Chain::Client::checkChainLimitsRequest, MakeClientParam<Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<chain_fields::Tx, FIELD_IN | FIELD_BOXED>>(M23::Fwd<0>(tx)), MakeClientParam<Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
     return result;
 }
-ProxyClient<ipc::capnp::messages::Chain>::M24::Result ProxyClient<ipc::capnp::messages::Chain>::estimateSmartFee(M24::Param<0> numBlocks,M24::Param<1> conservative,M24::Param<2> calc) {
+ProxyClient<ipc::capnp::messages::Chain>::M24::Result ProxyClient<ipc::capnp::messages::Chain>::getFeeRateEstimate(M24::Param<0> numBlocks,M24::Param<1> conservative) {
     typename M24::Result result;
-    clientInvoke(*this, &ipc::capnp::messages::Chain::Client::estimateSmartFeeRequest, MakeClientParam<Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<chain_fields::NumBlocks, FIELD_IN>>(M24::Fwd<0>(numBlocks)), MakeClientParam<Accessor<chain_fields::Conservative, FIELD_IN>>(M24::Fwd<1>(conservative)), MakeClientParam<Accessor<chain_fields::Calc, FIELD_OUT | FIELD_REQUESTED | FIELD_BOXED>>(M24::Fwd<2>(calc)), MakeClientParam<Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
+    clientInvoke(*this, &ipc::capnp::messages::Chain::Client::getFeeRateEstimateRequest, MakeClientParam<Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<chain_fields::NumBlocks, FIELD_IN>>(M24::Fwd<0>(numBlocks)), MakeClientParam<Accessor<chain_fields::Conservative, FIELD_IN>>(M24::Fwd<1>(conservative)), MakeClientParam<Accessor<chain_fields::Result, FIELD_OUT | FIELD_BOXED>>(result));
     return result;
 }
-ProxyClient<ipc::capnp::messages::Chain>::M25::Result ProxyClient<ipc::capnp::messages::Chain>::estimateMaxBlocks() {
+ProxyClient<ipc::capnp::messages::Chain>::M25::Result ProxyClient<ipc::capnp::messages::Chain>::maximumFeeEstimationTargetBlocks() {
     typename M25::Result result;
-    clientInvoke(*this, &ipc::capnp::messages::Chain::Client::estimateMaxBlocksRequest, MakeClientParam<Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<chain_fields::Result, FIELD_OUT>>(result));
+    clientInvoke(*this, &ipc::capnp::messages::Chain::Client::maximumFeeEstimationTargetBlocksRequest, MakeClientParam<Accessor<chain_fields::Context, FIELD_IN | FIELD_BOXED>>(), MakeClientParam<Accessor<chain_fields::Result, FIELD_OUT>>(result));
     return result;
 }
 ProxyClient<ipc::capnp::messages::Chain>::M26::Result ProxyClient<ipc::capnp::messages::Chain>::mempoolMinFee() {

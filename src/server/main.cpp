@@ -1,4 +1,5 @@
 #include "http_server.h"
+#include <kj/exception.h>
 #include <iostream>
 #include <string>
 
@@ -30,7 +31,6 @@ int main(int argc, char** argv) {
             }
         }
         
-        std::cout << "Starting Bitcoin HTTP Server..." << std::endl;
         std::cout << "Bitcoin Socket: " << bitcoin_socket_path << std::endl;
         std::cout << "Binding to: " << bind_address << ":" << port << std::endl;
         

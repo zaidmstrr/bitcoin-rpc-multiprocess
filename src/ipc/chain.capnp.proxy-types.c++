@@ -2,6 +2,7 @@
 
 // IWYU pragma: no_include "mp/proxy.h"
 // IWYU pragma: no_include "mp/proxy-io.h"
+#include <capnp/chain.capnp.h> // IWYU pragma: keep
 #include <capnp/chain.capnp.proxy.h>
 #include <capnp/chain.capnp.proxy-types.h> // IWYU pragma: keep
 #include <mp/proxy-types.h>

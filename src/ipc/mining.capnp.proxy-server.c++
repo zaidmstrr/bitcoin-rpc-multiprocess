@@ -38,6 +38,15 @@ kj::Promise<void> ProxyServer<ipc::capnp::messages::Mining>::checkBlock(CheckBlo
 kj::Promise<void> ProxyServer<ipc::capnp::messages::Mining>::interrupt(InterruptContext call_context) {
     return serverInvoke(*this, call_context, ServerCall());
 }
+kj::Promise<void> ProxyServer<ipc::capnp::messages::Mining>::submitBlock(SubmitBlockContext call_context) {
+    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Block, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Reason, FIELD_OUT | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Debug, FIELD_OUT | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT>>(ServerCall()))))));
+}
+kj::Promise<void> ProxyServer<ipc::capnp::messages::Mining>::getTransactionsByTxID(GetTransactionsByTxIDContext call_context) {
+    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Txids, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall()))));
+}
+kj::Promise<void> ProxyServer<ipc::capnp::messages::Mining>::getTransactionsByWitnessID(GetTransactionsByWitnessIDContext call_context) {
+    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Wtxids, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall()))));
+}
 kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::destroy(DestroyContext call_context) {
     return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(ServerDestroy()));
 }
@@ -59,7 +68,7 @@ kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::getCoinbaseT
 kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::getCoinbaseMerklePath(GetCoinbaseMerklePathContext call_context) {
     return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT | FIELD_BOXED>>(ServerCall())));
 }
-kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::submitSolution(SubmitSolutionContext call_context) {
+kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::submitSolutionOld7(SubmitSolutionOld7Context call_context) {
     return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Version, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Timestamp, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Nonce, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Coinbase, FIELD_IN | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT>>(ServerCall())))))));
 }
 kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::waitNext(WaitNextContext call_context) {
@@ -67,5 +76,8 @@ kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::waitNext(Wai
 }
 kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::interruptWait(InterruptWaitContext call_context) {
     return serverInvoke(*this, call_context, ServerCall());
+}
+kj::Promise<void> ProxyServer<ipc::capnp::messages::BlockTemplate>::submitSolution(SubmitSolutionContext call_context) {
+    return serverInvoke(*this, call_context, MakeServerField<0, Accessor<mining_fields::Context, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Version, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Timestamp, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Nonce, FIELD_IN>>(MakeServerField<1, Accessor<mining_fields::Coinbase, FIELD_IN | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Reason, FIELD_OUT | FIELD_BOXED>>(MakeServerField<1, Accessor<mining_fields::Debug, FIELD_OUT | FIELD_BOXED>>(Make<ServerRet, Accessor<mining_fields::Result, FIELD_OUT>>(ServerCall())))))))));
 }
 } // namespace mp
