@@ -122,6 +122,105 @@ The server implements a subset of the Bitcoin Core RPC API. All requests should 
 
 **<h3>Supported Methods</h3>**
 
+<h3>getblockchaininfo</h3>
+Returns information about the current blockchain, including chain, block height, best block hash, difficulty, and verification progress.
+
+```ruby
+{
+  "method": "getblockchaininfo",
+  "params": [],
+  "id": 1
+}
+```
+
+**Response:**
+
+```ruby
+{
+  "result": {
+    "chain": "regtest",
+    "blocks": 0,
+    "headers": 0,
+    "bestblockhash": "<best-block-hash>",
+    "difficulty": 1,
+    "verificationprogress": 1,
+    "initialblockdownload": false
+  },
+  "error": null,
+  "id": 1
+}
+```
+
+<h3>getchaintips</h3>
+Returns information about all known chain tips.
+
+```ruby
+{
+  "method": "getchaintips",
+  "params": [],
+  "id": 1
+}
+```
+
+**Response:**
+
+```ruby
+{
+  "result": [
+    {
+      "height": 0,
+      "hash": "<chain-tip-hash>",
+      "branchlen": 0,
+      "status": "active"
+    }
+  ],
+  "error": null,
+  "id": 1
+}
+```
+
+<h3>getblockcount</h3>
+Returns the height of the most-work chain, or -1 if the chain has no blocks.
+
+```ruby
+{
+  "method": "getblockcount",
+  "params": [],
+  "id": 1
+}
+```
+
+**Response:**
+
+```ruby
+{
+  "result": 0,
+  "error": null,
+  "id": 1
+}
+```
+
+<h3>getbestblockhash</h3>
+Returns the hash of the tip of the validated chain with the most cumulative proof-of-work.
+
+```ruby
+{
+  "method": "getbestblockhash",
+  "params": [],
+  "id": 1
+}
+```
+
+**Response:**
+
+```ruby
+{
+  "result": "<best-block-hash>",
+  "error": null,
+  "id": 1
+}
+```
+
 <h3>getblockhash</h3>
 Returns the block hash at the given height.
 

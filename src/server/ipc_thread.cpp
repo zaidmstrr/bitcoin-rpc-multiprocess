@@ -28,6 +28,20 @@ static UniValue makeErrorResp(int code, const std::string& msg, UniValue id) {
     return resp;
 }
 
+// Attaches the original JSON-RPC id to the resolved response, or returns a JSON-RPC error on failure.
+static kj::Promise<UniValue> attachRequestId(kj::Promise<UniValue> promise, UniValue id) {
+    return promise.then(
+        [id](UniValue result) mutable {
+            result.pushKV("id", std::move(id));
+            return result;
+        },
+        [id](kj::Exception&& e) mutable {
+            return makeErrorResp(-32603,
+                std::string("Internal error: ") + e.getDescription().cStr(),
+                std::move(id));
+        });
+}
+
 // Parses the JSON body and dispatches to the correct RpcInterface method.
 // The returned promise resolves to a complete JSON-RPC response (result/error/id).
 static kj::Promise<UniValue> dispatch(RpcInterface& rpc, const std::string& body) {
@@ -48,19 +62,37 @@ static kj::Promise<UniValue> dispatch(RpcInterface& rpc, const std::string& body
         if (params.size() < 1 || !params[0].isNum()) {
             return makeErrorResp(-32602, "Invalid params: height must be an integer", id);
         }
-        return rpc.getBlockHash(params[0].get_int()).then([id](UniValue result) mutable {
-            result.pushKV("id", std::move(id));
-            return result;
-        });
+        return attachRequestId(rpc.getBlockHash(params[0].get_int()), id);
+    }
+    if (method == "getblockcount") {
+        if (!params.isArray() || params.size() != 0) {
+            return makeErrorResp(-32602, "Invalid params: getblockcount takes no parameters", id);
+        }
+        return attachRequestId(rpc.getBlockCount(), id);
+    }
+    if (method == "getbestblockhash") {
+        if (!params.isArray() || params.size() != 0) {
+            return makeErrorResp(-32602, "Invalid params: getbestblockhash takes no parameters", id);
+        }
+        return attachRequestId(rpc.getBestBlockHash(), id);
+    }
+    if (method == "getblockchaininfo") {
+        if (!params.isArray() || params.size() != 0) {
+            return makeErrorResp(-32602, "Invalid params: getblockchaininfo takes no parameters", id);
+        }
+        return attachRequestId(rpc.getBlockchainInfo(), id);
+    }
+    if (method == "getchaintips") {
+        if (!params.isArray() || params.size() != 0) {
+            return makeErrorResp(-32602, "Invalid params: getchaintips takes no parameters", id);
+        }
+        return attachRequestId(rpc.getChainTips(), id);
     }
     if (method == "initmessage") {
         if (params.size() < 1 || !params[0].isStr()) {
             return makeErrorResp(-32602, "Invalid params: message must be a string", id);
         }
-        return rpc.sendInitMessage(params[0].get_str()).then([id](UniValue result) mutable {
-            result.pushKV("id", std::move(id));
-            return result;
-        });
+        return attachRequestId(rpc.sendInitMessage(params[0].get_str()), id);
     }
 
     return makeErrorResp(-32601, "Method not found: " + method, std::move(id));
@@ -205,8 +237,14 @@ void IpcThread::run(const std::string& socketPath, std::promise<void> ready) {
         auto makeChainResp = makeChainReq.send().wait(waitScope);
         KJ_REQUIRE(makeChainResp.hasResult(), "No Chain capability");
 
+        auto makeRpcReq = initClient.makeRpcRequest();
+        makeRpcReq.getContext().setThread(thread);
+        auto makeRpcResp = makeRpcReq.send().wait(waitScope);
+        KJ_REQUIRE(makeRpcResp.hasResult(), "No Rpc capability");
+
         auto rpcOwner = std::make_unique<RpcInterface>(
-            kj::mv(threadMap), kj::mv(thread), makeChainResp.getResult());
+            kj::mv(threadMap), kj::mv(thread), makeChainResp.getResult(),
+            makeRpcResp.getResult());
         rpc = rpcOwner.get();
 
         struct TaskErrHandler final : kj::TaskSet::ErrorHandler {
